@@ -141,7 +141,6 @@ public class User
     //מתודה לבדיקה האם המשתמש קיים
     public bool CheckLogin()
     {
-        
         string sqlSelect = @"SELECT [user_id]
                             FROM [dbo].[users]
                             where (email = @email) and ([password] = @password)";

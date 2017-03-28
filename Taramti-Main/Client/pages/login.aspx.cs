@@ -9,6 +9,13 @@ public partial class Client_pages_login : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        /*
+     * ********************************************************
+     * ********************************************************
+     * להוסיף בדיקת קוקיס וסשנים
+     * ********************************************************
+     * ********************************************************
+    */
 
     }
 
@@ -18,6 +25,30 @@ public partial class Client_pages_login : System.Web.UI.Page
         if (temp.CheckLogin())
         {
             int auth = temp.CheckAuthDesktop();
+            Session["User"] = temp;
+            if (remember_CB.Checked && auth!=-1)
+            {
+                SaveCookies();
+            }
+            switch (auth)
+            {
+                case 1:
+                    Response.Redirect(""); //דף אדמין
+                    break;
+                case 2:
+                    Response.Redirect(""); //דף עמותות
+                    break;
+                case -1:
+                    //הצגת הודעה
+                    break;
+                default:
+                    break;
+            }
         }
+    }
+
+    private void SaveCookies()
+    {
+        
     }
 }
