@@ -38,6 +38,11 @@ video {
     vertical-align: baseline;
 }
 
+#NavbarWrapper{
+    padding-right:0;
+
+}
+
     audio:not([controls]) {
         display: none;
         height: 0;
@@ -4341,7 +4346,8 @@ tbody.collapse.in {
     outline: 0;
 }
 
-.dropdown-menu {
+.dropdown-
+ {
     position: absolute;
     top: 100%;
     left: 0;
@@ -6680,7 +6686,7 @@ button.list-group-item-danger {
     }
 
 .panel-title {
-    text-align:center;
+    text-align: center;
     margin-top: 0;
     margin-bottom: 0;
     font-size: 16px;
@@ -8190,4 +8196,6 @@ button.close {
         display: none !important;
     }
 }
+
+
 /*# sourceMappingURL=bootstrap.css.map */
