@@ -12,7 +12,7 @@ public class Rank
     int rankCode, minimum, max;
     string rankDesc, picPath;
     User[] user;
-
+    // YaTahat
 
     //props
     #region
