@@ -80,7 +80,12 @@ public class Item_Auction : Auction
     {
         throw new System.Exception("Not implemented");
     }
+
+    public override int CalculateUserScore()
+    {
+        throw new NotImplementedException();
+    }
     #endregion
-    
+
 
 }

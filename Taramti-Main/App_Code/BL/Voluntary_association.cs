@@ -19,6 +19,4 @@ public class Voluntary_association
     private Association_Tag[] association_Tags;
     private Auction[] auctions;
 
-    private System system;
-
 }
