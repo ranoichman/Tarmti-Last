@@ -39,7 +39,7 @@ public partial class Client_pages_login : System.Web.UI.Page
                     Response.Redirect(""); //דף עמותות
                     break;
                 case -1:
-                    //הצגת הודעה
+                    //הצגת הודעה 
                     break;
                 default:
                     break;
