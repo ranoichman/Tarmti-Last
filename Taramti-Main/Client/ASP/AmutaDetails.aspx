@@ -26,61 +26,44 @@
             </tr>
 
             <tr>
-                <td>סוג הפרויקט:</td>
+                <td>מספר עמותה:</td>
                 <td>
-                    <asp:DropDownList ID="pType_DDL" runat="server" data-name="סוג הפרויקט: " DataSourceID="SqlDataSource1"  AppendDataBoundItems="true" DataTextField="type" DataValueField="projTypeID">
-                        <asp:ListItem Value="בחר">בחר</asp:ListItem>
-                    </asp:DropDownList>
-                    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ProjDetailsConnectionString %>" 
-                        DeleteCommand="DELETE FROM [projType] WHERE [projTypeID] = @projTypeID" 
-                        InsertCommand="INSERT INTO [projType] ([type]) VALUES (@type)" 
-                        SelectCommand="SELECT * FROM [projType]" 
-                        UpdateCommand="UPDATE [projType] SET [type] = @type WHERE [projTypeID] = @projTypeID" OnSelecting="SqlDataSource1_Selecting">
-                        <DeleteParameters>
-                            <asp:Parameter Name="projTypeID" Type="Int16" />
-                        </DeleteParameters>
-                        <InsertParameters>
-                            <asp:Parameter Name="type" Type="String" />
-                        </InsertParameters>
-                        <UpdateParameters>
-                            <asp:Parameter Name="type" Type="String" />
-                            <asp:Parameter Name="projTypeID" Type="Int16" />
-                        </UpdateParameters>
-                    </asp:SqlDataSource>
+                    <asp:TextBox ID="AmutaNum_TB" runat="server"></asp:TextBox>
                 </td>
                 <td>
-                    <asp:RequiredFieldValidator ID="pType_DDLValidRq" InitialValue="בחר" ControlToValidate="pType_DDL" runat="server" ErrorMessage="לא ניתן לבחור באופציה זו" />
+                   <%-- <asp:RequiredFieldValidator ID="pType_DDLValidRq" InitialValue="בחר" ControlToValidate="pType_DDL" runat="server" ErrorMessage="לא ניתן לבחור באופציה זו" />--%>
                 </td>
             </tr>
 
             <tr>
-                <td>לוגו הפרויקט:</td>
+                <td>תיאור עמותה:</td>
                 <td>
-                    <asp:FileUpload ID="LogoFUp" runat="server" BorderStyle="Inset" data-name="לוגו הפרויקט: " />
+                    <textarea id="Desc_TA" cols="40" rows="12"></textarea>
                 </td>
                 <td>
-                    <asp:RequiredFieldValidator ControlToValidate="LogoFUp" ID="LogoFUp_ValidRq" runat="server" ErrorMessage="שדה חובה!"></asp:RequiredFieldValidator>
+                    <%--<asp:RequiredFieldValidator ControlToValidate="LogoFUp" ID="LogoFUp_ValidRq" runat="server" ErrorMessage="שדה חובה!"></asp:RequiredFieldValidator>--%>
                     <%--<asp:CustomValidator ID="LogoFUp_ValidCr" runat="server" ControlToValidate="LogoFUp" ErrorMessage="יחס התמונה אינו 4:3" OnServerValidate="ValidRatio_ServerValidate"></asp:CustomValidator>--%>
                 </td>
             </tr>
 
             <tr>
                 <td>
-                    <asp:Label ID="Tag1LBL" runat="server" data-name="תגית 1: ">תגית 1:</asp:Label>
+                    <asp:Label ID="account1LBL" runat="server" data-name="חשבון: "> חשבון:</asp:Label>
                 </td>
                 <td>
-                    <asp:TextBox ID="Tag1TB" runat="server" onkeyup="changeStatus(this,'#ContentPlaceHolder1_Tag2TB')" data-name="תיאור התגית: "></asp:TextBox>
+                    <asp:TextBox ID="account1TB" runat="server"  data-name="תיאור התגית: "></asp:TextBox>
                 </td>
                 <td>
-                    <asp:RequiredFieldValidator ID="Tag1TB_ValidRq" ControlToValidate="Tag1TB" runat="server" ErrorMessage="שדה חובה!"></asp:RequiredFieldValidator></td>
+                   <%-- <asp:RequiredFieldValidator ID="Tag1TB_ValidRq" ControlToValidate="Tag1TB" runat="server" ErrorMessage="שדה חובה!"></asp:RequiredFieldValidator></td>--%>
+                    </td>
             </tr>
 
             <tr>
                 <td >
-                    <asp:Label ID="Tag2LBL" runat="server" data-name="תגית 2: ">תגית 2:</asp:Label>
+                    <asp:Label ID="webLBL" runat="server" data-name="אתר: ">אתר:</asp:Label>
                 </td>
                 <td >
-                    <asp:TextBox ID="Tag2TB" runat="server" data-name="תיאור התגית: " Enabled="False" onblur="insRow(this,'#ContentPlaceHolder1_Tag2TB')" ></asp:TextBox>
+                    <asp:TextBox ID="web2TB" runat="server" data-name="אתר: " Enabled="False" onblur="insRow(this,'#ContentPlaceHolder1_Tag2TB')" ></asp:TextBox>
                 </td>
             </tr>
 
