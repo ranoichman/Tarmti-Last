@@ -9,7 +9,7 @@ using System.Web;
 /// </summary>
 public class User
 {
-    string userId, firstName, lastName, address;
+    string userId, firstName, lastName, address, mail, password;
     Rank rank;
     City city;
     Item[] items;
@@ -92,6 +92,32 @@ public class User
             bids = value;
         }
     }
+
+    public string Mail
+    {
+        get
+        {
+            return mail;
+        }
+
+        set
+        {
+            mail = value;
+        }
+    }
+
+    public string Password
+    {
+        get
+        {
+            return password;
+        }
+
+        set
+        {
+            password = value;
+        }
+    }
     #endregion
 
     //ctor
@@ -102,9 +128,28 @@ public class User
         //
     }
 
+    public User(string mail, string pass)
+    {
+        Mail = mail;
+        Password = pass;
+    }
+
 
     //methods
     #region
+
+
+    public bool CheckLogin()
+    {
+        DbService db = new DbService();
+        
+
+        return true;
+    }
+
+
+
+
     public void GetUsersAuctions() { }
 
     public void ShowAvgRank() { }
