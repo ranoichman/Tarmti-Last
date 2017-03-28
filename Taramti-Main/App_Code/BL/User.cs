@@ -144,7 +144,7 @@ public class User
         
         string sqlSelect = @"SELECT [user_id]
                             FROM [dbo].[users]
-                            where (email like @email) and ([password] like @password)";
+                            where (email = @email) and ([password] = @password)";
         DbService db = new DbService();
         SqlParameter parEmail = new SqlParameter("@email", Mail);
         SqlParameter parPass = new SqlParameter("@password", Password);
@@ -171,9 +171,29 @@ public class User
     /// </summary>
     public int CheckAuthDesktop()
     {
-
-
-        return -1;
+        string sqlSelect = @"SELECT count([user_id])
+                            FROM [dbo].[admin]
+                            where (user_id = @user_id)";
+        DbService db = new DbService();
+        SqlParameter parUser = new SqlParameter("@user_id", UserId);
+        int auth = -1;
+        auth = db.GetScalarByQuery(sqlSelect, System.Data.CommandType.Text, parUser); //בדיקה האם אדמין
+        if (auth !=1)
+        {
+            sqlSelect = @"SELECT count([association_code])
+                        FROM [dbo].[association_access]
+                        where user_id='@user_id'";
+            auth = db.GetScalarByQuery(sqlSelect, System.Data.CommandType.Text, parUser);
+            if (auth>=1)
+            {
+                auth = 2;
+            }
+            else
+            {
+                auth = -1;
+            }
+        }
+        return auth;
     }
 
 

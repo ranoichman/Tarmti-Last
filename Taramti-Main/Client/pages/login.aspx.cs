@@ -17,7 +17,7 @@ public partial class Client_pages_login : System.Web.UI.Page
         User temp = new User(mail_TB.Text, pass_TB.Text);
         if (temp.CheckLogin())
         {
-
+            int auth = temp.CheckAuthDesktop();
         }
     }
 }

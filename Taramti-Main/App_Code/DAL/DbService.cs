@@ -86,7 +86,6 @@ public class DbService
         return res;
     }
 
-
     public int ExecuteQuery(string sqlQuery, CommandType cmdType = CommandType.Text, params SqlParameter[] parametersArray)
     {
         int row_affected = 0;
@@ -123,7 +122,6 @@ public class DbService
         return row_affected;
     }
 
-
     public object GetObjectScalarByQuery(string sqlQuery, CommandType cmdType = CommandType.Text, params SqlParameter[] parametersArray)
     {
         cmd = new SqlCommand(sqlQuery, con);
@@ -153,7 +151,15 @@ public class DbService
     }
 
 
+
+    /*
+     * ********************************************************
+     * ********************************************************
     // רק לבדיקקקקקקקקקקקקקקקקההההההההההההההההההההההההההההההההההההההההההההההההה
+     * ********************************************************
+     * ********************************************************
+    */
+
     public int GetScalarByQuery2(string sqlQuery, CommandType cmdType = CommandType.Text, params SqlParameter[] parametersArray)
     {
         cmd = new SqlCommand(sqlQuery, con);
