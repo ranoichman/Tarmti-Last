@@ -138,13 +138,42 @@ public class User
     //methods
     #region
 
-
+    //מתודה לבדיקה האם המשתמש קיים
     public bool CheckLogin()
     {
-        DbService db = new DbService();
         
+        string sqlSelect = @"SELECT [user_id]
+                            FROM [dbo].[users]
+                            where (email like @email) and ([password] like @password)";
+        DbService db = new DbService();
+        SqlParameter parEmail = new SqlParameter("@email", Mail);
+        SqlParameter parPass = new SqlParameter("@password", Password);
+        try
+        {
+            UserId = db.GetScalarByQuery2(sqlSelect, System.Data.CommandType.Text, parEmail, parPass).ToString(); // להחזיר למתודה המקורית
+            if (UserId != "0")
+            {
+                return true;
+            }
+            else
+                return false;
+        }
+        catch (Exception ex)
+        {
+            return false;
+        }
+        
+    }
 
-        return true;
+    /// <summary>
+    /// מתודה לבדיקת ההרשאות של המשתמש
+    /// תחזיר 1 במידה והמשתמש מנהל מערכת, 2 במידה ומורשה גישה לעמותות ומינוס 1 (1-) אם המשתמש משתמש רגיל
+    /// </summary>
+    public int CheckAuthDesktop()
+    {
+
+
+        return -1;
     }
 
 
@@ -160,7 +189,7 @@ public class User
 
     public void DeleteUser()
     {
-        string sqlDelete = "UPDATE [dbo].[users] SET active = -1 WHERE user_id = @userID";
+        string sqlDelete = "UPDATE [dbo].[users] SET active = -0 WHERE user_id = @userID";
         SqlParameter param = new SqlParameter("@userID", UserId);
     }
 

@@ -13,7 +13,8 @@ public class DbService
 {
     SqlTransaction tran;
     SqlCommand cmd;
-    SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["ruppin"].ConnectionString);
+    //SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["ruppin"].ConnectionString);
+    SqlConnection con;
     SqlDataAdapter adp;
     public bool transactional = false;
 
@@ -147,6 +148,44 @@ public class DbService
         {
             con.Close();
         }
+
+        return res;
+    }
+
+
+    // רק לבדיקקקקקקקקקקקקקקקקההההההההההההההההההההההההההההההההההההההההההההההההה
+    public int GetScalarByQuery2(string sqlQuery, CommandType cmdType = CommandType.Text, params SqlParameter[] parametersArray)
+    {
+        cmd = new SqlCommand(sqlQuery, con);
+        cmd.CommandType = cmdType;
+        int res = 0;
+
+        string id = "0";
+        foreach (SqlParameter s in parametersArray)
+        {
+            cmd.Parameters.AddWithValue(s.ParameterName, s.Value);
+        }
+
+        try
+        {
+            //con.Open();
+            //id = cmd.ExecuteScalar().ToString();
+            id = "987789989";
+            res = Convert.ToInt32(id);
+
+
+
+        }
+        catch (Exception e)
+        {
+            //do something with the error
+        }
+        finally
+        {
+            //con.Close();
+        }
+
+
 
         return res;
     }

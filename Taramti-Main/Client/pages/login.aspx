@@ -46,6 +46,11 @@
                         </div>
                         <div class="panel-body">
                             <asp:TextBox ID="mail_TB" placeholder="אימייל" runat="server" class="form-control" />
+                            
+                            <%--להוסיף ולידטור של מייל!!!!!!!!!!--%>
+                            <%--להוסיף ולידטור של מייל!!!!!!!!!!--%>
+                            <%--להוסיף ולידטור של מייל!!!!!!!!!!--%>
+
                             <div id="custom-password-input">
                                 <div class="input-group col-md-12">
                                     <asp:TextBox ID="pass_TB" placeholder="סיסמה" TextMode="Password" runat="server" class="form-control"/>
