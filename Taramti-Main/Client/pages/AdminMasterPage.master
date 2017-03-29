@@ -290,7 +290,7 @@
                                             <a href="#">ניהול משתמשים</a>
                                         </li>
                                         <li>
-                                            <a href="#">ניהול עמותות</a>
+                                            <a href="ManageAssoc.aspx">ניהול עמותות</a>
                                         </li>
                                     </ul>
                                     <!-- /.nav-second-level -->
@@ -299,7 +299,7 @@
                                     <a href="tables.html"><i class="fa fa-edit fa-fw"></i>הוספת מורשים</a>
                                 </li>
                                 <li>
-                                    <a href="forms.html"><i class="fa fa-bar-chart-o fa-fw "></i>הנפקת דוחות</a>
+                                    <a href="forms.html"><i class="fa fa-bar-chart-o fa-fw "></i>הפקת דוחות</a>
                                 </li>
                             </ul>
                         </div>

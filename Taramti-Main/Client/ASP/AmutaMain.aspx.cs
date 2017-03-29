@@ -11,7 +11,7 @@ public partial class Client_ASP_AmutaMain : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         WebService ws = new WebService();
-        Voluntary_association V = ws.GetAssociationInfo(Session["User"].ToString());
+        Voluntary_association V = ws.GetAssociationInfo(Session["associationCode"].ToString());
 
     }
 }

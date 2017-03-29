@@ -3015,8 +3015,8 @@ input[type=search] {
 }
 
     .checkbox label, .radio label {
-        min-height: 20px;
-        padding-left: 20px;
+        min-height: 20px
+        padding-right: 20px;
         margin-bottom: 0;
         font-weight: 400;
         cursor: pointer;
@@ -6974,6 +6974,7 @@ button.close {
     position: fixed;
 }
 
+
 a.navbar-brand{
     padding:0px 0px;
 }
@@ -7227,5 +7228,4 @@ a.navbar-brand{
         display: none !important;
     }
 }
-
 /*# sourceMappingURL=bootstrap.min.css.map */
