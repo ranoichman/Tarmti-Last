@@ -149,7 +149,7 @@ public class User
         SqlParameter parPass = new SqlParameter("@password", Password);
         try
         {
-            UserId = db.GetScalarByQuery2(sqlSelect, System.Data.CommandType.Text, parEmail, parPass).ToString(); // להחזיר למתודה המקורית
+            UserId = db.GetScalarByQuery(sqlSelect, System.Data.CommandType.Text, parEmail, parPass).ToString(); // להחזיר למתודה המקורית
             if (UserId != "0")
             {
                 return true;
