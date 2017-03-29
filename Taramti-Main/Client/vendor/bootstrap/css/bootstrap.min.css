@@ -3015,7 +3015,7 @@ input[type=search] {
 }
 
     .checkbox label, .radio label {
-        min-height: 20px;
+        min-height: 20px
         padding-right: 20px;
         margin-bottom: 0;
         font-weight: 400;
@@ -6972,6 +6972,23 @@ button.close {
 
 .affix {
     position: fixed;
+}
+
+
+a.navbar-brand{
+    padding:0px 0px;
+}
+
+
+
+#ImgLogo {
+    height: 50px;
+    width: auto;
+}
+
+#NavbarWrapper{
+    width:250px;
+
 }
 
 @-ms-viewport {

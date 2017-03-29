@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -165,7 +165,6 @@ public class DbService
         cmd = new SqlCommand(sqlQuery, con);
         cmd.CommandType = cmdType;
         int res = 0;
-
         string id = "0";
         foreach (SqlParameter s in parametersArray)
         {
@@ -178,9 +177,6 @@ public class DbService
             //id = cmd.ExecuteScalar().ToString();
             id = "0";
             res = Convert.ToInt32(id);
-
-
-
         }
         catch (Exception e)
         {
@@ -190,10 +186,6 @@ public class DbService
         {
             //con.Close();
         }
-
-
-
         return res;
     }
-
 }
