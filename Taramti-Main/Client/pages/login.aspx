@@ -23,12 +23,16 @@
     <!-- Custom Fonts -->
     <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
 
+    <!-- our CSS -->
+    <link href="../css/formCSS.css" rel="stylesheet" />
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+
 
 </head>
 <body>
@@ -47,16 +51,19 @@
                             <%--להוסיף ולידטור של מייל!!!!!!!!!!--%>
                             <%--להוסיף ולידטור של מייל!!!!!!!!!!--%>
 
-                            <asp:TextBox ID="pass_TB" placeholder="סיסמה" TextMode="Password" runat="server" class="form-control" />
 
-                            <div class="checkbox">
-                                <asp:CheckBox ID="remember_CB" Text="זכור אותי" runat="server" />
+                            <div class="form-group has-feedback">
+                                
+                                <asp:TextBox ID="pass_TB" placeholder="סיסמה" TextMode="Password" runat="server" class="form-control" />
+                                <span id="pass_Icon" class="glyphicon glyphicon-eye-open form-control-feedback" onclick="toggle()"></span>
+
                             </div>
 
+                            <div>
+                                <asp:CheckBox ID="remember_CB" Text="זכור אותי" runat="server" />
+                            </div>
                             <asp:Button ID="login_BTN" Text="התחבר" runat="server" OnClick="login_BTN_Click" class="btn btn-lg btn-success btn-block" />
                             <a href="#">שכחת סיסמה?</a>
-                            <br />
-                            <a href="#">לא רשום? לחץ כאן</a>
                         </div>
                     </div>
                 </div>
@@ -76,7 +83,24 @@
     <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>
 
+    <script>
+        var show = false;
+        function toggle() {
+            if (!show) {
+                $("#pass_TB").attr("type", "text");
+                $("#pass_Icon").removeClass("glyphicon glyphicon-eye-open");
+                $("#pass_Icon").addClass("glyphicon glyphicon-eye-close");
+                show = true;
+            }
+            else {
+                $("#pass_TB").attr("type", "password");
+                $("#pass_Icon").removeClass("glyphicon glyphicon-eye-close");
+                $("#pass_Icon").addClass("glyphicon glyphicon-eye-open");
+                show = false;
+            }
+        }
 
+    </script>
 
 
 </body>

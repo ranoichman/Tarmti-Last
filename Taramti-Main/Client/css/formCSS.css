@@ -1,0 +1,17 @@
+﻿body {
+    direction: rtl;
+    float: right;
+}
+
+#pass_Icon {
+    cursor: pointer;
+    pointer-events: all;
+    float:left;
+}
+
+#remember_CB{
+    margin-left:5px;
+}
+#remember_CB label{
+
+}
