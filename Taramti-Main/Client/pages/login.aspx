@@ -30,10 +30,6 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-    <!-- our CSS -->
-    <link href="../css/formCSS.css" rel="stylesheet" />
-
-
 </head>
 <body>
     <form id="form1" runat="server">
@@ -46,31 +42,24 @@
                         </div>
                         <div class="panel-body">
                             <asp:TextBox ID="mail_TB" placeholder="אימייל" runat="server" class="form-control" />
-                            
+
                             <%--להוסיף ולידטור של מייל!!!!!!!!!!--%>
                             <%--להוסיף ולידטור של מייל!!!!!!!!!!--%>
                             <%--להוסיף ולידטור של מייל!!!!!!!!!!--%>
 
-                            <div id="custom-password-input">
-                                <div class="input-group col-md-12">
-                                    <asp:TextBox ID="pass_TB" placeholder="סיסמה" TextMode="Password" runat="server" class="form-control"/>
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-info btn-lg" type="button" onmouseup="showPass" onmousedown="hidePass">
-                                                <i class="glyphicon glyphicon-eye-open"></i>
-                                            </button>
-                                        </span>
-                                </div>
-                            </div>
+                            <asp:TextBox ID="pass_TB" placeholder="סיסמה" TextMode="Password" runat="server" class="form-control" />
 
                             <div class="checkbox">
                                 <asp:CheckBox ID="remember_CB" Text="זכור אותי" runat="server" />
                             </div>
 
                             <asp:Button ID="login_BTN" Text="התחבר" runat="server" OnClick="login_BTN_Click" class="btn btn-lg btn-success btn-block" />
-                        
+                            <a href="#">שכחת סיסמה?</a>
+                            <br />
+                            <a href="#">לא רשום? לחץ כאן</a>
                         </div>
-        </div>
-        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </form>
@@ -87,14 +76,6 @@
     <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>
 
-    <script>
-        function showPass() {
-            $("#pass_TB").attr("TextMode", "Password");
-        }
-        function hidePass() {
-            $("#pass_TB").removeAttr("TextMode");
-        }
-    </script>
 
 
 
