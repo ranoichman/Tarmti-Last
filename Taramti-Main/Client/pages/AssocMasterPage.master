@@ -1,5 +1,5 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="AssocMasterPage.master.cs" Inherits="Client_pages_AdminMasterPage" %>
-
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="AdminMasterPage.master.cs" Inherits="Client_pages_AdminMasterPage" %>
+<%--CodeFile="AssocMasterPage.master.cs"--%>
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml" lang="he" dir="rtl">

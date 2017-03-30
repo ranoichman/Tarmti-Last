@@ -13,8 +13,8 @@ public class DbService
 {
     SqlTransaction tran;
     SqlCommand cmd;
-    //SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["ruppin"].ConnectionString);
-    SqlConnection con;
+    SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["ruppinConnectionString"].ConnectionString);
+    
     SqlDataAdapter adp;
     public bool transactional = false;
 

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -144,7 +144,7 @@ public class User
     {
         string sqlSelect = @"SELECT [user_id]
                             FROM [dbo].[users]
-                            where (email = @email) and ([password] = @password)";
+                            where (email = '@email') and ([password] = '@password')";
         DbService db = new DbService();
         SqlParameter parEmail = new SqlParameter("@email", Mail);
         SqlParameter parPass = new SqlParameter("@password", Password);
@@ -173,7 +173,7 @@ public class User
     {
         string sqlSelect = @"SELECT count([user_id])
                             FROM [dbo].[admin]
-                            where (user_id = @user_id)";
+                            where (user_id = '@user_id')";
         DbService db = new DbService();
         SqlParameter parUser = new SqlParameter("@user_id", UserId);
         int auth = -1;
@@ -204,7 +204,7 @@ public class User
     {
         string sqlSelect = @"SELECT [user_id]
                             FROM [dbo].[users]
-                            where (email = @email) and ([user_id] = @user_id)";
+                            where (email = '@email') and ([user_id] = '@user_id')";
         DbService db = new DbService();
         SqlParameter parEmail = new SqlParameter("@email", Mail);
         SqlParameter parUser = new SqlParameter("@user_id", UserId);
@@ -228,7 +228,7 @@ public class User
     //מתודה לשינוי סיסמה במסד הנתונים
     public void UpdatePassword()
     {
-        string sqlUpdate = "UPDATE [dbo].[users] SET [password]=@password WHERE user_id = @userID";
+        string sqlUpdate = "UPDATE [dbo].[users] SET [password]=@password WHERE user_id = '@userID'";
         SqlParameter parUser = new SqlParameter("@userID", UserId);
         SqlParameter parPass = new SqlParameter("@password", Password);
         DbService db = new DbService();
@@ -245,7 +245,7 @@ public class User
 
     public void DeleteUser()
     {
-        string sqlDelete = "UPDATE [dbo].[users] SET active = 0 WHERE user_id = @userID";
+        string sqlDelete = "UPDATE [dbo].[users] SET active = 0 WHERE user_id = '@userID'";
         SqlParameter parUser = new SqlParameter("@userID", UserId);
         DbService db = new DbService();
         db.ExecuteQuery(sqlDelete, CommandType.Text, parUser);
