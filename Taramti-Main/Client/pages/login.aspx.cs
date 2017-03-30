@@ -42,7 +42,7 @@ public partial class Client_pages_login : System.Web.UI.Page
         User temp = new User(mail_TB.Text, pass_TB.Text);
         if (temp.CheckLogin()) //בדיקה אם משתמש קיים ופרטים נכונים
         {
-            int auth = temp.CheckAuthDesktop(); //בידקה אם יש הרשאה לדף ניהול
+            int auth = temp.CheckAuthDesktop(); //בדיקה אם יש הרשאה לדף ניהול
             Session["UserID"] = temp.UserId;
             if (remember_CB.Checked && auth!=-1)
             {
@@ -57,7 +57,7 @@ public partial class Client_pages_login : System.Web.UI.Page
             if (counter >= 5)
             {
                 Session.Remove("counter");
-                // Session["counter"] = null;
+                Response.Redirect("forgotPass.html");
                 //שליחה לדף איפוס סיסמה
             }
             else
