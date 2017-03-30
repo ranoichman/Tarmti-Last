@@ -238,9 +238,57 @@ public class User
     }
 
     //מתודה לשליחת מייל
-    internal void SendMail()
+    // פונקציה לשליחת מיילים
+    public void SendMail()
     {
-    
+        // עדכון סיסמא
+        Password = "000000";
+        UpdatePassword();
+
+        string Sbjct = "איפוס סיסמא למשתמש " + FirstName + " " + LastName + ".";
+        string MyHdr = "";
+        string StrHtml = "";
+
+        MyHdr += "<div dir='rtl'>" + "שלום" + ",";
+        MyHdr += "<BR>";
+        MyHdr += "<BR>";
+        MyHdr += "בקשתך לאיפוס סיסמא התקבלה וסיסמתך שונתה בהצלחה.  ";
+        MyHdr += "<BR>";
+        //MyHdr += "<BR dir='ltr'>";
+        MyHdr += " סיסמתך החדשה הינה: " + "000000";
+        MyHdr += "</DIV>";
+        MyHdr += "<DIV align=right>";
+
+        MyHdr += "<BR align=right>";
+
+        MailMessage message = new MailMessage();
+        // To 
+        message.To.Add(new MailAddress("heregteam@gmail.com"));
+        // From Query
+        message.From = new MailAddress("recoverpass@taramti.co.il");
+
+        message.Subject = Sbjct;
+        message.IsBodyHtml = true;
+
+        message.Body = MyHdr + "\n\r\n\r" + StrHtml;
+        AlternateView htmlView = AlternateView.CreateAlternateViewFromString(message.Body, null, "text/html");
+        message.AlternateViews.Add(htmlView);
+
+
+        SmtpClient client = new SmtpClient();
+        client.Host = "smtp.gmail.com";
+        client.Port = 587;
+        client.EnableSsl = true;
+        client.DeliveryMethod = SmtpDeliveryMethod.Network;
+        client.UseDefaultCredentials = false;
+        //client.Credentials = new NetworkCredential("heregteam@gmail.com", "teamhereg!1");
+        //(1)
+        client.UseDefaultCredentials = true;
+        //(2)
+        client.Credentials = new System.Net.NetworkCredential("heregteam@gmail.com", "teamhereg");
+        client.Send(message);
+
+        
     }
 
     public void GetUsersAuctions() { }
