@@ -45,7 +45,7 @@
                             <h3 class="panel-title">תרמתי בבית - התחברות</h3>
                         </div>
                         <div class="panel-body">
-                            <asp:TextBox ID="mail_TB" placeholder="אימייל" runat="server" class="form-control" />
+                            <asp:TextBox ID="mail_TB" placeholder="אימייל" runat="server" class="form-control" Text="golan@gmail.com" />
 
                             <%--להוסיף ולידטור של מייל!!!!!!!!!!--%>
                             <%--להוסיף ולידטור של מייל!!!!!!!!!!--%>
@@ -53,10 +53,8 @@
 
 
                             <div class="form-group has-feedback">
-                                
                                 <asp:TextBox ID="pass_TB" placeholder="סיסמה" TextMode="Password" runat="server" class="form-control" />
-                                <span id="pass_Icon" class="glyphicon glyphicon-eye-open form-control-feedback" onclick="toggle()"></span>
-
+                                <span id="pass_Icon" class="glyphicon glyphicon-eye-open form-control-feedback" onclick="toggle()" style="left:0"></span>
                             </div>
 
                             <div>

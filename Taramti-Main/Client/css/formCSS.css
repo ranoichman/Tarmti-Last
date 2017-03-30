@@ -3,15 +3,17 @@
     float: right;
 }
 
+#pass_TB{
+    padding-right:12px !important;
+}
 #pass_Icon {
     cursor: pointer;
     pointer-events: all;
     float:left;
+    left:0 !important;
+    right:88%;
 }
 
 #remember_CB{
     margin-left:5px;
-}
-#remember_CB label{
-
 }
