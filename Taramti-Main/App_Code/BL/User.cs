@@ -137,7 +137,6 @@ public class User
         Password = pass;
     }
 
-
     //methods
     #region
 
@@ -175,7 +174,7 @@ public class User
     {
         string sqlSelect = @"SELECT count([user_id])
                             FROM [dbo].[admin]
-                            where (user_id = '@user_id')";
+                            where (user_id = @user_id)";
         DbService db = new DbService();
         SqlParameter parUser = new SqlParameter("@user_id", UserId);
         int auth = -1;
@@ -184,7 +183,7 @@ public class User
         {
             sqlSelect = @"SELECT count([association_code])
                         FROM [dbo].[association_access]
-                        where user_id='@user_id'";
+                        where user_id=@user_id";
             auth = db.GetScalarByQuery(sqlSelect, CommandType.Text, parUser);
             if (auth>=1)
             {
@@ -204,16 +203,17 @@ public class User
     /// <returns>מחזירה אמת במידה וכן ושקר אחרת</returns>
     public bool CheckForResetPass()
     {
-        string sqlSelect = @"SELECT [user_id]
+        string sqlSelect = @"SELECT count([user_id])
                             FROM [dbo].[users]
-                            where (email = '@email') and ([user_id] = '@user_id')";
+                            where (email = @email) and ([user_id] = @user_id)";
         DbService db = new DbService();
         SqlParameter parEmail = new SqlParameter("@email", Mail);
         SqlParameter parUser = new SqlParameter("@user_id", UserId);
+        int res = 0;
         try
         {
-            UserId = db.GetScalarByQuery(sqlSelect, CommandType.Text, parEmail, parUser).ToString();
-            if (UserId != "0")
+            res = db.GetScalarByQuery(sqlSelect, CommandType.Text, parEmail, parUser);
+            if (res != 0)
             {
                 return true;
             }
@@ -230,11 +230,17 @@ public class User
     //מתודה לשינוי סיסמה במסד הנתונים
     public void UpdatePassword()
     {
-        string sqlUpdate = "UPDATE [dbo].[users] SET [password]=@password WHERE user_id = '@userID'";
+        string sqlUpdate = "UPDATE [dbo].[users] SET [password]=@password WHERE user_id = @userID";
         SqlParameter parUser = new SqlParameter("@userID", UserId);
         SqlParameter parPass = new SqlParameter("@password", Password);
         DbService db = new DbService();
         db.ExecuteQuery(sqlUpdate, CommandType.Text, parPass, parUser);
+    }
+
+    //מתודה לשליחת מייל
+    internal void SendMail()
+    {
+    
     }
 
     public void GetUsersAuctions() { }
@@ -247,7 +253,7 @@ public class User
 
     public void DeleteUser()
     {
-        string sqlDelete = "UPDATE [dbo].[users] SET active = 0 WHERE user_id = '@userID'";
+        string sqlDelete = "UPDATE [dbo].[users] SET active = 0 WHERE user_id = @userID";
         SqlParameter parUser = new SqlParameter("@userID", UserId);
         DbService db = new DbService();
         db.ExecuteQuery(sqlDelete, CommandType.Text, parUser);

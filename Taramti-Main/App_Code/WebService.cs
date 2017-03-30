@@ -65,16 +65,16 @@ public class WebService : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public bool CheckValidUser(string id, string mail)
+    public string CheckValidUser(string id, string mail)
     {
         User temp_user = new User();
         temp_user.Mail = mail;
         temp_user.UserId = id;
         if (temp_user.CheckForResetPass())
         {
-            //שליחת מייל
-            return true;
+            temp_user.SendMail();//שליחת מייל
+            return "true";
         }
-        return false;
+        return "true";
     }
 }
