@@ -51,7 +51,7 @@ public class DbService
         return ds;
     }
 
-    public int GetScalarByQuery(string sqlQuery, CommandType cmdType = CommandType.Text, params SqlParameter[] parametersArray)
+    public int GetScalarByQuery (string sqlQuery, CommandType cmdType = CommandType.Text, params SqlParameter[] parametersArray)
     {
         cmd = new SqlCommand(sqlQuery, con);
         cmd.CommandType = cmdType;

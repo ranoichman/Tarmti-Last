@@ -63,7 +63,7 @@
                                 <asp:CheckBox ID="remember_CB" Text="זכור אותי" runat="server" />
                             </div>
                             <asp:Button ID="login_BTN" Text="התחבר" runat="server" OnClick="login_BTN_Click" class="btn btn-lg btn-success btn-block" />
-                            <a href="#">שכחת סיסמה?</a>
+                            <a href="forgotPass.html">שכחת סיסמה?</a>
                         </div>
                     </div>
                 </div>

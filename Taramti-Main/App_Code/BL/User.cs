@@ -144,7 +144,7 @@ public class User
     {
         string sqlSelect = @"SELECT [user_id]
                             FROM [dbo].[users]
-                            where (email = '@email') and ([password] = '@password')";
+                            where (email = @email) and ([password] = @password)";
         DbService db = new DbService();
         SqlParameter parEmail = new SqlParameter("@email", Mail);
         SqlParameter parPass = new SqlParameter("@password", Password);
