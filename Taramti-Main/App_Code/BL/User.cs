@@ -4,6 +4,8 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
+using System.Net;
+using System.Net.Mail;
 
 /// <summary>
 /// Summary description for Class1

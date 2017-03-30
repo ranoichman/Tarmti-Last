@@ -35,7 +35,6 @@ public class DbService
         foreach (SqlParameter s in parametersArray)
         {
             cmd.Parameters.AddWithValue(s.ParameterName, s.Value);
-
         }
 
         try
@@ -68,9 +67,6 @@ public class DbService
             con.Open();
             id = cmd.ExecuteScalar().ToString();
             res = Convert.ToInt32(id);
-
-
-
         }
         catch (Exception e)
         {

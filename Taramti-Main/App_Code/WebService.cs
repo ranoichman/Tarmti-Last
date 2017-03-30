@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Services;
+using System.Web.Script.Serialization;
 
 /// <summary>
 /// Summary description for WebService
@@ -32,33 +33,34 @@ public class WebService : System.Web.Services.WebService
     [WebMethod]
     public Voluntary_association GetAssociationInfo(string code)
     {
-        Voluntary_association V = new Voluntary_association();
+       // Voluntary_association V = new Voluntary_association();
         DataTable DT = new DataTable();
-        DT = V.GetAssociationByCode(code);
+        List<string> L = Voluntary_association.GetAssociationByCode(code);
         if (DT.Rows.Count > 0)
         {
-           return V = new Voluntary_association(DT.Rows[0][0].ToString(), DT.Rows[0][1].ToString(), DT.Rows[0][2].ToString());
+           return  new Voluntary_association(DT.Rows[0][0].ToString(), DT.Rows[0][1].ToString(), DT.Rows[0][2].ToString());
         }
         else
         {
-            return V;
+            return new Voluntary_association();
         }
     }
 
     // מתודה להחזרת כלל העמותות
     [WebMethod]
-    public Voluntary_association GetAllAssociations()
+    public List<Voluntary_association> GetAllAssociations()
     {
-        Voluntary_association V = new Voluntary_association();
+       // Voluntary_association V = new Voluntary_association();
         DataTable DT = new DataTable();
-        DT = V.GetAllAssociations();
+        List<Voluntary_association> L = Voluntary_association.GetAllAssociations();
         if (DT.Rows.Count > 0)
         {
-            return V = new Voluntary_association(DT.Rows[0][0].ToString(), DT.Rows[0][1].ToString(), DT.Rows[0][2].ToString());
+            //return  new Voluntary_association(DT.Rows[0][0].ToString(), DT.Rows[0][1].ToString(), DT.Rows[0][2].ToString());
+            return L;
         }
         else
         {
-            return V;
+            return L;
         }
     }
 

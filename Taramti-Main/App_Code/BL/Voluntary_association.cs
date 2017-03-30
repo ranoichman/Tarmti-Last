@@ -9,9 +9,9 @@ using System.Web;
 /// </summary>
 public class Voluntary_association
 {
-    string association_Code;
-     string association_Name;
-     string association_Desc;
+     public string association_Code;
+     public string association_Name;
+     public string association_Desc;
      Association_Tag[] association_Tags;
      Auction[] auctions;
 
@@ -105,20 +105,49 @@ public class Voluntary_association
     }
 
      
-
-    public DataTable GetAssociationByCode(string code)
+    // הפיכה לסטטי כדי להיקרא מאג'קס
+    public static List<string> GetAssociationByCode(string code)
     {
         DbService db = new DbService();
-        DataSet projects = new DataSet();
+        DataSet DS = new DataSet();
+        List<string> Lists = new List<string>();
         string sql = "select * from association  " +
                      "where association_code='" + code + "' ";
-        projects = db.GetDataSetByQuery(sql);
-        return projects.Tables[0];
+        DS = db.GetDataSetByQuery(sql);
+        foreach (DataRow row in DS.Tables[0].Rows)
+        {
+            Lists.Add(row[0].ToString());
+        }
+
+        return Lists;
     }
 
-    public DataTable GetAllAssociations()
+    // הפיכה לסטטי כדי להיקרא מאג'קס
+    public static List<Voluntary_association> GetAllAssociations()
     {
-        DataTable DT = new DataTable();
-        return DT;
+        DataSet DS = new DataSet();
+        DbService db = new DbService();
+        Voluntary_association VA = new Voluntary_association();
+        List<Voluntary_association> Lists = new List<Voluntary_association>();
+
+        DS = db.GetDataSetByQuery(@"select* from dbo.association ");
+
+        foreach (DataRow row in DS.Tables[0].Rows)
+        {
+            Voluntary_association A = new Voluntary_association();
+            A.Association_Code = row[0].ToString();
+            A.Association_Name = row[1].ToString();
+            A.Association_Desc = row[2].ToString();
+            Lists.Add(A);
+            //Lists.Add(row[0].ToString());
+            //Lists.Add(row[1].ToString());
+            //Lists.Add(row[2].ToString());
+            //Lists.Add(row[3].ToString());
+            //Lists.Add(row[4].ToString());
+        }
+
+        return Lists;
     }
+
+
 }
