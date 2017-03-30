@@ -78,38 +78,38 @@
     <script src="../dist/js/sb-admin-2.js"></script>
 
     <script>
-        //function sendMail() {
-        //    var userID = $("#userID").val();
-        //    var userMail = $("#mail").val();
-        //    $.ajax({
-        //        dataType: "json",
-        //        url: "/../WebService.asmx/CheckValidUser",
-        //        contentType: "application/json; charset=utf-8",
-        //        type: "POST",
-        //        data: JSON.stringify({ id: userID, mail: userMail }),
-        //        success: function (data) {
-        //            alert("gdfsdsdfds");
-        //            var res = JSON.parse(data.d);
-        //            if (res) {
-        //                $("#headerMsg").text("סיסמתך אופסה בהצלחה")
-        //                $("userID").attr('disabled', 'disabled');
-        //                $("mail").attr('disabled', 'disabled');
-        //                $("send_BTN").attr('disabled', 'disabled');
-        //                var $btn_back = $("<a>")
-        //                $btn_back.attr("href", "#");
-        //                $btn_back.addClass("btn btn-lg btn-success btn-block");
-        //                $btn_back.text("חזור לדף התחברות");
-        //                $("#btnDiv").append();
-        //            }
-        //            else {
-        //                $("#headerMsg").text("ת.ז או אימייל שגויים, הזן ת.ז ואימייל לצורך איפוס סיסמה");
-        //            }
-        //        },
-        //        error: function (err) {
-        //            alert(err.statusText);
-        //        }
-        //    });
-        //}
+        function sendMail() {
+            var userID = $("#userID").val();
+            var userMail = $("#mail").val();
+            $.ajax({
+                dataType: "json",
+                url: "/../WebService.asmx/CheckValidUser",
+                contentType: "application/json; charset=utf-8",
+                type: "POST",
+                data: JSON.stringify({ id: userID, mail: userMail }),
+                success: function (data) {
+                    alert("gdfsdsdfds");
+                    var res = JSON.parse(data.d);
+                    if (res) {
+                        $("#headerMsg").text("סיסמתך אופסה בהצלחה")
+                        $("userID").attr('disabled', 'disabled');
+                        $("mail").attr('disabled', 'disabled');
+                        $("send_BTN").attr('disabled', 'disabled');
+                        var $btn_back = $("<a>")
+                        $btn_back.attr("href", "#");
+                        $btn_back.addClass("btn btn-lg btn-success btn-block");
+                        $btn_back.text("חזור לדף התחברות");
+                        $("#btnDiv").append();
+                    }
+                    else {
+                        $("#headerMsg").text("ת.ז או אימייל שגויים, הזן ת.ז ואימייל לצורך איפוס סיסמה");
+                    }
+                },
+                error: function (err) {
+                    alert(err.statusText);
+                }
+            });
+        }
 
         function sendMail() {
             //var codey = $('#TB').val();
