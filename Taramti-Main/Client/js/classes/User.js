@@ -8,12 +8,28 @@
         this.active = active;
     } //ctor end
 
+
+
     changeActive() {
 
 
     }
 
-
+    static getAll() {
+        $.ajax({
+            dataType: "json",
+            url: "/../AdminWebService.asmx/GetAllUsers",
+            contentType: "application/json; charset=utf-8",
+            type: "POST",
+            data: JSON.stringify({}),
+            success: function (data) {
+                return data.d;
+            },
+            error: function (err) {
+                return err;
+            }
+        });
+    }
 
 
 

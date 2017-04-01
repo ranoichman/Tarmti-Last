@@ -10,7 +10,7 @@ using System.Net.Mail;
 /// <summary>
 /// Summary description for Class1
 /// </summary>
-public class User
+public class UserT
 {
     string userId, firstName, lastName, address, mail, password;
     bool? active;
@@ -138,26 +138,27 @@ public class User
     #endregion
 
     //ctor
-    public User()
+    public UserT()
     {
         //
         // TODO: Add constructor logic here
         //
     }
 
-    public User(string mail, string pass)
+    public UserT(string mail, string pass)
     {
         Mail = mail;
         Password = pass;
     }
 
-    public User(string id, string fName, string lName, bool? active, Rank rank)
+    public UserT(string id, string fName, string lName, bool? active, Rank rank)
     {
         UserId = id;
         FirstName = fName;
         LastName = lName;
         Active = active;
         Rank = rank;
+        
     }
 
     //methods
@@ -328,9 +329,9 @@ public class User
 * ********************************************************
 */
     //מתודה להבאת פרטי יוזרים לטבלת ניהול משתמשים בדף אדמין
-    public static List<User> GetAllUsers()
+    public static List<UserT> GetAllUsers()
     {
-        List<User> li_rtn = new List<User>();
+        List<UserT> li_rtn = new List<UserT>();
         string sqlSelect = @"SELECT dbo.users.user_id, dbo.users.first_name ,dbo.users.last_name, dbo.users.active, SUM(dbo.auction.score) AS rank
                             FROM dbo.auction RIGHT OUTER JOIN dbo.users ON
                             dbo.auction.buyer_id = dbo.users.user_id OR dbo.auction.seller_id = dbo.users.user_id
@@ -340,23 +341,23 @@ public class User
         List<Rank> ranksList = Rank.GetAllRanks();
         foreach (DataRow row in usersDT.Rows)
         {
-            string id = row["user_id"].Equals(DBNull.Value) ? row["user_id"].ToString() : "";
-            string fName = row["first_name"].Equals(DBNull.Value) ? row["first_name"].ToString() : "";
-            string lName = row["last_name"].Equals(DBNull.Value) ? row["last_name"].ToString() : "";
-            bool? active = row["active"].Equals(DBNull.Value) ? bool.Parse(row["active"].ToString()) : false;
-            int rankSum = row["rank"].Equals(DBNull.Value) ? int.Parse(row["rank"].ToString()) : -1;
+            string id = row["user_id"].Equals(DBNull.Value) ? "" : row["user_id"].ToString();
+            string fName = row["first_name"].Equals(DBNull.Value) ? "" : row["first_name"].ToString();
+            string lName = row["last_name"].Equals(DBNull.Value) ? "" : row["last_name"].ToString();
+            bool? active = row["active"].Equals(DBNull.Value) ? false : bool.Parse(row["active"].ToString());
+            int rankSum = row["rank"].Equals(DBNull.Value) ? 0 : int.Parse(row["rank"].ToString());
             Rank tempRank = new Rank();
             foreach (Rank item in ranksList)
             {
-                if ((rankSum>=item.Minimum) &&(rankSum<=item.Max))
+                if ((rankSum >= item.Minimum) && (rankSum <= item.Max))
                 {
                     tempRank = item;
                     break;
                 }
             }
-            li_rtn.Add(new User(id, fName, lName, active, tempRank));
+            li_rtn.Add(new UserT(id, fName, lName, active, tempRank));
         }
-        return new List<User>();
+        return li_rtn;
     }
 
     public void GetUsersAuctions() { }

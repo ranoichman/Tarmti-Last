@@ -13,7 +13,7 @@ public abstract class Auction
     DateTime start_Date;
     DateTime end_Date;
     Voluntary_association vol_asc;
-    User seller, buyer;
+    UserT seller, buyer;
     int score;
 
     //props
@@ -57,7 +57,7 @@ public abstract class Auction
         }
     }
 
-    public User Seller
+    public UserT Seller
     {
         get
         {
@@ -70,7 +70,7 @@ public abstract class Auction
         }
     }
 
-    public User Buyer
+    public UserT Buyer
     {
         get
         {

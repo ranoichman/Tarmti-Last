@@ -12,7 +12,7 @@ public class Rank
     //fields
     int rankCode, minimum, max;
     string rankDesc, picPath;
-    User[] user;
+    UserT[] user;
 
     //props
     #region
@@ -45,7 +45,7 @@ public class Rank
         set { rankCode = value; }
     }
 
-    public User[] User
+    public UserT[] User
     {
         get
         {
@@ -90,11 +90,11 @@ public class Rank
         DataTable rankDT = db.GetDataSetByQuery(sqlSelect).Tables[0];
         foreach (DataRow row in rankDT.Rows)
         {
-            int code = row["rank_code"].Equals(DBNull.Value) ? int.Parse(row["rank_code"].ToString()) : -1;
-            string desc = row["rank_desc"].Equals(DBNull.Value) ? row["rank_desc"].ToString() : "";
-            int min = row["minimum"].Equals(DBNull.Value) ? int.Parse(row["minimum"].ToString()) : -1;
-            int max = row["max"].Equals(DBNull.Value) ? int.Parse(row["max"].ToString()) : -1;
-            string path = row["pic_path"].Equals(DBNull.Value) ? row["pic_path"].ToString() : "";
+            int code = row["rank_code"].Equals(DBNull.Value) ? -1 :int.Parse(row["rank_code"].ToString()) ;
+            string desc = row["rank_desc"].Equals(DBNull.Value) ?"" : row["rank_desc"].ToString();
+            int min = row["minimum"].Equals(DBNull.Value) ? -1 : int.Parse(row["minimum"].ToString());
+            int max = row["max"].Equals(DBNull.Value) ? -1 : int.Parse(row["max"].ToString()) ;
+            string path = row["pic_path"].Equals(DBNull.Value) ? "" : row["pic_path"].ToString();
             if (code != -1)
             {
                 li_rtn.Add(new Rank(code, min, max, desc, path));
