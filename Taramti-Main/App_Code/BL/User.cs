@@ -284,11 +284,9 @@ public class User
         //client.Credentials = new NetworkCredential("heregteam@gmail.com", "teamhereg!1");
         //(1)
         client.UseDefaultCredentials = true;
-        //(2)
+        //(2) 
         client.Credentials = new System.Net.NetworkCredential("heregteam@gmail.com", "teamhereg");
-        client.Send(message);
-
-        
+        client.Send(message); 
     }
 
     public void GetUsersAuctions() { }
