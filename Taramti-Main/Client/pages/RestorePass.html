@@ -23,6 +23,87 @@
     <![endif]-->
     <!-- AJAX -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <script>
+        function scorePassword() {
+            var pass = $("#newPass").val();
+            var score = 0;
+            if (!pass)
+                return score;
+
+            // award every unique letter until 5 repetitions
+            var letters = new Object();
+            for (var i = 0; i < pass.length; i++) {
+                letters[pass[i]] = (letters[pass[i]] || 0) + 1;
+                score += 5.0 / letters[pass[i]];
+            }
+
+            // bonus points for mixing it up
+            var variations = {
+                digits: /\d/.test(pass),
+                lower: /[a-z]/.test(pass),
+                upper: /[A-Z]/.test(pass),
+                nonWords: /\W/.test(pass),
+            }
+
+            variationCount = 0;
+            for (var check in variations) {
+                variationCount += (variations[check] == true) ? 1 : 0;
+            }
+            score += (variationCount - 1) * 10;
+
+            $("#lbl").text(checkPassStrength(parseInt(score)));
+            //return parseInt(score);
+        }
+
+        function checkPassStrength(pass) {
+            var score =pass;
+            if (score > 80)
+                return "סיסמא חזקה";
+            if (score > 60)
+                return "סיסמא טובה";
+            if (score >= 30)
+                return "סיסמא חלשה";
+            if (score < 30)
+                return "סיסמא חלשה מאוד";
+
+            return "";
+        }
+
+        function ChangePass()
+            {
+            var userID = $("#userID").val();
+            var pass = $("#newPass").val();
+            $.ajax({
+                dataType: "json",
+                url: "/../WebService.asmx/ChangePass",
+                contentType: "application/json; charset=utf-8",
+                type: "POST",
+                data: JSON.stringify({ id: userID, newPass: pass }),
+                success: function (data) {
+                    var res = JSON.parse(data.d);
+                    if (res) {
+                        $("#headerMsg").text("סיסמתך שונתה בהצלחה")
+                        $("userID").attr('disabled', 'disabled');
+                        $("mail").attr('disabled', 'disabled');
+                        $("send_BTN").attr('disabled', 'disabled');
+                        var $btn_back = $("<a>")
+                        $btn_back.attr("href", "#");
+                        $btn_back.addClass("btn btn-lg btn-success btn-block");
+                        $btn_back.text("חזור לדף התחברות");
+                        $("#btnDiv").append();
+                    }
+                    else {
+                        $("#headerMsg").text("ת.ז או סיסמא שגויים, הזן ת.ז וסיסמא לצורך שינו הסיסמה");
+                    }
+                },
+                error: function (err) {
+                    alert(err.statusText);
+                }
+            });
+        }
+    </script>
+
 </head>
 <body>
     <div class="container">
@@ -30,20 +111,25 @@
             <div class="col-md-4 col-md-offset-4">
                 <div class="login-panel panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">תרמתי בבית - שכחתי סיסמה</h3>
+                        <h3 class="panel-title">תרמתי בבית - יצירת סיסמא חדשה</h3>
                     </div>
                     <div class="panel-body" ng-app="ForgotPassApp">
                         <form role="form">
                             <fieldset>
                                 <div class="form-group">
-                                    <h4 id="headerMsg">הזן ת.ז ואימייל לצורך איפוס סיסמה</h4>
-                                    <input class="form-control" placeholder="ת.ז" name="userID" type="text" autofocus value="123">
+                                    <h4 id="headerMsg">הזן ת.ז וסיסמא חדשה רצויה</h4>
+                                    <input class="form-control" placeholder="ת.ז" name="userID" type="tel"  pattern=".{9,9}" required title="ת.ז חייבת להכיל 9 ספרות" >
                                 </div>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="אימייל" name="email" type="email" value="golan@gmail.com">
+                                    <input class="form-control" id="newPass" placeholder="סיסמא חדשה" pattern="^\S{6,}$" name="pass" type="password" onmouseout="scorePassword()" onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Must have at least 6 characters' : ''); if(this.checkValidity()) form.newPass2.pattern = this.value;" required>
+                                    <!--<input class="form-control" name="Valid" type="text" placeholder="ff" onkeyup="checkPassStrength()"/>-->
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" id="newPass2" placeholder="חזור על סיסמא חדשה" pattern="^\S{6,}$" name="newPass" type="password" onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Please enter the same Password as above' : '');" required>
+                                    <label id="lbl"></label>
                                 </div>
                                 <div id="btnDiv">
-                                    <button id="send_BTN" class="btn btn-lg btn-success btn-block" onclick="sendMail()">שלח מייל</button>
+                                    <button id="send_BTN" class="btn btn-lg btn-success btn-block"  onclick="ChangePass()">שנה סיסמא</button>
                                 </div>
                             </fieldset>
                         </form>
@@ -60,71 +146,7 @@
     <script src="../vendor/metisMenu/metisMenu.min.js"></script>
     <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>
-    <script>
-        function sendMail() {
-            var userID = $("#userID").val();
-            var userMail = $("#mail").val();
-            $.ajax({
-                dataType: "json",
-                url: "/../WebService.asmx/CheckValidUser",
-                contentType: "application/json; charset=utf-8",
-                type: "POST",
-                data: JSON.stringify({ id: userID, mail: userMail }),
-                success: function (data) {
-                    alert("gdfsdsdfds");
-                    var res = JSON.parse(data.d);
-                    if (res) {
-                        $("#headerMsg").text("סיסמתך אופסה בהצלחה")
-                        $("userID").attr('disabled', 'disabled');
-                        $("mail").attr('disabled', 'disabled');
-                        $("send_BTN").attr('disabled', 'disabled');
-                        var $btn_back = $("<a>")
-                        $btn_back.attr("href", "#");
-                        $btn_back.addClass("btn btn-lg btn-success btn-block");
-                        $btn_back.text("חזור לדף התחברות");
-                        $("#btnDiv").append();
-                    }
-                    else {
-                        $("#headerMsg").text("ת.ז או אימייל שגויים, הזן ת.ז ואימייל לצורך איפוס סיסמה");
-                    }
-                },
-                error: function (err) {
-                    alert(err.statusText);
-                }
-            });
-        }
-
-        function sendMail() {
-            //var codey = $('#TB').val();
-            var userID = "111111111";
-            var userMail = "heregteam@gmail.com";
-            $.ajax({
-                dataType: "json",
-                url: "/../WebService.asmx/CheckValidUser",
-                contentType: "application/json; charset=utf-8",
-                type: "POST",
-                async: false,
-                data: JSON.stringify({ id: userID, mail: userMail }),
-                success: function (data) {
-                    var st_arr = JSON.parse(data.d);
-
-
-                    for (i in st_arr) {
-
-                        var $tr = $("<tr>");
-                        var $td_name = $("<td>").text(st_arr[i][0]);
-
-
-                        $tr.append($td_name);
-                        $("#Association_Div ").append($tr);
-                    }
-
-                },
-                error: function (err) { }
-            });
-
-        };
-    </script>
+   
 
 </body>
 </html>

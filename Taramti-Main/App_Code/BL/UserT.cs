@@ -10,7 +10,7 @@ using System.Net.Mail;
 /// <summary>
 /// Summary description for Class1
 /// </summary>
-public class User
+public class UserT
 {
     string userId, firstName, lastName, address, mail, password;
     Rank rank;
@@ -124,14 +124,14 @@ public class User
     #endregion
 
     //ctor
-    public User()
+    public UserT()
     {
         //
         // TODO: Add constructor logic here
         //
     }
 
-    public User(string mail, string pass)
+    public UserT(string mail, string pass)
     {
         Mail = mail;
         Password = pass;
@@ -305,6 +305,14 @@ public class User
         db.ExecuteQuery(sqlDelete, CommandType.Text, parUser);
     }
 
+    public void ChangePass(string pass)
+    {
+        string StrSql = "UPDATE [dbo].[users] SET password ='" + pass + "' WHERE user_id = @userID";
+        SqlParameter parUser = new SqlParameter("@userID", UserId);
+        DbService db = new DbService();
+        db.ExecuteQuery(StrSql, CommandType.Text, parUser);
+    }
+
     public void GetUserDetails() { }
 
     public void GetUserBids() { }
@@ -312,6 +320,7 @@ public class User
     public void GetUserProducts() { }
 
     public void SendPushToUsers() { }
+
     #endregion
 
 }

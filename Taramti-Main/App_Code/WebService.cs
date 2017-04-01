@@ -78,4 +78,12 @@ public class WebService : System.Web.Services.WebService
         return "true";
     }
 
+    public string ChangePass(string id , string newPass)
+    {
+        UserT temp_user = new UserT();
+        temp_user.UserId = id;
+        temp_user.ChangePass(newPass);
+        return "";
+    }
+
     }

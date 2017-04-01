@@ -41,13 +41,14 @@ public class AdminWebService : System.Web.Services.WebService
     public string GetAssociationByCode(string code)
     {
         JavaScriptSerializer j = new JavaScriptSerializer();
-        return j.Serialize(Voluntary_association.GetAssociationByCode("100"));
+        return j.Serialize(Voluntary_association.GetAssociationByCode(code));
     }
     [WebMethod]
     public string GetAllUsers()
     {
         JavaScriptSerializer j = new JavaScriptSerializer();
-        return j.Serialize(UserT.GetAllUsers());
+        //return j.Serialize(UserT.GetAllUsers());
+        return "";
     }
 
 }
