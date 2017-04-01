@@ -1,0 +1,130 @@
+﻿<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>תרמתי בבית - התחברות</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- MetisMenu CSS -->
+    <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+    <!-- Custom Fonts -->
+    <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- AJAX -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="login-panel panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">תרמתי בבית - שכחתי סיסמה</h3>
+                    </div>
+                    <div class="panel-body" ng-app="ForgotPassApp">
+                        <form role="form">
+                            <fieldset>
+                                <div class="form-group">
+                                    <h4 id="headerMsg">הזן ת.ז ואימייל לצורך איפוס סיסמה</h4>
+                                    <input class="form-control" placeholder="ת.ז" name="userID" type="text" autofocus value="123">
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="אימייל" name="email" type="email" value="golan@gmail.com">
+                                </div>
+                                <div id="btnDiv">
+                                    <button id="send_BTN" class="btn btn-lg btn-success btn-block" onclick="sendMail()">שלח מייל</button>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- jQuery -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="../vendor/metisMenu/metisMenu.min.js"></script>
+    <!-- Custom Theme JavaScript -->
+    <script src="../dist/js/sb-admin-2.js"></script>
+    <script>
+        function sendMail() {
+            var userID = $("#userID").val();
+            var userMail = $("#mail").val();
+            $.ajax({
+                dataType: "json",
+                url: "/../WebService.asmx/CheckValidUser",
+                contentType: "application/json; charset=utf-8",
+                type: "POST",
+                data: JSON.stringify({ id: userID, mail: userMail }),
+                success: function (data) {
+                    alert("gdfsdsdfds");
+                    var res = JSON.parse(data.d);
+                    if (res) {
+                        $("#headerMsg").text("סיסמתך אופסה בהצלחה")
+                        $("userID").attr('disabled', 'disabled');
+                        $("mail").attr('disabled', 'disabled');
+                        $("send_BTN").attr('disabled', 'disabled');
+                        var $btn_back = $("<a>")
+                        $btn_back.attr("href", "#");
+                        $btn_back.addClass("btn btn-lg btn-success btn-block");
+                        $btn_back.text("חזור לדף התחברות");
+                        $("#btnDiv").append();
+                    }
+                    else {
+                        $("#headerMsg").text("ת.ז או אימייל שגויים, הזן ת.ז ואימייל לצורך איפוס סיסמה");
+                    }
+                },
+                error: function (err) {
+                    alert(err.statusText);
+                }
+            });
+        }
+
+        function sendMail() {
+            //var codey = $('#TB').val();
+            var userID = "111111111";
+            var userMail = "heregteam@gmail.com";
+            $.ajax({
+                dataType: "json",
+                url: "/../WebService.asmx/CheckValidUser",
+                contentType: "application/json; charset=utf-8",
+                type: "POST",
+                async: false,
+                data: JSON.stringify({ id: userID, mail: userMail }),
+                success: function (data) {
+                    var st_arr = JSON.parse(data.d);
+
+
+                    for (i in st_arr) {
+
+                        var $tr = $("<tr>");
+                        var $td_name = $("<td>").text(st_arr[i][0]);
+
+
+                        $tr.append($td_name);
+                        $("#Association_Div ").append($tr);
+                    }
+
+                },
+                error: function (err) { }
+            });
+
+        };
+    </script>
+
+</body>
+</html>
