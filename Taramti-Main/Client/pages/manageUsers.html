@@ -49,6 +49,10 @@
             <!-- /.row -->
             <div class="row">
                 <div class="col-lg-12">
+                    <div class="radio-inline-custom">
+                        <input type="radio" name="activeRB" checked="checked" class="radio-custom"/> <span class="radio-custom">הצג משתמשים פעילים</span> 
+                        <input type="radio" name="activeRB" class="radio-custom" /> <span class="radio-custom"> הצג משתמשים לא פעילים</span>
+                    </div>
                     <div class="panel panel-default">
                         <div class="panel-heading">
                         </div>
@@ -102,6 +106,12 @@
     <script>
         $(document).ready(function () {
             $('#usersMNG_TBL').DataTable({
+                columns: [
+                        { title: "ת.ז", orderable: false},
+                        { title: "שם", data: UserId },
+                        { title: "ניקוד", data: UserId },
+                        { title: "מורשה עמותות", data:UserId },
+                        { title: "פעיל", orderable: false, data: UserId }],
                 responsive: true
             });
             $('#usersMNG_TBL td.dataTables_empty').parent().remove();
@@ -191,16 +201,18 @@
                 } //end assign "set" for
 
                 $('#usersMNG_TBL').DataTable({
-                    data: usersSet.ee,
+                    //data: prmRes,
                     columns: [
-                        { title: "ת.ז" },
-                        { title: "שם" },
-                        { title: "ניקוד" },
-                        { title: "מורשה עמותות" },
-                        { title: "פעיל" }
+                        { title: "ת.ז", orderable: false, data: UserId },
+                        { title: "שם", data: UserId },
+                        { title: "ניקוד", data: UserId },
+                        { title: "מורשה עמותות", data:UserId },
+                        { title: "פעיל", orderable: false, data: UserId }
                     ],
                     responsive: true
                 });
+
+
                 //for (var tempUser of usersSet) { //add to table
                 //    var $tr = $("<tr>");
                 //    var $idTd = $("<td>").text(tempUser.id);
@@ -212,7 +224,7 @@
                 //    $('#usersMNG_TBL').append($tr);
                 //} //end add to table for
 
-            });//end promise success
+            });//end promise - success
 
         }
     </script>-->

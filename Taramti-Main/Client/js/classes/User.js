@@ -5,7 +5,7 @@
         this.name = name;
         this.rank = rank;
         this.assocAmount = assocAmount //כמות העמותות שהמשתמש מורשה גישה אליהן
-        this.active = active;
+        this.active = active == true ? "פעיל" : " לא פעיל";
     } //ctor end
 
 
