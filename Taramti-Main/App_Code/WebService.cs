@@ -78,12 +78,15 @@ public class WebService : System.Web.Services.WebService
         return "true";
     }
 
+    [WebMethod]
     public string ChangePass(string id , string newPass)
     {
         UserT temp_user = new UserT();
         temp_user.UserId = id;
-        temp_user.ChangePass(newPass);
-        return "";
+        temp_user.Password = newPass;
+        temp_user.UpdatePassword();
+        return "1";
+        
     }
 
     }

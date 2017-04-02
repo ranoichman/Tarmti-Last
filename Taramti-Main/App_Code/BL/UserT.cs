@@ -13,6 +13,7 @@ using System.Net.Mail;
 public class UserT
 {
     string userId, firstName, lastName, address, mail, password;
+    bool? active;
     Rank rank;
     City city;
     Item[] items;
@@ -121,6 +122,19 @@ public class UserT
             password = value;
         }
     }
+
+    public bool? Active
+    {
+        get
+        {
+            return active;
+        }
+
+        set
+        {
+            active = value;
+        }
+    }
     #endregion
 
     //ctor
@@ -129,6 +143,16 @@ public class UserT
         //
         // TODO: Add constructor logic here
         //
+    }
+
+
+    public UserT(string userId, string firstName, string lastName, bool? active,Rank tempRank)
+    {
+        UserId = userId;
+        FirstName = firstName;
+        LastName = lastName;
+        Active = active;
+        Rank = tempRank;
     }
 
     public UserT(string mail, string pass)
