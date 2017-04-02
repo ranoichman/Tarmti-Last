@@ -73,39 +73,42 @@
         function ChangePass()
         {
          
-            var userID = $("#userID").val();
-            var pass = $("#newPass").val();
-            //var userID = "302921481";
-            //var pass = "121212";
-            $.ajax({
-                dataType: "json",
-                url: "/../WebService.asmx/ChangePass",
-                contentType: "application/json; charset=utf-8",
-                type: "POST",
-                data: JSON.stringify({ id: userID, newPass: pass }),
-                success: function (data) {
-                    var res = JSON.parse(data.d);
-                    if (res) {
-                        alert("YOYOMA");
-                        //$("#headerMsg").text("סיסמתך שונתה בהצלחה")
-                        //$("userID").attr('disabled', 'disabled');
-                        //$("mail").attr('disabled', 'disabled');
-                        //$("send_BTN").attr('disabled', 'disabled');
+            if ($("#newPass").val() == $("#newPass2").val()) {
+                var userID = $("#userID").val();
+                var pass = $("#newPass").val();
+
+                $.ajax({
+                    dataType: "json",
+                    url: "/../WebService.asmx/ChangePass",
+                    contentType: "application/json; charset=utf-8",
+                    type: "POST",
+                    data: JSON.stringify({ id: userID, newPass: pass }),
+                    success: function (data) {
+                        var res = JSON.parse(data.d);
+                        //if (res) {
+                        //alert("YOYOMA");
+                        $("#headerMsg").text("סיסמתך שונתה בהצלחה")
+                        //alert("סיסמתך שונתה בהצלחה");
+                        window.location.replace("login.aspx");
                         //var $btn_back = $("<a>")
-                        //$btn_back.attr("href", "#");
+                        //$btn_back.attr("href", "#login.aspx");
                         //$btn_back.addClass("btn btn-lg btn-success btn-block");
                         //$btn_back.text("חזור לדף התחברות");
-                        //$("#btnDiv").append();
+                        //$("#btnDiv").append($btn_back);
+                        //}
+                        //else {
+                        //$("#headerMsg").text("ת.ז או סיסמא שגויים, הזן ת.ז וסיסמא לצורך שינו הסיסמה");
+                        //}
+                    },
+                    error: function (err) {
+                        alert(err.statusText);
+                        //alert("Yooo");
                     }
-                    else {
-                        $("#headerMsg").text("ת.ז או סיסמא שגויים, הזן ת.ז וסיסמא לצורך שינו הסיסמה");
-                    }
-                },
-                error: function (err) {
-                    ////alert(err.statusText);
-                    //alert("Yooo");
-                }
-            });
+                });
+            }
+            else {
+                alert("הסיסמאות אינם תואמות!");
+            }
         }
     </script>
 
@@ -132,7 +135,7 @@
                                 <div class="form-group">
                                     <input class="form-control" id="newPass2" placeholder="חזור על סיסמא חדשה" pattern="^\S{6,}$" name="newPass" type="password" onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Please enter the same Password as above' : '');" required>
                                     <label id="lbl"></label>
-                                </div>
+                              </div>
                                 <div id="btnDiv">
                                     <button id="send_BTN" class="btn btn-lg btn-success btn-block"  onclick="ChangePass()">שנה סיסמא</button>
                                 </div>
