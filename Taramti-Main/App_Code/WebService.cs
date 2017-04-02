@@ -82,7 +82,8 @@ public class WebService : System.Web.Services.WebService
     {
         UserT temp_user = new UserT();
         temp_user.UserId = id;
-        temp_user.ChangePass(newPass);
+        temp_user.Password = newPass;
+        temp_user.UpdatePassword();
         return "";
     }
 
