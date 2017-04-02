@@ -79,14 +79,13 @@ public class WebService : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string ChangePass(string id , string newPass)
+    public void  ChangePass(string id , string newPass)
     {
         UserT temp_user = new UserT();
         temp_user.UserId = id;
         temp_user.Password = newPass;
         temp_user.UpdatePassword();
-        return "1";
-        
+        //return "true";
     }
 
     }
