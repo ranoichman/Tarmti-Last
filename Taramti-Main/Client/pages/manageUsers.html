@@ -50,8 +50,8 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="radio-inline-custom">
-                        <input type="radio" name="activeRB" checked="checked" class="radio-custom"/> <span class="radio-custom">הצג משתמשים פעילים</span> 
-                        <input type="radio" name="activeRB" class="radio-custom" /> <span class="radio-custom"> הצג משתמשים לא פעילים</span>
+                        <input type="radio" name="activeRB" value="פעיל" checked="checked" class="radio-custom"/> <span class="radio-custom">הצג משתמשים פעילים</span> 
+                        <input type="radio" name="activeRB" value="לא פעיל" class="radio-custom" /> <span class="radio-custom"> הצג משתמשים לא פעילים</span>
                     </div>
                     <div class="panel panel-default">
                         <div class="panel-heading">
@@ -59,7 +59,7 @@
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <table class="table table-striped table-bordered table-hover" id="usersMNG_TBL">
-                                <thead>
+                                <!--<thead>
                                     <tr>
                                         <th id="userID">ת.ז</th>
                                         <th id="userName">שם</th>
@@ -68,7 +68,7 @@
                                         <th id="userActive">פעיל</th>
                                     </tr>
                                 </thead>
-                                <tbody></tbody>
+                                <tbody></tbody>-->
                             </table>
                             <!-- /.table-responsive -->
                             <div class="well">
@@ -103,7 +103,7 @@
     <script src="../dist/js/sb-admin-2.js"></script>
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
     
-    <script>
+    <!--<script>
         $(document).ready(function () {
             $('#usersMNG_TBL').DataTable({
                 columns: [
@@ -161,13 +161,14 @@
             });//end promise success
 
         }
-    </script>
+    </script>-->
 
 
     <!--ניסיונות!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
-    <!--<script>
+    <script>
         $(document).ready(function () {
             $('#usersMNG_TBL td.dataTables_empty').parent().remove();
+            $('#usersMNG_TBL div.dataTables_filter').parent().remove();
             runPromise();
 
         });//doc.ready
@@ -192,28 +193,36 @@
             });
 
             myPromise.then(function (data) {
-
+                var arrUsers = new Array();
+                var j = 0;
                 var usersSet = new Set();
                 var prmRes = JSON.parse(data)
                 for (i in prmRes) { // assign to "set"
                     let fullName = prmRes[i].FirstName + " " + prmRes[i].LastName;
-                    usersSet.add(new userMNG(prmRes[i].UserId, fullName, prmRes[i].Rank.RankDesc, 1, prmRes[i].Active));
+                    //usersSet.add(new userMNG(prmRes[i].UserId, fullName, prmRes[i].Rank.RankDesc, 1, prmRes[i].Active));
+                    arrUsers[j] = [prmRes[i].UserId, fullName, prmRes[i].Rank.RankDesc, 1, prmRes[i].Active? "פעיל": "לא פעיל"];
+                    j++;
                 } //end assign "set" for
 
                 $('#usersMNG_TBL').DataTable({
-                    //data: prmRes,
+                    data: arrUsers,
                     columns: [
-                        { title: "ת.ז", orderable: false, data: UserId },
-                        { title: "שם", data: UserId },
-                        { title: "ניקוד", data: UserId },
-                        { title: "מורשה עמותות", data:UserId },
-                        { title: "פעיל", orderable: false, data: UserId }
+                        { title: "ת.ז", orderable: false,},
+                        { title: "שם"},
+                        { title: "ניקוד"},
+                        { title: "מורשה עמותות"},
+                        { title: "פעיל", orderable: false}
                     ],
                     responsive: true
                 });
 
+                toggleActive();
 
                 //for (var tempUser of usersSet) { //add to table
+                  
+
+
+
                 //    var $tr = $("<tr>");
                 //    var $idTd = $("<td>").text(tempUser.id);
                 //    var $nameTd = $("<td>").text(tempUser.name);
@@ -222,12 +231,33 @@
                 //    var $activeTd = $("<td>").text(tempUser.active);
                 //    $tr.append($idTd, $nameTd, $rankTd, $assocTd, $activeTd);
                 //    $('#usersMNG_TBL').append($tr);
+
                 //} //end add to table for
 
             });//end promise - success
 
         }
-    </script>-->
+
+
+        function toggleActive() {
+            var $data_table = $('#usersMNG_TBL').DataTable();
+            var column_index = 4; //מס' עמודה לפילטור
+            //var radio = $("input[name='RadioGroup1']:checked").val();
+            var radio = "פעיל";
+            
+//$data_table.columns(0).search(radio, true, false).draw();
+           // $data_table.columns(1).search(radio, true, false).draw();
+           // $data_table.columns(2).search(radio, true, false).draw();
+            //$data_table.columns(3).search(radio, true, false).draw();
+            $data_table.columns(4).search(radio, false, false).draw();
+            $data_table.columns().search()
+
+        }
+
+
+
+
+    </script>
 
 
 </body>
