@@ -39,9 +39,14 @@ public partial class Client_pages_login : System.Web.UI.Page
             Session["counter"] = 0; //מונה לבדיקת מס' הפעמים שהמשתמש טעה - שליחה לדף איפוס אחרי 5 בדיקות
         }
 
-        User temp = new User(mail_TB.Text, pass_TB.Text);
+        UserT temp = new UserT(mail_TB.Text, pass_TB.Text);
         if (temp.CheckLogin()) //בדיקה אם משתמש קיים ופרטים נכונים
         {
+            // בדיקה האם המשתמש עם סיסמא זמנית. אם כן - נשלח אותו ליצירת סיסמא חדשה
+            if (temp.Password == "000000")
+            {
+                Server.Transfer("RestorePass.html");
+            }
             int auth = temp.CheckAuthDesktop(); //בדיקה אם יש הרשאה לדף ניהול
             Session["UserID"] = temp.UserId;
             if (remember_CB.Checked && auth!=-1)

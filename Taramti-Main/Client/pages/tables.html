@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>SB Admin 2 - Bootstrap Admin Theme</title>
+    <title>ניהול משתמשים</title>
     <!-- Bootstrap Core CSS -->
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- MetisMenu CSS -->
@@ -28,10 +28,17 @@
     <!-- our CSS -->
     <link href="../css/formCSS.css" rel="stylesheet" />
 
+    <!-- AJAX -->
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>-->
+    
+    <!-- User JS Class-->
+    <script src="../js/classes/User.js"></script>
+
+
 </head>
+
 <body dir="rtl">
     <div id="wrapper">
-        <!-- Navigation -->
 
         <div id="page-wrapper" style="margin: 0 0 0 0;">
             <div class="row">
@@ -45,7 +52,6 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            DataTables Advanced Tables
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
@@ -370,6 +376,7 @@
         </div>
         <!-- /#page-wrapper -->
     </div>
+
     <!-- /#wrapper -->
     <!-- jQuery -->
     <script src="../vendor/jquery/jquery.min.js"></script>
@@ -377,19 +384,73 @@
     <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
     <!-- Metis Menu Plugin JavaScript -->
     <script src="../vendor/metisMenu/metisMenu.min.js"></script>
+    
     <!-- DataTables JavaScript -->
     <script src="../vendor/datatables/js/jquery.dataTables.min.js"></script>
-    <script src="../vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
+    <!--<script src="../vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>-->
     <script src="../vendor/datatables-responsive/dataTables.responsive.js"></script>
     <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
+    
+    <script>
+        
+    </script>
+    
+    
+    
     <script>
         $(document).ready(function () {
             $('#usersMNG_TBL').DataTable({
                 responsive: true
             });
-        });
+            $('#usersMNG_TBL td.dataTables_empty').parent().remove();
+            runPromise();
+            
+        });//doc.ready
+
+        function runPromise() {
+            var myPromise = new Promise(function (resolve, reject) {
+                $.ajax({
+                    dataType: "json",
+                    url: "/../AdminWebService.asmx/GetAllUsers",
+                    contentType: "application/json; charset=utf-8",
+                    type: "POST",
+                    data: JSON.stringify({}),
+                    success: function (data) {
+                        resolve(data.d);
+                    },
+                    error: function (err) {
+                        return err;
+                    }
+                });
+                //resolve(userMNG.getAll());
+
+            });
+
+            myPromise.then(function (data) {
+
+                var usersSet = new Set();
+                var prmRes = JSON.parse(data)
+                for (i in prmRes) { // assign to "set"
+                    let fullName = prmRes[i].FirstName + " " + prmRes[i].LastName;
+                    usersSet.add(new userMNG(prmRes[i].UserId, fullName, prmRes[i].Rank.RankDesc, 1, prmRes[i].Active));
+                } //end assign "set" for
+
+                for (var tempUser of usersSet) { //add to table
+                    var $tr = $("<tr>");
+                    var $idTd = $("<td>").text(tempUser.id);
+                    var $nameTd = $("<td>").text(tempUser.name);
+                    var $rankTd = $("<td>").text(tempUser.rank);
+                    var $assocTd = $("<td>").text(tempUser.assocAmount);
+                    var $activeTd = $("<td>").text(tempUser.active);
+                    $tr.append($idTd, $nameTd, $rankTd, $assocTd, $activeTd);
+                    $('#usersMNG_TBL').append($tr);
+                } //end add to table for
+
+            });//end promise success
+
+        }
     </script>
 </body>
 </html>

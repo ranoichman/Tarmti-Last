@@ -11,7 +11,7 @@ public class City
     //fields
     int cityCode;
     string cityName;
-    User[] users;
+    UserT[] users;
 
     //props
     #region
@@ -27,7 +27,7 @@ public class City
         set { cityCode = value; }
     }
 
-    public User[] Users
+    public UserT[] Users
     {
         get
         {

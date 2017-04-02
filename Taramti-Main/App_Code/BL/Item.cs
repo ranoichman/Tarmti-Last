@@ -9,14 +9,14 @@ using System.Web;
 public class Item
 {
     //fields
-     User user;
+     UserT user;
      Item_Bid[] item_Bids;
      Item_Category[] item_Categories;
 	 Picture[] pictures;
 
     //props
     #region
-    public User User
+    public UserT User
     {
         get
         {

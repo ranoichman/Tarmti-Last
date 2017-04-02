@@ -12,7 +12,7 @@ using System.Web.Script.Serialization;
 [WebService(Namespace = "http://tempuri.org/")]
 [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
 // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
- [System.Web.Script.Services.ScriptService]
+[System.Web.Script.Services.ScriptService]
 public class WebService : System.Web.Services.WebService
 {
 
@@ -33,12 +33,12 @@ public class WebService : System.Web.Services.WebService
     [WebMethod]
     public Voluntary_association GetAssociationInfo(string code)
     {
-       // Voluntary_association V = new Voluntary_association();
+        // Voluntary_association V = new Voluntary_association();
         DataTable DT = new DataTable();
         List<string> L = Voluntary_association.GetAssociationByCode(code);
         if (DT.Rows.Count > 0)
         {
-           return  new Voluntary_association(DT.Rows[0][0].ToString(), DT.Rows[0][1].ToString(), DT.Rows[0][2].ToString());
+            return new Voluntary_association(DT.Rows[0][0].ToString(), DT.Rows[0][1].ToString(), DT.Rows[0][2].ToString());
         }
         else
         {
@@ -50,7 +50,7 @@ public class WebService : System.Web.Services.WebService
     [WebMethod]
     public List<Voluntary_association> GetAllAssociations()
     {
-       // Voluntary_association V = new Voluntary_association();
+        // Voluntary_association V = new Voluntary_association();
         DataTable DT = new DataTable();
         List<Voluntary_association> L = Voluntary_association.GetAllAssociations();
         if (DT.Rows.Count > 0)
@@ -67,7 +67,7 @@ public class WebService : System.Web.Services.WebService
     [WebMethod]
     public string CheckValidUser(string id, string mail)
     {
-        User temp_user = new User();
+        UserT temp_user = new UserT();
         temp_user.Mail = mail;
         temp_user.UserId = id;
         if (temp_user.CheckForResetPass())
@@ -77,4 +77,16 @@ public class WebService : System.Web.Services.WebService
         }
         return "true";
     }
+
+    [WebMethod]
+    public string ChangePass(string id, string newPass)
+    {
+        UserT temp_user = new UserT();
+        temp_user.UserId = id;
+        temp_user.Password = newPass;
+        temp_user.UpdatePassword();
+        return "true";
+
+    }
+
 }

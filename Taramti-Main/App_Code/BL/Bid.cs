@@ -11,7 +11,7 @@ public abstract class Bid
     //fields
      int id;
      DateTime dateTime;
-     User buyer;
+     UserT buyer;
 
     //props
     #region
@@ -41,7 +41,7 @@ public abstract class Bid
         }
     }
 
-    public User Buyer
+    public UserT Buyer
     {
         get
         {

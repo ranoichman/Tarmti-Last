@@ -1,0 +1,160 @@
+﻿<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>תרמתי בבית - התחברות</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- MetisMenu CSS -->
+    <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+    <!-- Custom Fonts -->
+    <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- AJAX -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <script>
+        function scorePassword() {
+            var pass = $("#newPass").val();
+            var score = 0;
+            if (!pass)
+                return score;
+
+            // award every unique letter until 5 repetitions
+            var letters = new Object();
+            for (var i = 0; i < pass.length; i++) {
+                letters[pass[i]] = (letters[pass[i]] || 0) + 1;
+                score += 5.0 / letters[pass[i]];
+            }
+
+            // bonus points for mixing it up
+            var variations = {
+                digits: /\d/.test(pass),
+                lower: /[a-z]/.test(pass),
+                upper: /[A-Z]/.test(pass),
+                nonWords: /\W/.test(pass),
+            }
+
+            variationCount = 0;
+            for (var check in variations) {
+                variationCount += (variations[check] == true) ? 1 : 0;
+            }
+            score += (variationCount - 1) * 10;
+
+            $("#lbl").text(checkPassStrength(parseInt(score)));
+            //return parseInt(score);
+        }
+
+        function checkPassStrength(pass) {
+            var score =pass;
+            if (score > 80)
+                return "סיסמא חזקה";
+            if (score > 60)
+                return "סיסמא טובה";
+            if (score >= 30)
+                return "סיסמא חלשה";
+            if (score < 30)
+                return "סיסמא חלשה מאוד";
+
+            return "";
+        }
+
+        function ChangePass()
+        {
+         
+            if ($("#newPass").val() == $("#newPass2").val()) {
+                var userID = $("#userID").val();
+                var pass = $("#newPass").val();
+
+                $.ajax({
+                    dataType: "json",
+                    url: "/../WebService.asmx/ChangePass",
+                    contentType: "application/json; charset=utf-8",
+                    type: "POST",
+                    data: JSON.stringify({ id: userID, newPass: pass }),
+                    success: function (data) {
+                        var res = JSON.parse(data.d);
+                        //if (res) {
+                        //alert("YOYOMA");
+                        $("#headerMsg").text("סיסמתך שונתה בהצלחה")
+                        //alert("סיסמתך שונתה בהצלחה");
+                        window.location.replace("login.aspx");
+                        //var $btn_back = $("<a>")
+                        //$btn_back.attr("href", "#login.aspx");
+                        //$btn_back.addClass("btn btn-lg btn-success btn-block");
+                        //$btn_back.text("חזור לדף התחברות");
+                        //$("#btnDiv").append($btn_back);
+                        //}
+                        //else {
+                        //$("#headerMsg").text("ת.ז או סיסמא שגויים, הזן ת.ז וסיסמא לצורך שינו הסיסמה");
+                        //}
+                    },
+                    error: function (err) {
+                        alert(err.statusText);
+                        //alert("Yooo");
+                    }
+                });
+            }
+            else {
+                alert("הסיסמאות אינם תואמות!");
+            }
+        }
+    </script>
+
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="login-panel panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">תרמתי בבית - יצירת סיסמא חדשה</h3>
+                    </div>
+                    <div class="panel-body" ng-app="ForgotPassApp">
+                        <form role="form">
+                            <fieldset>
+                                <div class="form-group">
+                                    <h4 id="headerMsg">הזן ת.ז וסיסמא חדשה רצויה</h4>
+                                    <input class="form-control" placeholder="ת.ז" id="userID" name="userID" type="tel"  pattern=".{9,9}" required title="ת.ז חייבת להכיל 9 ספרות" >
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" id="newPass" placeholder="סיסמא חדשה" pattern="^\S{6,}$" name="pass" type="password" onmouseout="scorePassword()" onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Must have at least 6 characters' : ''); if(this.checkValidity()) form.newPass2.pattern = this.value;" required>
+                                    <!--<input class="form-control" name="Valid" type="text" placeholder="ff" onkeyup="checkPassStrength()"/>-->
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" id="newPass2" placeholder="חזור על סיסמא חדשה" pattern="^\S{6,}$" name="newPass" type="password" onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Please enter the same Password as above' : '');" required>
+                                    <label id="lbl"></label>
+                              </div>
+                                <div id="btnDiv">
+                                    <button id="send_BTN" class="btn btn-lg btn-success btn-block"  onclick="ChangePass()">שנה סיסמא</button>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- jQuery -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="../vendor/metisMenu/metisMenu.min.js"></script>
+    <!-- Custom Theme JavaScript -->
+    <script src="../dist/js/sb-admin-2.js"></script>
+   
+
+</body>
+</html>

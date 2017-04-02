@@ -125,7 +125,6 @@
                 success: function (data) {
                     var st_arr = JSON.parse(data.d);
 
-
                     for (i in st_arr) {
 
                         var $tr = $("<tr>");
@@ -135,7 +134,6 @@
                         $tr.append($td_name);
                         $("#Association_Div ").append($tr);
                     }
-                    
                 },
                 error: function (err) { }
             });
