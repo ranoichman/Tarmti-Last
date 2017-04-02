@@ -71,9 +71,12 @@
         }
 
         function ChangePass()
-            {
-            var userID = $("#userID").val();
-            var pass = $("#newPass").val();
+        {
+         
+            //var userID = $("#userID").val();
+            //var pass = $("#newPass").val();
+            var userID = "302921481";
+            var pass = "121212";
             $.ajax({
                 dataType: "json",
                 url: "/../WebService.asmx/ChangePass",
@@ -83,22 +86,24 @@
                 success: function (data) {
                     var res = JSON.parse(data.d);
                     if (res) {
-                        $("#headerMsg").text("סיסמתך שונתה בהצלחה")
-                        $("userID").attr('disabled', 'disabled');
-                        $("mail").attr('disabled', 'disabled');
-                        $("send_BTN").attr('disabled', 'disabled');
-                        var $btn_back = $("<a>")
-                        $btn_back.attr("href", "#");
-                        $btn_back.addClass("btn btn-lg btn-success btn-block");
-                        $btn_back.text("חזור לדף התחברות");
-                        $("#btnDiv").append();
+                        alert("YOYOMA");
+                        //$("#headerMsg").text("סיסמתך שונתה בהצלחה")
+                        //$("userID").attr('disabled', 'disabled');
+                        //$("mail").attr('disabled', 'disabled');
+                        //$("send_BTN").attr('disabled', 'disabled');
+                        //var $btn_back = $("<a>")
+                        //$btn_back.attr("href", "#");
+                        //$btn_back.addClass("btn btn-lg btn-success btn-block");
+                        //$btn_back.text("חזור לדף התחברות");
+                        //$("#btnDiv").append();
                     }
                     else {
                         $("#headerMsg").text("ת.ז או סיסמא שגויים, הזן ת.ז וסיסמא לצורך שינו הסיסמה");
                     }
                 },
                 error: function (err) {
-                    alert(err.statusText);
+                    ////alert(err.statusText);
+                    //alert("Yooo");
                 }
             });
         }
@@ -118,7 +123,7 @@
                             <fieldset>
                                 <div class="form-group">
                                     <h4 id="headerMsg">הזן ת.ז וסיסמא חדשה רצויה</h4>
-                                    <input class="form-control" placeholder="ת.ז" name="userID" type="tel"  pattern=".{9,9}" required title="ת.ז חייבת להכיל 9 ספרות" >
+                                    <input class="form-control" placeholder="ת.ז" id="userID" name="userID" type="tel"  pattern=".{9,9}" required title="ת.ז חייבת להכיל 9 ספרות" >
                                 </div>
                                 <div class="form-group">
                                     <input class="form-control" id="newPass" placeholder="סיסמא חדשה" pattern="^\S{6,}$" name="pass" type="password" onmouseout="scorePassword()" onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Must have at least 6 characters' : ''); if(this.checkValidity()) form.newPass2.pattern = this.value;" required>
