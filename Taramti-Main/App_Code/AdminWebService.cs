@@ -47,8 +47,8 @@ public class AdminWebService : System.Web.Services.WebService
     public string GetAllUsers()
     {
         JavaScriptSerializer j = new JavaScriptSerializer();
-        //return j.Serialize(UserT.GetAllUsers());
-        return "";
+        return j.Serialize(UserT.GetAllUsers());
+        
     }
 
 }

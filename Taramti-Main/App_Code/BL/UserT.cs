@@ -95,7 +95,7 @@ public class UserT
             bids = value;
         }
     }
-
+     
     public string Mail
     {
         get
@@ -289,6 +289,41 @@ public class UserT
         client.Send(message); 
     }
 
+    //מתודה להבאת פרטי יוזרים לטבלת ניהול משתמשים בדף אדמין
+    internal static List<UserT> GetAllUsers()
+    {
+        List<UserT> li_rtn = new List<UserT>();
+        string sqlSelect = @"SELECT dbo.users.user_id, dbo.users.first_name ,dbo.users.last_name, dbo.users.active, SUM(dbo.auction.score) AS rank
+                              FROM dbo.auction RIGHT OUTER JOIN dbo.users ON
+                              dbo.auction.buyer_id = dbo.users.user_id OR dbo.auction.seller_id = dbo.users.user_id
+                             GROUP BY dbo.users.user_id, dbo.users.first_name, dbo.users.last_name, dbo.users.active";
+        DbService db = new DbService();
+        DataTable usersDT = db.GetDataSetByQuery(sqlSelect).Tables[0];
+        List<Rank> ranksList = Rank.GetAllRanks();
+        foreach (DataRow row in usersDT.Rows)
+        {
+            string id = row["user_id"].Equals(DBNull.Value) ? "" : row["user_id"].ToString();
+            string fName = row["first_name"].Equals(DBNull.Value) ? "" : row["first_name"].ToString();
+            string lName = row["last_name"].Equals(DBNull.Value) ? "" : row["last_name"].ToString();
+            bool? active = row["active"].Equals(DBNull.Value) ? false : bool.Parse(row["active"].ToString());
+            int rankSum = row["rank"].Equals(DBNull.Value) ? 0 : int.Parse(row["rank"].ToString());
+            Rank tempRank = new Rank();
+            foreach (Rank item in ranksList)
+            {
+
+                if ((rankSum >= item.Minimum) && (rankSum <= item.Max))
+                {
+                    tempRank = item;
+                    break;
+                }
+            }
+
+            li_rtn.Add(new UserT(id, fName, lName, active, tempRank));
+        }
+
+        return li_rtn;
+    }
+
     public void GetUsersAuctions() { }
 
     public void ShowAvgRank() { }
@@ -303,14 +338,6 @@ public class UserT
         SqlParameter parUser = new SqlParameter("@userID", UserId);
         DbService db = new DbService();
         db.ExecuteQuery(sqlDelete, CommandType.Text, parUser);
-    }
-
-    public void ChangePass(string pass)
-    {
-        string StrSql = "UPDATE [dbo].[users] SET password ='" + pass + "' WHERE user_id = @userID";
-        SqlParameter parUser = new SqlParameter("@userID", UserId);
-        DbService db = new DbService();
-        db.ExecuteQuery(StrSql, CommandType.Text, parUser);
     }
 
     public void GetUserDetails() { }
