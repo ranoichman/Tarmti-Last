@@ -49,27 +49,17 @@
             <!-- /.row -->
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="radio-inline-custom">
-                        <input type="radio" name="activeRB" value="פעיל" checked="checked" class="radio-custom"/> <span class="radio-custom">הצג משתמשים פעילים</span> 
-                        <input type="radio" name="activeRB" value="לא פעיל" class="radio-custom" /> <span class="radio-custom"> הצג משתמשים לא פעילים</span>
-                    </div>
+
                     <div class="panel panel-default">
                         <div class="panel-heading">
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
-                            <table class="table table-striped table-bordered table-hover" id="usersMNG_TBL">
-                                <!--<thead>
-                                    <tr>
-                                        <th id="userID">ת.ז</th>
-                                        <th id="userName">שם</th>
-                                        <th id="userRank">ניקוד</th>
-                                        <th id="userAsc">מורשה עמותות</th>
-                                        <th id="userActive">פעיל</th>
-                                    </tr>
-                                </thead>
-                                <tbody></tbody>-->
-                            </table>
+                            <div class="radio-inline-custom">
+                                <input type="radio" name="activeRB" value="פעיל" checked="checked" class="radio-custom" /> <span class="radio-custom">הצג משתמשים פעילים</span>
+                                <input type="radio" name="activeRB" value="לא פעיל" class="radio-custom" /> <span class="radio-custom"> הצג משתמשים לא פעילים</span>
+                            </div>
+                            <table class="table order-column table-bordered table-striped table-hover" id="usersMNG_TBL"></table>
                             <!-- /.table-responsive -->
                             <div class="well">
                                 <h4>DataTables Usage Information</h4>
@@ -95,102 +85,44 @@
     <!-- Metis Menu Plugin JavaScript -->
     <script src="../vendor/metisMenu/metisMenu.min.js"></script>
 
+    <!-- bootbox popups Plugin JavaScript -->
+    <script src="../vendor/popups/bootbox.min.js"></script>
+
     <!-- DataTables JavaScript -->
     <script src="../vendor/datatables/js/jquery.dataTables.min.js"></script>
-    <!--<script src="../vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>-->
+    <script src="../vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
     <script src="../vendor/datatables-responsive/dataTables.responsive.js"></script>
+
     <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
-    
-    <!--<script>
-        $(document).ready(function () {
-            $('#usersMNG_TBL').DataTable({
-                columns: [
-                        { title: "ת.ז", orderable: false},
-                        { title: "שם", data: UserId },
-                        { title: "ניקוד", data: UserId },
-                        { title: "מורשה עמותות", data:UserId },
-                        { title: "פעיל", orderable: false, data: UserId }],
-                responsive: true
-            });
-            $('#usersMNG_TBL td.dataTables_empty').parent().remove();
-            runPromise();
 
-        });//doc.ready
-
-        function runPromise() {
-            var myPromise = new Promise(function (resolve, reject) {
-                $.ajax({
-                    dataType: "json",
-                    url: "/../AdminWebService.asmx/GetAllUsers",
-                    contentType: "application/json; charset=utf-8",
-                    type: "POST",
-                    data: JSON.stringify({}),
-                    success: function (data) {
-                        resolve(data.d);
-                    },
-                    error: function (err) {
-                        return err;
-                    }
-                });
-                //resolve(userMNG.getAll());
-
-            });
-
-            myPromise.then(function (data) {
-
-                var usersSet = new Set();
-                var prmRes = JSON.parse(data)
-                for (i in prmRes) { // assign to "set"
-                    let fullName = prmRes[i].FirstName + " " + prmRes[i].LastName;
-                    usersSet.add(new userMNG(prmRes[i].UserId, fullName, prmRes[i].Rank.RankDesc, 1, prmRes[i].Active));
-                } //end assign "set" for
-
-                for (var tempUser of usersSet) { //add to table
-                    var $tr = $("<tr>");
-                    var $idTd = $("<td>").text(tempUser.id);
-                    var $nameTd = $("<td>").text(tempUser.name);
-                    var $rankTd = $("<td>").text(tempUser.rank);
-                    var $assocTd = $("<td>").text(tempUser.assocAmount);
-                    var $activeTd = $("<td>").text(tempUser.active);
-                    $tr.append($idTd, $nameTd, $rankTd, $assocTd, $activeTd);
-                    $('#usersMNG_TBL').append($tr);
-                } //end add to table for
-
-            });//end promise success
-
-        }
-    </script>-->
-
-
-    <!--ניסיונות!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
     <script>
+        var myPromise = new Promise(function (resolve, reject) {
+            $.ajax({
+                dataType: "json",
+                url: "/../AdminWebService.asmx/GetAllUsers",
+                contentType: "application/json; charset=utf-8",
+                type: "POST",
+                data: JSON.stringify({}),
+                success: function (data) {
+                    resolve(data.d);
+                },
+                error: function (err) {
+                    return err;
+                }
+            });
+            //resolve(userMNG.getAll());
+
+        });
+
         $(document).ready(function () {
-            $('#usersMNG_TBL td.dataTables_empty').parent().remove();
-            $('#usersMNG_TBL div.dataTables_filter').parent().remove();
+
             runPromise();
 
         });//doc.ready
 
         function runPromise() {
-            var myPromise = new Promise(function (resolve, reject) {
-                $.ajax({
-                    dataType: "json",
-                    url: "/../AdminWebService.asmx/GetAllUsers",
-                    contentType: "application/json; charset=utf-8",
-                    type: "POST",
-                    data: JSON.stringify({}),
-                    success: function (data) {
-                        resolve(data.d);
-                    },
-                    error: function (err) {
-                        return err;
-                    }
-                });
-                //resolve(userMNG.getAll());
-
-            });
 
             myPromise.then(function (data) {
                 var arrUsers = new Array();
@@ -199,64 +131,152 @@
                 var prmRes = JSON.parse(data)
                 for (i in prmRes) { // assign to "set"
                     let fullName = prmRes[i].FirstName + " " + prmRes[i].LastName;
-                    //usersSet.add(new userMNG(prmRes[i].UserId, fullName, prmRes[i].Rank.RankDesc, 1, prmRes[i].Active));
-                    arrUsers[j] = [prmRes[i].UserId, fullName, prmRes[i].Rank.RankDesc, 1, prmRes[i].Active? "פעיל": "לא פעיל"];
+                    usersSet.add(new userMNG(prmRes[i].UserId, fullName, prmRes[i].Rank.RankDesc, 1, prmRes[i].Active));
+                    arrUsers[j] = [prmRes[i].UserId, fullName, prmRes[i].Rank.RankDesc, 1, prmRes[i].Active ? "פעיל" : "לא פעיל"];
                     j++;
                 } //end assign "set" for
 
+                //הגדרת המידע בטבלה
                 $('#usersMNG_TBL').DataTable({
-                    data: arrUsers,
+                    data: arrUsers, //מקור מידע
                     columns: [
-                        { title: "ת.ז", orderable: false,},
-                        { title: "שם"},
-                        { title: "ניקוד"},
-                        { title: "מורשה עמותות"},
-                        { title: "פעיל", orderable: false}
+                        { title: "ת.ז", orderable: false },
+                        { title: "שם" },
+                        { title: "ניקוד" },
+                        { title: "מורשה עמותות" },
+                        { title: "פעיל?", orderable: false, className: "clickable" }
                     ],
+                    order: [[1, 'asc']], //הגדרת ברירת מחדל למיון
+                    language: { //תצוגות שפה
+                        info: "מציג עמוד  _PAGE_ מתוך _PAGES_",
+                        emptyTable: "אין מידע לתצוגה",
+                        infoEmpty: "מציג 0 מתוך 0 רשומות",
+                        infoFiltered: "",
+                        search: "חיפוש:",
+                        lengthMenu: 'הצג <select>' +
+			             '<option value="20">20</option>' +
+			             '<option value="50">50</option>' +
+			             '<option value="100" selected>100</option>' +
+			             '<option value="-1">את כל</option>' +
+			             '</select> תוצאות',
+                        paginate: {
+                            next: "הבא",
+                            previous: "הקודם"
+                        }
+                    },
                     responsive: true
                 });
 
+                highlightRow();
                 toggleActive();
-
-                //for (var tempUser of usersSet) { //add to table
-                  
-
-
-
-                //    var $tr = $("<tr>");
-                //    var $idTd = $("<td>").text(tempUser.id);
-                //    var $nameTd = $("<td>").text(tempUser.name);
-                //    var $rankTd = $("<td>").text(tempUser.rank);
-                //    var $assocTd = $("<td>").text(tempUser.assocAmount);
-                //    var $activeTd = $("<td>").text(tempUser.active);
-                //    $tr.append($idTd, $nameTd, $rankTd, $assocTd, $activeTd);
-                //    $('#usersMNG_TBL').append($tr);
-
+                
+                $('input[name=activeRB]').on('change', function () { toggleActive() });
                 //} //end add to table for
 
             });//end promise - success
 
         }
 
-
+        //שינוי התצוגה בטבלה - רק פעילים/לא פעילים
         function toggleActive() {
             var $data_table = $('#usersMNG_TBL').DataTable();
             var column_index = 4; //מס' עמודה לפילטור
-            //var radio = $("input[name='RadioGroup1']:checked").val();
-            var radio = "פעיל";
-            
-//$data_table.columns(0).search(radio, true, false).draw();
-           // $data_table.columns(1).search(radio, true, false).draw();
-           // $data_table.columns(2).search(radio, true, false).draw();
-            //$data_table.columns(3).search(radio, true, false).draw();
-            $data_table.columns(4).search(radio, false, false).draw();
-            $data_table.columns().search()
+            var radio = $("input[name='activeRB']:checked").val(); // ערך מדויק לחיפוש
+
+            $data_table.columns(column_index).search('^' + radio + '$', true, false).draw();
 
         }
 
+        //פונקציית לחיצה על פעיל/לא פעיל
+        function highlightRow() {
+            $('#usersMNG_TBL tbody td.clickable').on('click', function () {
+                var table = $('#usersMNG_TBL').DataTable();
+                var rowIdx = table.row(this).index();
+                var id = table.cell(rowIdx, 0).data(); //ת.ז המשתמש שנלחץ
+                var name = table.cell(rowIdx, 1).data(); //שם המשתמש שנלחץ
+                if ($("input[name='activeRB']:checked").val() === "פעיל") {
+                    showDelPopUP(name, id, rowIdx);
+                }
+                else {
+                    showApprovePopUP(name, id, rowIdx);
+                }
+            });
 
+            }
+           
+        //הצגת פופאפ לפני מחיקת משתמש
+        function showDelPopUP(name, id, rowIdx) {
+            bootbox.confirm({
+                size: "large",
+                message: "למחוק את <b>" + name + "</b>? למשתמש לא תהיה יותר גישה לאתר!",
+                buttons: {
+                    confirm: {
+                        label: 'המשך',
+                        className: 'btn-success pull-right'
+                    },
+                    cancel: {
+                        label: 'בטל',
+                        className: 'btn-danger'
+                    },
+                },
+                callback: function (result) { /* result is a boolean; true = OK, false = Cancel*/
+                    if (result === true) {
+                        //table.cell(this).data("לא פעיל");
+                        changeUserActive(id, false,rowIdx);
+                    }
 
+                }
+            });
 
+        }
+
+        //הצגת פופאפ לפני ביטול מחיקת משתמש
+        function showApprovePopUP(name, id, rowIdx) {
+            bootbox.confirm({
+                size: "large",
+                message: "האם להחזיר לפעילות <b>" + name + "</b>? למשתמש תותר גישה לאתר!",
+                buttons: {
+                    confirm: {
+                        label: 'המשך',
+                        className: 'btn-success  pull-right'
+                    },
+                    cancel: {
+                        label: 'בטל',
+                        className: 'btn-danger'
+                    }
+                },
+                callback: function (result) { /* result is a boolean; true = OK, false = Cancel*/
+                    if (result === true) {
+                        changeUserActive(id, true,rowIdx);
+                    }
+                }
+            });
+        }
+
+        function changeUserActive(id, status, rowIdx) //status = הסטאטוס החדש, אם המשתמש היה פעיל אזי סטאטוס יהיה שקר
+        {
+            $.ajax({
+                dataType: "json",
+                url: "/../AdminWebService.asmx/ChangeActive",
+                contentType: "application/json; charset=utf-8",
+                type: "POST",
+                data: JSON.stringify({ id: id, active: status }),
+                success: function (data) {
+                    //toggleActive();
+                    var table = $('#usersMNG_TBL').DataTable();
+                    var active = table.cell(rowIdx, 4).data();
+                    if (active === "פעיל") {
+                        table.cell(rowIdx, 4).data("לא פעיל");
+                    }
+                    else {
+                        table.cell(rowIdx, 4).data("פעיל");
+                    }
+                    table.draw();
+                },
+                error: function (err) {
+                }
+            });
+        }
     </script>
 
 
