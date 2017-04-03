@@ -13,7 +13,7 @@ using System.Net.Mail;
 public class UserT
 {
     string userId, firstName, lastName, address, mail, password;
-    bool active;
+    bool? active;
     Rank rank;
     City city;
     Item[] items;
@@ -96,7 +96,7 @@ public class UserT
             bids = value;
         }
     }
-
+     
     public string Mail
     {
         get
@@ -123,7 +123,7 @@ public class UserT
         }
     }
 
-    public bool Active
+    public bool? Active
     {
         get
         {
@@ -146,7 +146,7 @@ public class UserT
     }
 
 
-    public UserT(string userId, string firstName, string lastName, bool active, Rank tempRank)
+    public UserT(string userId, string firstName, string lastName, bool? active,Rank tempRank)
     {
         UserId = userId;
         FirstName = firstName;
@@ -159,12 +159,6 @@ public class UserT
     {
         Mail = mail;
         Password = pass;
-    }
-
-    public UserT(string userId, bool active)
-    {
-        UserId = userId;
-        Active = active;
     }
 
     //methods
@@ -193,7 +187,7 @@ public class UserT
         {
             return false;
         }
-
+        
     }
 
     /// <summary>
@@ -209,13 +203,13 @@ public class UserT
         SqlParameter parUser = new SqlParameter("@user_id", UserId);
         int auth = -1;
         auth = db.GetScalarByQuery(sqlSelect, CommandType.Text, parUser); //בדיקה האם אדמין
-        if (auth != 1)
+        if (auth !=1)
         {
             sqlSelect = @"SELECT count([association_code])
                         FROM [dbo].[association_access]
                         where user_id=@user_id";
             auth = db.GetScalarByQuery(sqlSelect, CommandType.Text, parUser);
-            if (auth >= 1)
+            if (auth>=1)
             {
                 auth = 2;
             }
@@ -316,41 +310,17 @@ public class UserT
         client.UseDefaultCredentials = true;
         //(2) 
         client.Credentials = new System.Net.NetworkCredential("heregteam@gmail.com", "teamhereg");
-        client.Send(message);
-    }
-
-    /// <summary>
-    /// מתודה המביאה שם משתמש המלא לפי המייל שלו
-    /// </summary>
-    /// <returns>מחזירה שם מלא של משתמש</returns>
-    public void GetUserName()
-    {
-        string sqlSelect = @"Select [first_name], [last_name] 
-                            from [dbo].[users]
-                            Where [email] = @email";
-        DbService db = new DbService();
-        SqlParameter parEmail = new SqlParameter("@email", Mail);
-        DataTable dt = new DataTable();
-        try
-        {
-            dt = db.GetDataSetByQuery(sqlSelect, CommandType.Text, parEmail).Tables[0];
-            FirstName = dt.Rows[0][0].ToString();
-            LastName = dt.Rows[0][1].ToString();
-        }
-        catch (Exception ex)
-        {
-            throw ex;
-        }
-
+        client.Send(message); 
     }
 
     //מתודה להבאת פרטי יוזרים לטבלת ניהול משתמשים בדף אדמין
     internal static List<UserT> GetAllUsers()
     {
         List<UserT> li_rtn = new List<UserT>();
-        string sqlSelect = @"select V_full_users_rank_combo.user_id, users.first_name,users.last_name,users.active, V_full_users_rank_combo.Rank, V_association_access.association_access
-                            from V_full_users_rank_combo, V_association_access, users
-                            where V_full_users_rank_combo.user_id = V_association_access.user_id and V_full_users_rank_combo.user_id = users.user_id";
+        string sqlSelect = @"SELECT dbo.users.user_id, dbo.users.first_name ,dbo.users.last_name, dbo.users.active, SUM(dbo.auction.score) AS rank
+                              FROM dbo.auction RIGHT OUTER JOIN dbo.users ON
+                              dbo.auction.buyer_id = dbo.users.user_id OR dbo.auction.seller_id = dbo.users.user_id
+                             GROUP BY dbo.users.user_id, dbo.users.first_name, dbo.users.last_name, dbo.users.active";
         DbService db = new DbService();
         DataTable usersDT = db.GetDataSetByQuery(sqlSelect).Tables[0];
         List<Rank> ranksList = Rank.GetAllRanks();
@@ -359,10 +329,8 @@ public class UserT
             string id = row["user_id"].Equals(DBNull.Value) ? "" : row["user_id"].ToString();
             string fName = row["first_name"].Equals(DBNull.Value) ? "" : row["first_name"].ToString();
             string lName = row["last_name"].Equals(DBNull.Value) ? "" : row["last_name"].ToString();
-            bool active = row["active"].Equals(DBNull.Value) ? false : bool.Parse(row["active"].ToString());
+            bool? active = row["active"].Equals(DBNull.Value) ? false : bool.Parse(row["active"].ToString());
             int rankSum = row["rank"].Equals(DBNull.Value) ? 0 : int.Parse(row["rank"].ToString());
-
-
             Rank tempRank = new Rank();
             foreach (Rank item in ranksList)
             {
@@ -388,22 +356,24 @@ public class UserT
 
     public void UpdateUser() { }
 
-    public void ChangeActive()
+    public void DeleteUser()
     {
-        string sqlDelete = "UPDATE [dbo].[users] SET active = @active WHERE user_id = @userID";
+        string sqlDelete = "UPDATE [dbo].[users] SET active = 0 WHERE user_id = @userID";
         SqlParameter parUser = new SqlParameter("@userID", UserId);
-        SqlParameter parActive = new SqlParameter("@active", Active ? 1 : 0);
         DbService db = new DbService();
-        db.ExecuteQuery(sqlDelete, CommandType.Text, parUser,parActive);
+        db.ExecuteQuery(sqlDelete, CommandType.Text, parUser);
     }
 
-
     public void GetUserDetails() { }
+
     public void GetUserBids() { }
 
     public void GetUserProducts() { }
 
     public void SendPushToUsers() { }
+
+
+  
 
     #endregion
 
