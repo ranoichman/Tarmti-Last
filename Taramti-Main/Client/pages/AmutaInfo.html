@@ -41,13 +41,13 @@
 
                     var st_arr = JSON.parse(data.d);
 
-                    $("#LBLAmutaCode").html(st_arr[0].Association_Code);
-                    $("#LBLAmutaName").html(st_arr[0].Association_Name);
-                    $("#H1Name").html(st_arr[0].Association_Name);
-                    $("#AmutaInfo").html(st_arr[0].Association_Desc);
-                    $("#LBLAmutaAccount").html(st_arr[0].Association_Account);
-                    $("#LBLAmutaWeb").html(st_arr[0].Association_Web);
-                    $("#LBLAmutaYear").html(st_arr[0].Association_Year);
+                    $("#LBLAmutaCode").html(st_arr.Association_Code);
+                    $("#LBLAmutaName").html(st_arr.Association_Name);
+                    $("#H1Name").append(st_arr.Association_Name);
+                    $("#AmutaInfo").html(st_arr.Association_Desc);
+                    $("#LBLAmutaAccount").html(st_arr.Association_Account);
+                    $("#LBLAmutaWeb").html(st_arr.Association_Web);
+                    $("#LBLAmutaYear").html(st_arr.Association_Year);
                   
                 },
                 error: function (err) {
@@ -68,7 +68,8 @@
         <div id="page-wrapper">-->
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">פרטי עמותת - </h1><h1 id="H1Name"></h1>
+            <h1 class="page-header" id="H1Name">פרטי עמותת - </h1>
+            <!--<span id="H1Name"></span>-->
         </div>
         <!-- /.col-lg-12 -->
     </div>

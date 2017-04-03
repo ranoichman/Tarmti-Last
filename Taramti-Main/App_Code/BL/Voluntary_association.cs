@@ -17,6 +17,7 @@ public class Voluntary_association
     public string association_WebSite;
     public string association_Year;
     Association_Tag[] association_Tags;
+    List<UserT> permittedUsers;
      Auction[] auctions;
 
     /// <summary>
@@ -129,6 +130,19 @@ public class Voluntary_association
             association_Year = value;
         }
     }
+
+    public List<UserT> PermittedUsers
+    {
+        get
+        {
+            return permittedUsers;
+        }
+
+        set
+        {
+            permittedUsers = value;
+        }
+    }
     #endregion
 
     //Ctor
@@ -140,20 +154,20 @@ public class Voluntary_association
         //this.Association_Tags = association_Tags;
     }
 
-    public Voluntary_association(string association_Code, string association_Name, string association_Desc, string account, string website, string year)
+    public Voluntary_association(string association_Code, string association_Name, string association_Desc, string account, string website, string year, List<UserT> permitted)
     {
         Association_Code = association_Code;
         Association_Name = association_Name;
         Association_Desc = association_Desc;
         association_Account = account;
         Association_WebSite = website;
-        association_Year = year;
-
+        Association_Year = year;
+        PermittedUsers = permitted;
     }
 
     public Voluntary_association()
     {
-
+        PermittedUsers = new List<UserT>();
     }
 
 
@@ -202,27 +216,37 @@ public class Voluntary_association
         return Lists;
     }
 
-    public static List<Voluntary_association> GetAssociationByCodeAmuta(string code)
+    public void GetAssociationByCodeAmuta(string code)
     {
         DbService db = new DbService();
         DataSet DS = new DataSet();
-        List<Voluntary_association> Lists = new List<Voluntary_association>();
+        //Voluntary_association A = new Voluntary_association();
         string sql = "select * from association  " +
                      "where association_code='" + code + "' ";
         DS = db.GetDataSetByQuery(sql);
         foreach (DataRow row in DS.Tables[0].Rows)
         {
-            Voluntary_association A = new Voluntary_association();
-            A.Association_Code = row[0].ToString();
-            A.Association_Name = row[1].ToString();
-            A.Association_Desc = row[2].ToString();
-            A.Association_Account = row[3].ToString();
-            A.Association_WebSite = row[4].ToString();
-            A.Association_Year = row[6].ToString();
-            Lists.Add(A);
+            
+            Association_Code = row[0].ToString();
+            Association_Name = row[1].ToString();
+            Association_Desc = row[2].ToString();
+            Association_Account = row[3].ToString();
+            Association_WebSite = row[4].ToString();
+            Association_Year = row[6].ToString();
         }
 
-        return Lists;
+        sql = "SELECT dbo.users.user_id,dbo.users.first_name, dbo.users.last_name,dbo.users.active " +
+              "FROM dbo.association_access LEFT JOIN " +
+              "dbo.users ON dbo.association_access.user_id = dbo.users.user_id " +
+              "WHERE(dbo.association_access.association_code =" + code + ") ";
+        DS.Tables.Add();
+        DS = db.GetDataSetByQuery(sql);
+
+        foreach (DataRow row in DS.Tables[0].Rows)
+        {
+            UserT permitted = new UserT(row[0].ToString(), row[1].ToString(), row[2].ToString(), bool.Parse(row[3].ToString()));
+            PermittedUsers.Add(permitted);
+        }
     }
 
 

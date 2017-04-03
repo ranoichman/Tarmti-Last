@@ -34,6 +34,8 @@ public class AssociationsWebService : System.Web.Services.WebService
         //string userID = HttpContext.Current.Session["AmutaCode"].ToString();
         string userID = "100";
         JavaScriptSerializer j = new JavaScriptSerializer();
-        return j.Serialize(Voluntary_association.GetAssociationByCodeAmuta(userID));
+        Voluntary_association Assoc = new Voluntary_association();
+        Assoc.GetAssociationByCodeAmuta(userID);
+        return j.Serialize(Assoc);
     }
 }
