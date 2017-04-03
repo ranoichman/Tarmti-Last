@@ -442,7 +442,4 @@ table.dataTable thead .sorting:after {
     cursor: pointer;
  }
 
- .clickable{
-    cursor: pointer;
-}
 }
