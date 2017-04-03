@@ -36,6 +36,7 @@ public class WebService : System.Web.Services.WebService
         // Voluntary_association V = new Voluntary_association();
         DataTable DT = new DataTable();
         List<string> L = Voluntary_association.GetAssociationByCode(code);
+
         if (DT.Rows.Count > 0)
         {
             return new Voluntary_association(DT.Rows[0][0].ToString(), DT.Rows[0][1].ToString(), DT.Rows[0][2].ToString());

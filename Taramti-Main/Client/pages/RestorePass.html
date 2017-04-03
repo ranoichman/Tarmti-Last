@@ -84,6 +84,7 @@
                     type: "POST",
                     data: JSON.stringify({ id: userID, newPass: pass }),
                     success: function (data) {
+
                         var res = JSON.parse(data.d);
                         //if (res) {
                         //alert("YOYOMA");

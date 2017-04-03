@@ -155,6 +155,14 @@ public class UserT
         Rank = tempRank;
     }
 
+    public UserT(string userId, string firstName, string lastName, bool active)
+    {
+        UserId = userId;
+        FirstName = firstName;
+        LastName = lastName;
+        Active = active;
+    }
+
     public UserT(string mail, string pass)
     {
         Mail = mail;
