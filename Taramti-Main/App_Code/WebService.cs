@@ -76,7 +76,21 @@ public class WebService : System.Web.Services.WebService
             temp_user.SendMail();//שליחת מייל
             return "true";
         }
-        return "true";
+        return "false";
+    }
+
+    [WebMethod]
+    public string CheckInDatabase(string id, string mail)
+    {
+        UserT temp_user = new UserT();
+        temp_user.Mail = mail;
+        temp_user.UserId = id;
+        if (temp_user.CheckForResetPass())
+        {
+            temp_user.GetUserName();
+            return temp_user.FirstName + " " + temp_user.LastName;
+        }
+        return "false";
     }
 
     [WebMethod]
