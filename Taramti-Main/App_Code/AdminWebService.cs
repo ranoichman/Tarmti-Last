@@ -48,7 +48,13 @@ public class AdminWebService : System.Web.Services.WebService
     {
         JavaScriptSerializer j = new JavaScriptSerializer();
         return j.Serialize(UserT.GetAllUsers());
-        
+    }
+
+    [WebMethod]
+    public void ChangeActive(string id, bool active)
+    {
+        UserT temp_user = new UserT(id, active);
+        temp_user.ChangeActive();
     }
 
 }

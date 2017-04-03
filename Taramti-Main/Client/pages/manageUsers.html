@@ -131,7 +131,7 @@
                 var prmRes = JSON.parse(data)
                 for (i in prmRes) { // assign to "set"
                     let fullName = prmRes[i].FirstName + " " + prmRes[i].LastName;
-                    usersSet.add(new userMNG(prmRes[i].UserId, fullName, prmRes[i].Rank.RankDesc, 1, prmRes[i].Active));
+                    //usersSet.add(new userMNG(prmRes[i].UserId, fullName, prmRes[i].Rank.RankDesc, 1, prmRes[i].Active));
                     arrUsers[j] = [prmRes[i].UserId, fullName, prmRes[i].Rank.RankDesc, 1, prmRes[i].Active ? "פעיל" : "לא פעיל"];
                     j++;
                 } //end assign "set" for
@@ -206,40 +206,53 @@
         }
 
         //הצגת פופאפ לפני מחיקת משתמש
-        function showDelPopUP(name, id) {
+        //פונקציית לחיצה על פעיל/לא פעיל
+        function highlightRow() {
+            $('#usersMNG_TBL tbody td.clickable').on('click', function () {
+                var table = $('#usersMNG_TBL').DataTable();
+                var rowIdx = table.row(this).index();
+                var id = table.cell(rowIdx, 0).data(); //ת.ז המשתמש שנלחץ
+                var name = table.cell(rowIdx, 1).data(); //שם המשתמש שנלחץ
+                if ($("input[name='activeRB']:checked").val() === "פעיל") {
+                    showDelPopUP(name, id, rowIdx);
+                }
+                else {
+                    showApprovePopUP(name, id, rowIdx);
+                }
+            });
+            }
+
+        //הצגת פופאפ לפני מחיקת משתמש
+        function showDelPopUP(name, id, rowIdx) {
             bootbox.confirm({
                 size: "large",
                 message: "למחוק את <b>" + name + "</b>? למשתמש לא תהיה יותר גישה לאתר!",
                 buttons: {
                     confirm: {
                         label: 'המשך',
-                        className: 'btn-success'
+                        className: 'btn-success pull-right'
                     },
                     cancel: {
                         label: 'בטל',
                         className: 'btn-danger'
-                    }
+                    },
                 },
                 callback: function (result) { /* result is a boolean; true = OK, false = Cancel*/
                     if (result === true) {
-                        changeUserActive(id, false);
+                        changeUserActive(id, false,rowIdx);
                     }
-
-
                 }
             });
-
         }
-
         //הצגת פופאפ לפני ביטול מחיקת משתמש
-        function showApprovePopUP(name, id) {
+        function showApprovePopUP(name, id, rowIdx) {
             bootbox.confirm({
                 size: "large",
                 message: "האם להחזיר לפעילות <b>" + name + "</b>? למשתמש תותר גישה לאתר!",
                 buttons: {
                     confirm: {
                         label: 'המשך',
-                        className: 'btn-success'
+                        className: 'btn-success  pull-right'
                     },
                     cancel: {
                         label: 'בטל',
@@ -248,13 +261,12 @@
                 },
                 callback: function (result) { /* result is a boolean; true = OK, false = Cancel*/
                     if (result === true) {
-                        changeUserActive(id, true);
+                        changeUserActive(id, true,rowIdx);
                     }
                 }
             });
         }
-
-        function changeUserActive(id, status) //status = הסטאטוס החדש, אם המשתמש היה פעיל אזי סטאטוס יהיה שקר
+        function changeUserActive(id, status, rowIdx) //status = הסטאטוס החדש, אם המשתמש היה פעיל אזי סטאטוס יהיה שקר
         {
             $.ajax({
                 dataType: "json",
@@ -263,10 +275,19 @@
                 type: "POST",
                 data: JSON.stringify({ id: id, active: status }),
                 success: function (data) {
+                    //toggleActive();
+                    var table = $('#usersMNG_TBL').DataTable();
+                    var active = table.cell(rowIdx, 4).data();
+                    if (active === "פעיל") {
+                        table.cell(rowIdx, 4).data("לא פעיל");
+                    }
+                    else {
+                        table.cell(rowIdx, 4).data("פעיל");
+                    }
+                    table.draw();
                 },
                 error: function (err) {
                 }
-
             });
         }
     </script>

@@ -86,7 +86,7 @@
     <script src="../vendor/metisMenu/metisMenu.min.js"></script>
     <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>
-
+    <!-- bootbox popups Plugin JavaScript -->
     <script src="../vendor/popups/bootbox.min.js"></script>
 
     <script>
@@ -94,20 +94,20 @@
             var userID = $("#userID").val();
             var userMail = $("#email").val();
             $.ajax({
-                dataType: "json",
+                dataType: "text",
                 url: "/../WebService.asmx/CheckInDatabase",
                 contentType: "application/json; charset=utf-8",
                 type: "POST",
+                async : false,
                 data: JSON.stringify({ id: userID, mail: userMail }),
                 success: function (data) {
-                    alert("gdfsdsdfds");
 
-                    var UserName = data.d;
-                    if (UserName != null) {
-
+                    
+                    if (data.d == "גולן הופרט") {
+                        var UserName = data.d;
                         bootbox.confirm({
                             size: "large",
-                            message: "האם את/ה בטוח שאתה מעוניין להגדיר את " + UserName + " כנציג עמותה ולתת לו גישה לאתר ניהול העמותה ",
+                            message: "האם את/ה בטוח שאתה מעוניין להגדיר את <b>" + UserName + "</b> כנציג עמותה ולתת לו גישה לאתר ניהול העמותה ",
                             buttons: {
                                 confirm: {
                                     label: 'כן, אני בטוח',

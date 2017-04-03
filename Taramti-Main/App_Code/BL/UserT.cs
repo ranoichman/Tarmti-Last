@@ -13,7 +13,7 @@ using System.Net.Mail;
 public class UserT
 {
     string userId, firstName, lastName, address, mail, password;
-    bool? active;
+    bool active;
     Rank rank;
     City city;
     Item[] items;
@@ -123,7 +123,7 @@ public class UserT
         }
     }
 
-    public bool? Active
+    public bool Active
     {
         get
         {
@@ -146,7 +146,7 @@ public class UserT
     }
 
 
-    public UserT(string userId, string firstName, string lastName, bool? active,Rank tempRank)
+    public UserT(string userId, string firstName, string lastName, bool active,Rank tempRank)
     {
         UserId = userId;
         FirstName = firstName;
@@ -167,6 +167,11 @@ public class UserT
     {
         Mail = mail;
         Password = pass;
+    }
+
+    public UserT(string id, bool active)
+    {
+
     }
 
     //methods
@@ -337,7 +342,7 @@ public class UserT
             string id = row["user_id"].Equals(DBNull.Value) ? "" : row["user_id"].ToString();
             string fName = row["first_name"].Equals(DBNull.Value) ? "" : row["first_name"].ToString();
             string lName = row["last_name"].Equals(DBNull.Value) ? "" : row["last_name"].ToString();
-            bool? active = row["active"].Equals(DBNull.Value) ? false : bool.Parse(row["active"].ToString());
+            bool active = row["active"].Equals(DBNull.Value) ? false : bool.Parse(row["active"].ToString());
             int rankSum = row["rank"].Equals(DBNull.Value) ? 0 : int.Parse(row["rank"].ToString());
             Rank tempRank = new Rank();
             foreach (Rank item in ranksList)
@@ -356,6 +361,40 @@ public class UserT
         return li_rtn;
     }
 
+    /// <summary>
+    /// מתודה המביאה שם משתמש המלא לפי המייל שלו
+    /// </summary>
+    /// <returns>מחזירה שם מלא של משתמש</returns>
+    public void GetUserName()
+    {
+        string sqlSelect = @"Select [first_name], [last_name] 
+                            from [dbo].[users]
+                            Where [email] = @email";
+        DbService db = new DbService();
+        SqlParameter parEmail = new SqlParameter("@email", Mail);
+        DataTable dt = new DataTable();
+        try
+        {
+            dt = db.GetDataSetByQuery(sqlSelect, CommandType.Text, parEmail).Tables[0];
+            FirstName = dt.Rows[0][0].ToString();
+            LastName = dt.Rows[0][1].ToString();
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+
+    }
+
+    public void ChangeActive()
+    {
+        string sqlDelete = "UPDATE [dbo].[users] SET active = @active WHERE user_id = @userID";
+        SqlParameter parUser = new SqlParameter("@userID", UserId);
+        SqlParameter parActive = new SqlParameter("@active", Active ? 1 : 0);
+        DbService db = new DbService();
+        db.ExecuteQuery(sqlDelete, CommandType.Text, parUser, parActive);
+    }
+
     public void GetUsersAuctions() { }
 
     public void ShowAvgRank() { }
@@ -363,14 +402,6 @@ public class UserT
     public void Subscribe() { }
 
     public void UpdateUser() { }
-
-    public void DeleteUser()
-    {
-        string sqlDelete = "UPDATE [dbo].[users] SET active = 0 WHERE user_id = @userID";
-        SqlParameter parUser = new SqlParameter("@userID", UserId);
-        DbService db = new DbService();
-        db.ExecuteQuery(sqlDelete, CommandType.Text, parUser);
-    }
 
     public void GetUserDetails() { }
 
