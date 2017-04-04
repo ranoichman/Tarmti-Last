@@ -11,12 +11,12 @@ using System.Web;
 /// 
 public class Voluntary_association
 {
-    public string association_Code;
-    public string association_Name;
-    public string association_Desc;
-    public string association_Account;
-    public string association_WebSite;
-    public string association_Year;
+    string association_Code;
+    string association_Name;
+    string association_Desc;
+    string association_Account;
+    string association_WebSite;
+    string association_Year;
     List<Association_Tag> association_Tags;
     List<UserT> permittedUsers;
     List<Auction> auctions;
@@ -166,12 +166,18 @@ public class Voluntary_association
         PermittedUsers = permitted;
     }
 
+    public Voluntary_association(string code) : this()
+    {
+        Association_Code = code;
+    }
+
     public Voluntary_association()
     {
         PermittedUsers = new List<UserT>();
         Association_Tags = new List<Association_Tag>();
         Auctions = new List<Auction>();
     }
+    
 
     public void ShowAssocDetails()
     {
@@ -201,20 +207,18 @@ public class Voluntary_association
     {
         DataSet DS = new DataSet();
         DbService db = new DbService();
-        List<Voluntary_association> Lists = new List<Voluntary_association>();
+        List<Voluntary_association> li_rtn = new List<Voluntary_association>();
 
         DS = db.GetDataSetByQuery(@"select* from dbo.association ");
 
         foreach (DataRow row in DS.Tables[0].Rows)
         {
-            Voluntary_association A = new Voluntary_association();
-            A.Association_Code = row[0].ToString();
-            A.Association_Name = row[1].ToString();
-            A.Association_Desc = row[2].ToString();
-            Lists.Add(A);
+            Voluntary_association A = new Voluntary_association(row[0].ToString());
+            A.GetAssociationByCodeAmuta();
+            li_rtn.Add(A);
         }
 
-        return Lists;
+        return li_rtn;
     }
 
     public void GetAssociationByCodeAmuta()
@@ -240,7 +244,6 @@ public class Voluntary_association
         //מילוי פרטים
         foreach (DataRow row in DS.Tables[0].Rows)
         {
-
             Association_Code = row[0].ToString();
             Association_Name = row[1].ToString();
             Association_Desc = row[2].ToString();
@@ -248,10 +251,6 @@ public class Voluntary_association
             Association_WebSite = row[4].ToString();
             Association_Year = row[6].ToString();
         }
-
-
-        //DS.Tables.Add();
-        //DS = db.GetDataSetByQuery(sql, CommandType.Text, parCode);
 
         //מילוי רשימת מורשי גישה
         foreach (DataRow row in DS.Tables[1].Rows)

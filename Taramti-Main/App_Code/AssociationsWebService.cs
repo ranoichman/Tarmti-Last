@@ -17,7 +17,6 @@ public class AssociationsWebService : System.Web.Services.WebService
 
     public AssociationsWebService()
     {
-
         //Uncomment the following line if using designed components 
         //InitializeComponent(); 
     }
@@ -28,7 +27,7 @@ public class AssociationsWebService : System.Web.Services.WebService
         return "Hello World";
     }
 
-    [WebMethod (Description = "Gets associations information for the Associations page")]
+    [WebMethod(Description = "Gets associations information for the Associations page")]
     public string GetAmutaDetails()
     {
         //string userID = HttpContext.Current.Session["AmutaCode"].ToString();
@@ -39,4 +38,15 @@ public class AssociationsWebService : System.Web.Services.WebService
         Assoc.GetAssociationByCodeAmuta();
         return j.Serialize(Assoc);
     }
+
+    [WebMethod]
+    public string GetAllAmotaDetails()
+    {
+        JavaScriptSerializer j = new JavaScriptSerializer();
+
+        return j.Serialize(Voluntary_association.GetAllAssociations());
+    }
+
+
+
 }
