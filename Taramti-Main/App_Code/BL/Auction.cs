@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 
@@ -116,6 +118,42 @@ public abstract class Auction
     {
 
     }
+
+    /// <summary>
+    /// הבאת כל המכרזים הפעילים
+    /// </summary>
+    /// <param name="date"></param>
+    /// <returns>תחזיר את כל הקודים של המכרזים הפעילים ואת סכום הביד הנוכחי הגבוה ביותר</returns>
+    public static int[] GetAllAuctionsByDates(DateTime date)
+    {
+        int[] li_rtn = new int[2];
+        string sql = @"SELECT ISNULL(dbo.auction.auction_code, - 1) AS auction_code, MAX(ISNULL(dbo.bid.price, 0)) * dbo.auction.donation_percentage / 100 AS maxBid
+                        FROM dbo.auction  LEFT OUTER JOIN
+                         dbo.bid ON dbo.auction.auction_code = dbo.bid.auction_code
+                        GROUP BY dbo.auction.auction_code, dbo.auction.start_date, dbo.auction.end_date, dbo.auction.donation_percentage
+                        HAVING        (dbo.auction.start_date <= CONVERT(DATETIME, @date, 102)) AND (dbo.auction.end_date >= CONVERT(DATETIME, @date, 102))";
+        SqlParameter parDate = new SqlParameter("@date", date);
+        DbService db = new DbService();
+        DataTable dt = db.GetDataSetByQuery(sql, CommandType.Text, parDate).Tables[0];
+
+        int count = 0;
+        int sum = 0;
+        foreach (DataRow row in dt.Rows)
+        {
+            string code = row["auction_code"].ToString();
+            if (code != "-1")
+            {
+                count++;
+                sum += int.Parse(row["maxBid"].ToString());
+            }
+            
+        }
+        li_rtn[0] = count;
+        li_rtn[1] = sum;
+        return li_rtn;
+    }
+
+
 
     //methods
     #region

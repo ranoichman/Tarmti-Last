@@ -145,7 +145,6 @@ public class UserT
         //
     }
 
-
     public UserT(string userId, string firstName, string lastName, bool active, Rank tempRank)
     {
         UserId = userId;
@@ -420,6 +419,21 @@ public class UserT
             li_rtn.Add(assoc);
         }
         return li_rtn;
+    }
+
+    /// <summary>
+    /// מתודה להבאת כמות המשתמשים הפעילים
+    /// </summary>
+    /// <returns>מחזירה את כמות המשתמשים הפעילים</returns>
+    public static int CountActiveUsers()
+    {
+        string sql = @"select COUNT(user_id)
+                        from dbo.users
+                        where active = @active";
+        SqlParameter parActive = new SqlParameter("@active", true);
+        DbService db = new DbService();
+        int res = db.GetScalarByQuery(sql, CommandType.Text, parActive);
+        return res;
     }
 
     public void GetUsersAuctions() { }

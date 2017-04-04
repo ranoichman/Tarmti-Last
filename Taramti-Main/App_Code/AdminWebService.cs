@@ -57,4 +57,28 @@ public class AdminWebService : System.Web.Services.WebService
         temp_user.ChangeActive();
     }
 
+    [WebMethod (Description = "ספירת המשתמשים הפעילים")]
+    public string CountActiveUsers()
+    {
+        return UserT.CountActiveUsers().ToString();
+    }
+
+    [WebMethod (Description ="הבאת מכרזים פעילים")]
+    public string GetActiveAuctions()
+    {
+        DateTime date = Convert.ToDateTime("22/3/2017");
+        /*
+        ///////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////
+        למחוק^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        ///////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////
+    */
+
+        //DateTime date = DateTime.Now;
+        JavaScriptSerializer j = new JavaScriptSerializer();
+        return j.Serialize(Auction.GetAllAuctionsByDates(date));
+    }
+
+
 }

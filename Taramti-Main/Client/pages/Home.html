@@ -614,6 +614,75 @@
     <script src="../dist/js/sb-admin-2.js"></script>
 
     <script>
+        var usersPromise = new Promise(function (resolve, reject) {
+            $.ajax({
+                dataType: "json",
+                url: "/../AdminWebService.asmx/CountActiveUsers",
+                contentType: "application/json; charset=utf-8",
+                type: "POST",
+                data: JSON.stringify({}),
+                success: function (data) {
+                    resolve(data.d);
+                },
+                error: function (err) {
+                    reject(err);
+                }
+            });
+        });
+
+        var auctionsPromise = new Promise(function (resolve, reject) {
+
+            $.ajax({
+                dataType: "json",
+                url: "/../AdminWebService.asmx/GetActiveAuctions",
+                contentType: "application/json; charset=utf-8",
+                type: "POST",
+                data: JSON.stringify({}),
+                success: function (data) {
+                    resolve(data.d);
+                },
+                error: function (err) {
+                }
+            });
+        });
+
+
+        $(document).ready(function () {
+            runAuctionsPromise();
+            runUserPromise();
+            
+        })
+
+
+
+
+        //הרצת פרומיס להבאת כמות משתמשים פעילים
+        function runUserPromise() {
+            usersPromise.then(function (usersData) {
+                var count = usersData;
+                $("#userAmount_Sum").text(count);
+                $("#userAmount_Text").text("כמות משתמשים פעילים");
+            });
+        }
+
+        //הרצת פרומיס להבאת מכרזים פעילים
+        function runAuctionsPromise() {
+            auctionsPromise.then(function (aucData) {
+                var auctionsArr = JSON.parse(aucData);
+                var count = auctionsArr[0];
+                var sum = auctionsArr[1];
+                $("#auctionsAmount_Sum").text("כרגע " + count + " מכרזים פעילים");
+                $("#auctionsAmount_text").text("סכום תרומה של מכרזים פעילים: " + sum);
+            });
+
+        }
+
+
+
+
+
+
+
 
         function refreshAmuta() {
 
