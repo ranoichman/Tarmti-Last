@@ -24,9 +24,56 @@
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+                 <!-- AJAX -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- User JS Class-->
+    <script src="Client/vendor/jquery/jquery.min.js"></script>
+    <!-- jQuery -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="../vendor/metisMenu/metisMenu.min.js"></script>
+    <!-- Custom Theme JavaScript -->
+    <script src="../dist/js/sb-admin-2.js"></script>
     <![endif]-->
 </head>
 <body>
+
+    <script>
+
+        $(document).ready(function () {
+            $.ajax({
+                dataType: "json",
+                url: "/../AssociationsWebService.asmx/GetUserAmutot",
+                contentType: "application/json; charset=utf-8",
+                type: "POST",
+                data: JSON.stringify({}),
+                success: function (data) {
+
+
+                   // var st_arr = JSON.parse(data.d);
+                    alert("YOYOYMA");
+                    //$("#LBLAmutaCode").html(st_arr.Association_Code);
+                    //$("#LBLAmutaName").html(st_arr.Association_Name);
+                    //$("#H1Name").append(st_arr.Association_Name);
+                    //$("#AmutaInfo").html(st_arr.Association_Desc);
+                    //$("#LBLAmutaAccount").html(st_arr.Association_Account);
+                    //$("#LBLAmutaWeb").html(st_arr.Association_WebSite);
+                    //$("#LBLAmutaYear").html(st_arr.Association_Year);
+
+                   
+
+                },
+                error: function (err) {
+                    alert(err.responseText);
+                }
+            });
+        })
+
+
+    </script>
+
     <div id="wrapper">
         <!-- Navigation -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
@@ -102,11 +149,11 @@
                                 <div>
                                     <p>
                                         <strong>Task 1</strong>
-                                        <span class="pull-right text-muted">40% Complete</span>
+                                        <span class="pull-right text-muted">60% Complete</span>
                                     </p>
                                     <div class="progress progress-striped active">
-                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                                            <span class="sr-only">40% Complete (success)</span>
+                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
+                                            <span class="sr-only">60% Complete (success)</span>
                                         </div>
                                     </div>
                                 </div>
@@ -179,8 +226,8 @@
                         <li>
                             <a href="#">
                                 <div>
-                                    <i class="fa fa-comment fa-fw"></i> New Comment
-                                    <span class="pull-right text-muted small">4 minutes ago</span>
+                                    <!--<i class="fa fa-comment fa-fw"></i> New Comment
+                                    <span class="pull-right text-muted small">4 minutes ago</span>-->
                                 </div>
                             </a>
                         </li>
@@ -188,8 +235,8 @@
                         <li>
                             <a href="#">
                                 <div>
-                                    <i class="fa fa-twitter fa-fw"></i> 3 New Followers
-                                    <span class="pull-right text-muted small">12 minutes ago</span>
+                                    <!--<i class="fa fa-twitter fa-fw"></i> 3 New Followers
+                                    <span class="pull-right text-muted small">12 minutes ago</span>-->
                                 </div>
                             </a>
                         </li>

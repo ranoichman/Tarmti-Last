@@ -39,4 +39,16 @@ public class AssociationsWebService : System.Web.Services.WebService
         Assoc.GetAssociationByCodeAmuta();
         return j.Serialize(Assoc);
     }
+
+    [WebMethod (Description = "Gets the logged in user's associated associations ")]
+    public string GetUserAmutot()
+    {
+        string id = "302921481";
+        JavaScriptSerializer j = new JavaScriptSerializer();
+        List<Voluntary_association> List = new List<Voluntary_association>();
+        UserT temp = new UserT();
+        temp.UserId = id;
+        List = temp.GetUserAssociations();
+        return j.Serialize(List);
+    }
 }

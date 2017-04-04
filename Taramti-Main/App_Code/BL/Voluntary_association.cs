@@ -17,6 +17,7 @@ public class Voluntary_association
     public string association_Account;
     public string association_WebSite;
     public string association_Year;
+    public string association_Image;
     List<Association_Tag> association_Tags;
     List<UserT> permittedUsers;
     List<Auction> auctions;
@@ -144,6 +145,19 @@ public class Voluntary_association
             permittedUsers = value;
         }
     }
+
+    public string Association_Image
+    {
+        get
+        {
+            return association_Image;
+        }
+
+        set
+        {
+            association_Image = value;
+        }
+    }
     #endregion
 
     //Ctor
@@ -164,6 +178,16 @@ public class Voluntary_association
         Association_WebSite = website;
         Association_Year = year;
         PermittedUsers = permitted;
+    }
+
+    public Voluntary_association(string association_Code, string association_Name, string association_Desc, string website, string year,string image)
+    {
+        Association_Code = association_Code;
+        Association_Name = association_Name;
+        Association_Desc = association_Desc;
+        Association_WebSite = website;
+        Association_Year = year;
+        Association_Image = image;
     }
 
     public Voluntary_association()

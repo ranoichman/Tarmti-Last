@@ -78,6 +78,15 @@
     <script src="../dist/js/sb-admin-2.js"></script>
 
     <script>
+
+        $(document).ready(function () {
+            $('#test').click(function () {
+                $.braviPopUp('testing title!', 'popup.aspx', 600, 400);
+            });
+        });
+
+
+
         function sendMail() {
             var userID = $("#userID").val();
             var userMail = $("#mail").val();
@@ -139,6 +148,9 @@
             });
 
         };
+
+
+
     </script>
 
 
