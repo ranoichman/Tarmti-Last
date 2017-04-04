@@ -1,0 +1,165 @@
+﻿<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>SB Admin 2 - Bootstrap Admin Theme</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- MetisMenu CSS -->
+    <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+    <!-- Custom Fonts -->
+    <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- AJAX -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Bootbox -->
+
+</head>
+<body style="width:90%; margin:0 auto;">
+    <!--<div id="wrapper">
+        <div id="page-wrapper">-->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">הוספת משתמש מורשה</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    שימו לב- כדי להוסיף משתמש מורשה על המשתמש להיות רשום קודם באפליקציה
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <!-- /.col-lg-6 (nested) -->
+                        <div class="col-lg-6" style="float:right">
+                            <form role="form">
+                                <div class="form-group">
+                                    <label>מייל המשתמש</label>
+                                    <input class="form-control" id="email" name="email" type="email" placeholder="User@gmail.com" value="golan@gmail.com">
+                                    <p class="help-block">יש להזין את פרטי המשתמש כפי שנרשמו באפליקציה</p>
+                                </div>
+                                <div class="form-group">
+                                    <label>ת.ז המשתמש</label>
+                                    <input class="form-control" id="userID" name="userID" value="300294485">
+                                </div>
+
+                                <button type="submit" class="btn btn-default" onclick="CheckInDatabase()">הוסף</button>
+                                <!--<button type="reset" class="btn btn-default">נקה</button>-->
+                            </form>
+                        </div>
+                        <!-- /.col-lg-6 (nested) -->
+
+                    </div>
+                    <!-- /.row (nested) -->
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <!--</div>-->
+    <!-- /#page-wrapper -->
+    <!--</div>-->
+    <!-- /#wrapper -->
+    <!-- jQuery -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="../vendor/metisMenu/metisMenu.min.js"></script>
+    <!-- Custom Theme JavaScript -->
+    <script src="../dist/js/sb-admin-2.js"></script>
+    <!-- bootbox popups Plugin JavaScript -->
+    <script src="../vendor/popups/bootbox.min.js"></script>
+
+    <script>
+
+        function CheckInDatabase() {
+            var userID = $("#userID").val();
+            var userMail = $("#email").val();
+
+            ///////////////////////////////
+            //var userID = '123212321';
+            //var userMail = 'golan@gmail.com';
+            ///////////////////////////////////////
+
+            $.ajax({
+                dataType: "json",
+                url: "/../WebService.asmx/CheckInDatabase",
+                contentType: "application/json; charset=utf-8",
+                type: "POST",
+                async: false,
+                data: JSON.stringify({ id: userID, mail: userMail }),
+                success: function (data) {
+                    var User = JSON.parse(data.d);
+                    var UserName = User.FirstName + " " + User.LastName;
+                    if (UserName !== "undefined undefined") {
+                        //  השאיפה להוסיף פה דיאלוג שמוודא מול המשתמש שהוא בטוח רוצה להוסיף את המשתמש הנבחר
+                        //ובנוסף לבקש מהמשתמש את הסיסמה שלו על מנת לאשרר את זהותו
+                        //בוטבוקס לא עובד
+                        var Check_Message = AddMursheAssoc()                       
+                        if (Check_Message === "true") {
+                            alert(UserName + " נוספ/ה בהצלחה למערכת")
+                        }
+                        else {
+                            alert(Check_Message)
+                        }
+                    }
+                    else {
+                        alert("ת.ז או אימייל שגויים")
+                    }
+                },
+                error: function (e) {
+
+                    alert(e.responseJSON);
+                }
+            });
+        }
+
+        function AddMursheAssoc() {
+            var userID = $("#userID").val();
+            //var association = JSON.parse(localStorage.getItem("Assoc"));
+            //var assocCode = Association_code;
+
+            //////////////////
+            //var userID = '300294485';
+            //var assocCode = '102';//מוגדר not
+            var assocCode = '103';//לא מוגדר
+            ////////////////
+
+            var Add_Message;
+            $.ajax({
+                dataType: "json",
+                url: "/../WebService.asmx/AddMursheAssoc",
+                contentType: "application/json; charset=utf-8",
+                type: "POST",
+                async: false,
+                data: JSON.stringify({ id: userID, assocCode: assocCode }),
+                success: function (res) {
+                    Add_Message = res.d;                   
+                }
+            });
+            return Add_Message
+        }
+
+
+    </script>
+</body>
+
+</html>

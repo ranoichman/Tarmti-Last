@@ -28,10 +28,10 @@ public class AssociationsWebService : System.Web.Services.WebService
     }
 
     [WebMethod(Description = "Gets associations information for the Associations page")]
-    public string GetAmutaDetails()
+    public string GetAmutaDetails(string code)
     {
         //string userID = HttpContext.Current.Session["AmutaCode"].ToString();
-        string code = "100";
+        //string code = "100";
         JavaScriptSerializer j = new JavaScriptSerializer();
         Voluntary_association Assoc = new Voluntary_association();
         Assoc.Association_Code = code;
@@ -46,7 +46,6 @@ public class AssociationsWebService : System.Web.Services.WebService
 
         return j.Serialize(Voluntary_association.GetAllAssociations());
     }
-
 
     [WebMethod(Description = "Gets the logged in user's associated associations ")]
     public string GetUserAmutot()

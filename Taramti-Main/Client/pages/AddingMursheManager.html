@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>SB Admin 2 - Bootstrap Admin Theme</title>
+    <title>הוספת מורשה מערכת</title>
     <!-- Bootstrap Core CSS -->
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- MetisMenu CSS -->
@@ -21,18 +21,17 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
     <!-- AJAX -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Bootbox -->
 
 </head>
-<body style="width:100%">
+<body style="width:90%; margin:0 auto;">
     <!--<div id="wrapper">
         <div id="page-wrapper">-->
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">הוספת משתמש מורשה</h1>
+            <h1 class="page-header">הוספת מנהל מערכת</h1>
         </div>
         <!-- /.col-lg-12 -->
     </div>
@@ -40,26 +39,32 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="panel panel-default">
-                <div class="panel-heading">
-                    שימו לב- כדי להוסיף משתמש מורשה על המשתמש להיות רשום קודם באפליקציה
+                <div class="panel-heading" style="text-align:right;">
+                    שימו לב- למנהל מערכת תהיה גישה מלאה לכל תחומי האתר
                 </div>
                 <div class="panel-body">
                     <div class="row">
                         <!-- /.col-lg-6 (nested) -->
-                        <div class="col-lg-6" style="float:right">
+                        <div class="col-lg-6" style="float:right; margin:0 auto;">
                             <form role="form">
+                                <div class="form-group">
+                                    <label>שם פרטי</label>
+                                    <input class="form-control" id="FirstName" name="FirstName" value="גולן">
+                                </div>
+                                <div class="form-group">
+                                    <label>שם מלא</label>
+                                    <input class="form-control" id="LastName" name="LastName" value="הופרט">
+                                </div>
                                 <div class="form-group">
                                     <label>מייל המשתמש</label>
                                     <input class="form-control" id="email" name="email" type="email" placeholder="User@gmail.com" value="golan@gmail.com">
-                                    <p class="help-block">יש להזין את פרטי המשתמש כפי שנרשמו באפליקציה</p>
                                 </div>
                                 <div class="form-group">
                                     <label>ת.ז המשתמש</label>
                                     <input class="form-control" id="userID" name="userID" value="300294485">
                                 </div>
-
                                 <button type="submit" class="btn btn-default" onclick="CheckInDatabase()">הוסף</button>
-                                <button type="reset" class="btn btn-default">נקה</button>
+                                <!--<button type="reset" class="btn btn-default">נקה</button>-->
                             </form>
                         </div>
                         <!-- /.col-lg-6 (nested) -->
@@ -90,49 +95,32 @@
     <script src="../vendor/popups/bootbox.min.js"></script>
 
     <script>
+
+        function AreUSure() {
+
+        }
+
         function CheckInDatabase() {
+            var FirstName = $("#FirstName").val();
+            var LastName = $("#LastName").val();
             var userID = $("#userID").val();
             var userMail = $("#email").val();
+            var Add_Message;
+
             $.ajax({
-                dataType: "text",
-                url: "/../WebService.asmx/CheckInDatabase",
+                dataType: "json",
+                url: "/../AdminWebService.asmx/CheckInDatabaseAndAdd",
                 contentType: "application/json; charset=utf-8",
                 type: "POST",
-                async : false,
-                data: JSON.stringify({ id: userID, mail: userMail }),
-                success: function (data) {
-
-                    
-                    if (data.d == "גולן הופרט") {
-                        var UserName = data.d;
-                        bootbox.confirm({
-                            size: "large",
-                            message: "האם את/ה בטוח שאתה מעוניין להגדיר את <b>" + UserName + "</b> כנציג עמותה ולתת לו גישה לאתר ניהול העמותה ",
-                            buttons: {
-                                confirm: {
-                                    label: 'כן, אני בטוח',
-                                    className: 'btn-success pull-right'
-                                },
-                                cancel: {
-                                    label: 'בטל',
-                                    className: 'btn-danger'
-                                }
-                            },
-                            callback: function (result) { /* result is a boolean; true = OK, false = Cancel*/
-                                if (result === true) {
-                                    //AddMursheAssoc(userMail);
-                                }
-                            }
-                        });
-
-                        //alert(UserName +" נוספ/ה בהצלחה למערכת" )
-                    }
-                    else {
-                        bootbox.alert("ת.ז או אימייל שגויים")
-                    }
+                async: false,
+                data: JSON.stringify({ firstName: FirstName, lastName: LastName, id: userID, mail: userMail }),
+                success: function (res) {
+                    Add_Message = res.d;
+                    alert(res.d);
                 },
-                error: function (err) {
-                    alert(err.statusText);
+                error: function (e) {
+
+                    alert(e.responseJSON);
                 }
             });
         }

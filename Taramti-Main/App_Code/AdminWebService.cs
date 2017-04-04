@@ -57,28 +57,35 @@ public class AdminWebService : System.Web.Services.WebService
         temp_user.ChangeActive();
     }
 
-    [WebMethod (Description = "ספירת המשתמשים הפעילים")]
-    public string CountActiveUsers()
+    [WebMethod]
+    public string CheckInDatabaseAndAdd(string firstName, string lastName, string id, string mail)
     {
-        return UserT.CountActiveUsers().ToString();
-    }
-
-    [WebMethod (Description ="הבאת מכרזים פעילים")]
-    public string GetActiveAuctions()
-    {
-        DateTime date = Convert.ToDateTime("22/3/2017");
-        /*
-        ///////////////////////////////////////////////////////////////
-        ///////////////////////////////////////////////////////////////
-        למחוק^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        ///////////////////////////////////////////////////////////////
-        ///////////////////////////////////////////////////////////////
-    */
-
-        //DateTime date = DateTime.Now;
         JavaScriptSerializer j = new JavaScriptSerializer();
-        return j.Serialize(Auction.GetAllAuctionsByDates(date));
+        UserT temp_user = new UserT();
+        temp_user.FirstName = firstName;
+        temp_user.LastName = lastName;
+        temp_user.Mail = mail;
+        temp_user.UserId = id;
+        if (!temp_user.CheckForResetPass())
+        {
+            temp_user.InsertUser();
+            temp_user.AddMursheManager();
+            //insert to users       
+        }
+        else
+        {
+            //בודקת אם קיים באדמין או לא
+
+            if (temp_user.CheckUserInAdmin())
+            {
+                return "המשתמש כבר הוגדר בעבר כמנהל מערכת";
+            }
+            //מוסיפה לטבלת אדמין
+            else
+            {
+                temp_user.AddMursheManager();
+            }
+        }
+        return "המשתמש הוגדר כמנהל מערכת בהצלחה";
     }
-
-
 }
