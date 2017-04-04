@@ -40,6 +40,23 @@ public class AssociationsWebService : System.Web.Services.WebService
         return j.Serialize(Assoc);
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     [WebMethod (Description = "Gets the logged in user's associated associations ")]
     public string GetUserAmutot()
     {
