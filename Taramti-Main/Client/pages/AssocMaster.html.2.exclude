@@ -24,48 +24,8 @@
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-
-              <!-- AJAX -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <!-- User JS Class-->
-    
- 
-        
-
-    <script>
-
-        $(document).ready(function () {
-            $.ajax({
-                dataType: "json",
-                url: "/../AssociationsWebService.asmx/GetUserAmutot",
-                contentType: "application/json; charset=utf-8",
-                type: "POST",
-                data: JSON.stringify({}),
-                success: function (data) {
-
-                    var st_arr = JSON.parse(data.d);
-
-                    for (i in st_arr) {
-                        var $li = $("<li>");
-                        var $a = $("<a>").attr({ "href": "Z" });
-                        var $div = $("<div>").text(st_arr[i].Association_Name);
-
-                        ($a).append($div);
-                        ($li).append($a);
-                        $("#DDM_Amutot").append($li);
-                    }
-                },
-                error: function (err) {
-                    alert(err.responseText);
-                }
-            });
-        })
-
-
-    </script>
-
+    <![endif]-->
 </head>
-
 <body>
     <div id="wrapper">
         <!-- Navigation -->
@@ -215,8 +175,8 @@
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-bell fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
-                    <ul class="dropdown-menu dropdown-alerts" id="DDM_Amutot">
-                        <!--<li>
+                    <ul class="dropdown-menu dropdown-alerts">
+                        <li>
                             <a href="#">
                                 <div>
                                     <i class="fa fa-comment fa-fw"></i> New Comment
@@ -266,7 +226,7 @@
                                 <strong>See All Alerts</strong>
                                 <i class="fa fa-angle-right"></i>
                             </a>
-                        </li>-->
+                        </li>
                     </ul>
                     <!-- /.dropdown-alerts -->
                 </li>
