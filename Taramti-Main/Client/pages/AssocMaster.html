@@ -35,8 +35,7 @@
         $(document).ready(function () {
 
 
-            if (localStorage.getItem("Association_Code_Array") == null)
-            {
+            if (localStorage.getItem("Association_Code_Array") == null) {
                 $.ajax({
                     dataType: "json",
                     url: "/../AssociationsWebService.asmx/GetUserAmutot",
@@ -48,8 +47,7 @@
                         var st_arr = JSON.parse(data.d);
                         var assocCodes = new Array();
                         var j = 0;
-                        for(i in st_arr)
-                        {
+                        for (i in st_arr) {
                             assocCodes[j] = { "code": st_arr[i].Association_Code, "name": st_arr[i].Association_Name, "website": st_arr[i].Association_WebSite };
                             j++;
                         }// for
@@ -62,14 +60,14 @@
                         alert(err.responseText);
                     }
                 });//ajax
-                
+
             }//if
 
             var st_arr = JSON.parse(localStorage.getItem("Association_Code_Array"));
 
             for (i in st_arr) {
-                var $li = $("<li>").attr({"data-code" : st_arr[i].code });
-                var $a = $("<a>").attr({ "class": "clickable"  });
+                var $li = $("<li>").attr({ "data-code": st_arr[i].code });
+                var $a = $("<a>").attr({ "class": "clickable" });
                 var $div = $("<div>").text(st_arr[i].name);
 
                 ($a).on('click', function () {
@@ -107,192 +105,13 @@
             <!-- /.navbar-header -->
             <ul class="nav navbar-top-links navbar-left">
                 <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-envelope fa-fw"></i> <i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-messages">
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <strong>John Smith</strong>
-                                    <span class="pull-right text-muted">
-                                        <em>Yesterday</em>
-                                    </span>
-                                </div>
-                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <strong>John Smith</strong>
-                                    <span class="pull-right text-muted">
-                                        <em>Yesterday</em>
-                                    </span>
-                                </div>
-                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <strong>John Smith</strong>
-                                    <span class="pull-right text-muted">
-                                        <em>Yesterday</em>
-                                    </span>
-                                </div>
-                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a class="text-center" href="#">
-                                <strong>Read All Messages</strong>
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        </li>
-                    </ul>
-                    <!-- /.dropdown-messages -->
-                </li>
-                <!-- /.dropdown -->
+
+                    <!-- /.dropdown -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-tasks fa-fw"></i> <i class="fa fa-caret-down"></i>
+                        <i class="fa fa-empire fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
-                    <ul class="dropdown-menu dropdown-tasks">
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <p>
-                                        <strong>Task 1</strong>
-                                        <span class="pull-right text-muted">40% Complete</span>
-                                    </p>
-                                    <div class="progress progress-striped active">
-                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                                            <span class="sr-only">40% Complete (success)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <p>
-                                        <strong>Task 2</strong>
-                                        <span class="pull-right text-muted">20% Complete</span>
-                                    </p>
-                                    <div class="progress progress-striped active">
-                                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
-                                            <span class="sr-only">20% Complete</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <p>
-                                        <strong>Task 3</strong>
-                                        <span class="pull-right text-muted">60% Complete</span>
-                                    </p>
-                                    <div class="progress progress-striped active">
-                                        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-                                            <span class="sr-only">60% Complete (warning)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <p>
-                                        <strong>Task 4</strong>
-                                        <span class="pull-right text-muted">80% Complete</span>
-                                    </p>
-                                    <div class="progress progress-striped active">
-                                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
-                                            <span class="sr-only">80% Complete (danger)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a class="text-center" href="#">
-                                <strong>See All Tasks</strong>
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        </li>
-                    </ul>
-                    <!-- /.dropdown-tasks -->
-                </li>
-                <!-- /.dropdown -->
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-bell fa-fw"></i> <i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-alerts" id="DDM_Amutot">
-                        <!--<li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-comment fa-fw"></i> New Comment
-                                    <span class="pull-right text-muted small">4 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-twitter fa-fw"></i> 3 New Followers
-                                    <span class="pull-right text-muted small">12 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-envelope fa-fw"></i> Message Sent
-                                    <span class="pull-right text-muted small">4 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-tasks fa-fw"></i> New Task
-                                    <span class="pull-right text-muted small">4 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-upload fa-fw"></i> Server Rebooted
-                                    <span class="pull-right text-muted small">4 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a class="text-center" href="#">
-                                <strong>See All Alerts</strong>
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        </li>-->
-                    </ul>
+                    <ul class="dropdown-menu dropdown-alerts" id="DDM_Amutot"></ul>
                     <!-- /.dropdown-alerts -->
                 </li>
                 <!-- /.dropdown -->
@@ -300,16 +119,16 @@
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
-                    <ul class="dropdown-menu dropdown-user">
-                        <li>
+                    <ul id="UserMenu" class="dropdown-menu dropdown-alerts" style="left:0;">
+                        <!--<li>
                             <a href="#"><i class="fa fa-user fa-fw"></i> פרופיל משתמש</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-gear fa-fw"></i> הגדרות</a>
                         </li>
-                        <li class="divider"></li>
+                        <li class="divider"></li>-->
                         <li>
-                            <a href="login.html"><i class="fa fa-sign-out fa-fw"></i> התנתק</a>
+                            <a href="login.aspx"><i class="fa fa-sign-out fa-fw"></i> התנתק</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -335,13 +154,16 @@
                         <!-- /input-group -->
                         <!--</li>-->
                         <li>
-                            <a href="#"><i class="fa fa-table fa-fw"></i>העמותה שלנו<span class="fa arrow"></span></a>
+                            <div id="WelcomwUser"><strong>שלום יעקב,</strong></div>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-table fa-fw"></i> העמותה שלנו<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="AmutaInfo.html" target="iframe_Assoc_master">פרטי העמותה</a>
+                                    <a href="AmutaInfo.html" target="iframe_Assoc_master"> פרטי העמותה</a>
                                 </li>
                                 <li>
-                                    <a href="tables.html" target="iframe_Assoc_master">עדכון פרטי העמותה</a>
+                                    <a href="AmutaInfo.html" target="iframe_Assoc_master"> עדכון פרטי העמותה</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -350,7 +172,7 @@
                             <a href="AddingMursheAcoss.html" target="iframe_Assoc_master"><i class="fa fa-edit fa-fw"></i> הוספת מורשים</a>
                         </li>
                         <li>
-                            <a href="#" target="iframe_Assoc_master"><i class="fa fa-bar-chart-o fa-fw"></i>דוחות</a>
+                            <a href="#" target="iframe_Assoc_master"><i class="fa fa-bar-chart-o fa-fw"></i> דוחות</a>
                         </li>
 
                     </ul>

@@ -40,6 +40,15 @@ a {
         outline: 0;
     }
 
+#WelcomwUser {
+    height: 40px;
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+    color: #5cb85c; 
+    font-size:18px;
+}
+
 abbr[title] {
     border-bottom: 1px dotted;
 }
@@ -3015,8 +3024,7 @@ input[type=search] {
 }
 
     .checkbox label, .radio label {
-        min-height: 20px
-        padding-right: 20px;
+        min-height: 20px padding-right: 20px;
         margin-bottom: 0;
         font-weight: 400;
         cursor: pointer;
@@ -6975,8 +6983,8 @@ button.close {
 }
 
 
-a.navbar-brand{
-    padding:0px 0px;
+a.navbar-brand {
+    padding: 0px 0px;
 }
 
 
@@ -6986,9 +6994,8 @@ a.navbar-brand{
     width: auto;
 }
 
-#NavbarWrapper{
-    width:230px;
-
+#NavbarWrapper {
+    width: 230px;
 }
 
 @-ms-viewport {
