@@ -28,38 +28,63 @@
               <!-- AJAX -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- User JS Class-->
-    
- 
-        
+    <!--------------  להוסיף קישור לאתרים של העמותות!!  -->
 
     <script>
 
         $(document).ready(function () {
-            $.ajax({
-                dataType: "json",
-                url: "/../AssociationsWebService.asmx/GetUserAmutot",
-                contentType: "application/json; charset=utf-8",
-                type: "POST",
-                data: JSON.stringify({}),
-                success: function (data) {
 
-                    var st_arr = JSON.parse(data.d);
 
-                    for (i in st_arr) {
-                        var $li = $("<li>");
-                        var $a = $("<a>").attr({ "href": "Z" });
-                        var $div = $("<div>").text(st_arr[i].Association_Name);
+            if (localStorage.getItem("Association_Code_Array") == null)
+            {
+                $.ajax({
+                    dataType: "json",
+                    url: "/../AssociationsWebService.asmx/GetUserAmutot",
+                    contentType: "application/json; charset=utf-8",
+                    type: "POST",
+                    data: JSON.stringify({}),
+                    success: function (data) {
 
-                        ($a).append($div);
-                        ($li).append($a);
-                        $("#DDM_Amutot").append($li);
+                        var st_arr = JSON.parse(data.d);
+                        var assocCodes = new Array();
+                        var j = 0;
+                        for(i in st_arr)
+                        {
+                            assocCodes[j] = { "code": st_arr[i].Association_Code, "name": st_arr[i].Association_Name, "website": st_arr[i].Association_WebSite };
+                            j++;
+                        }// for
+
+                        localStorage.setItem("Association_Code_Array", JSON.stringify(assocCodes));
+
+                        localStorage.setItem("Assoc", assocCodes[0].code);
+                    },
+                    error: function (err) {
+                        alert(err.responseText);
                     }
-                },
-                error: function (err) {
-                    alert(err.responseText);
-                }
-            });
-        })
+                });//ajax
+                
+            }//if
+
+            var st_arr = JSON.parse(localStorage.getItem("Association_Code_Array"));
+
+            for (i in st_arr) {
+                var $li = $("<li>").attr({"data-code" : st_arr[i].code });
+                var $a = $("<a>").attr({ "class": "clickable"  });
+                var $div = $("<div>").text(st_arr[i].name);
+
+                ($a).on('click', function () {
+                    var $AssocCode = $(this).parent().attr("data-code");
+
+                    localStorage.setItem("Assoc", $AssocCode);
+
+                    location.href = "AssocMaster.html";
+                });
+
+                ($a).append($div);
+                ($li).append($a);
+                $("#DDM_Amutot").append($li);
+            } //for
+        }) //doc ready
 
 
     </script>

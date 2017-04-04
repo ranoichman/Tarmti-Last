@@ -27,7 +27,6 @@
           <!-- AJAX -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- User JS Class-->
-    <script src="Client/vendor/jquery/jquery.min.js"></script>
     <!-- jQuery -->
     <script src="../vendor/jquery/jquery.min.js"></script>
     <!-- Bootstrap Core JavaScript -->
@@ -47,12 +46,15 @@
     <script>
 
         $(document).ready(function () {
+
+            var codeA = localStorage.getItem("Assoc");
+         
             $.ajax({
                 dataType: "json",
                 url: "/../AssociationsWebService.asmx/GetAmutaDetails",
                 contentType: "application/json; charset=utf-8",
                 type: "POST",
-                data: JSON.stringify({}),
+                data: JSON.stringify({code : codeA}),
                 success: function (data) {
 
                     var st_arr = JSON.parse(data.d);
@@ -73,17 +75,9 @@
                         arrUsers[J] = [st_arr.PermittedUsers[i].UserId, st_arr.PermittedUsers[i].FirstName, st_arr.PermittedUsers[i].Rank, 1, st_arr.PermittedUsers[i].Active ? "פעיל" : "לא פעיל"];
                         J++;
                     }
-                   
 
                     CreateTable(arrUsers);
-                    //$("#AccessTable").append()
 
-                    //var $br = $("<br/>");
-                    //for (i in st_arr.PermittedUsers)
-                    //{
-
-                    //    //$("#AccessTable").append(st_arr.PermittedUsers[i].FirstName + " " + st_arr.PermittedUsers[i].LastName + $br );
-                    //}
                   
                 },
                 error: function (err) {
@@ -201,7 +195,7 @@
                                             </div>
                                             <div id="collapseThree" class="panel-collapse collapse">
                                                 <div class="panel-body" id="AccessTable">
-                                                    <table class="table order-column table-bordered table-striped table-hover" id="usersMNG_TBL"></table>
+                                                    <table class="table order-column table-bordered table-striped table-hover" id="usersMNG_TBL" style="width:100%"></table>
                                                 </div>
                                             </div>
                                         </div>
