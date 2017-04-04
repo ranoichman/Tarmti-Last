@@ -9,6 +9,7 @@ using System.Web;
 public class Association_Tag
 {
     //fields
+    int code;
     string tag_Name;
     Voluntary_association[] vol_asc;
 
@@ -39,12 +40,31 @@ public class Association_Tag
             vol_asc = value;
         }
     }
+
+    public int Code
+    {
+        get
+        {
+            return code;
+        }
+
+        set
+        {
+            code = value;
+        }
+    }
     #endregion
 
     //ctor
     public Association_Tag()
     {
 
+    }
+
+    public Association_Tag(int code, string name)
+    {
+        Code = code;
+        Tag_Name = name;
     }
 
     //methods
