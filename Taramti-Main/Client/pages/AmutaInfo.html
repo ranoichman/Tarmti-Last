@@ -15,6 +15,10 @@
     <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
     <!-- Custom Fonts -->
     <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- DataTables CSS -->
+    <link href="../vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet">
+    <!-- DataTables Responsive CSS -->
+    <link href="../vendor/datatables-responsive/dataTables.responsive.css" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -24,7 +28,19 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- User JS Class-->
     <script src="Client/vendor/jquery/jquery.min.js"></script>
-    <script src="Client/vendor/jquery/jquery.js"></script>
+    <!-- jQuery -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="../vendor/metisMenu/metisMenu.min.js"></script>
+    <!-- Custom Theme JavaScript -->
+    <script src="../dist/js/sb-admin-2.js"></script>
+
+    <!-- DataTables JavaScript -->
+    <script src="../vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="../vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
+    <script src="../vendor/datatables-responsive/dataTables.responsive.js"></script>
     <![endif]--> 
 
 
@@ -48,6 +64,26 @@
                     $("#LBLAmutaAccount").html(st_arr.Association_Account);
                     $("#LBLAmutaWeb").html(st_arr.Association_Web);
                     $("#LBLAmutaYear").html(st_arr.Association_Year);
+
+                    var arrUsers = new Array();
+                    var J = 0;
+
+                    for (i in st_arr.PermittedUsers)
+                    {
+                        arrUsers[J] = [st_arr.PermittedUsers[i].UserId, st_arr.PermittedUsers[i].FirstName, st_arr.PermittedUsers[i].Rank, 1, st_arr.PermittedUsers[i].Active ? "פעיל" : "לא פעיל"];
+                        J++;
+                    }
+                   
+
+                    CreateTable(arrUsers);
+                    //$("#AccessTable").append()
+
+                    //var $br = $("<br/>");
+                    //for (i in st_arr.PermittedUsers)
+                    //{
+
+                    //    //$("#AccessTable").append(st_arr.PermittedUsers[i].FirstName + " " + st_arr.PermittedUsers[i].LastName + $br );
+                    //}
                   
                 },
                 error: function (err) {
@@ -55,6 +91,42 @@
                 }
             });
         })
+
+        function CreateTable(arrUsers) {
+                //הגדרת המידע בטבלה
+                $('#usersMNG_TBL').DataTable({
+                    data: arrUsers, //מקור מידע
+                    columns: [
+                        { title: "ת.ז", orderable: false },
+                        { title: "שם" },
+                        { title: "ניקוד" },
+                        { title: "מורשה עמותות" },
+                        { title: "פעיל", orderable: false, className: "clickable" }
+          
+                    ],
+                    order: [[1, 'asc']], //הגדרת ברירת מחדל למיון
+                    language: { //תצוגות שפה
+                        info: "מציג עמוד  _PAGE_ מתוך _PAGES_",
+                        emptyTable: "אין מידע לתצוגה",
+                        infoEmpty: "מציג 0 מתוך 0 רשומות",
+                        infoFiltered: "",
+                        search: "חיפוש:",
+                        lengthMenu: 'הצג <select>' +
+			             '<option value="20" selected>20</option>' +
+			             '<option value="50">50</option>' +
+			             '<option value="100">100</option>' +
+			             '<option value="-1">את כל</option>' +
+			             '</select> תוצאות',
+                        paginate: {
+                            next: "הבא",
+                            previous: "הקודם"
+                        }
+                    },
+                    responsive: true
+                });
+
+                } //end add to table for
+
 
 
     </script>
@@ -129,7 +201,7 @@
                                             </div>
                                             <div id="collapseThree" class="panel-collapse collapse">
                                                 <div class="panel-body" id="AccessTable">
-                             
+                                                    <table class="table order-column table-bordered table-striped table-hover" id="usersMNG_TBL"></table>
                                                 </div>
                                             </div>
                                         </div>
@@ -253,14 +325,7 @@
     <!-- /#page-wrapper -->
     <!--</div>-->
     <!-- /#wrapper -->
-    <!-- jQuery -->
-    <script src="../vendor/jquery/jquery.min.js"></script>
-    <!-- Bootstrap Core JavaScript -->
-    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
-    <!-- Metis Menu Plugin JavaScript -->
-    <script src="../vendor/metisMenu/metisMenu.min.js"></script>
-    <!-- Custom Theme JavaScript -->
-    <script src="../dist/js/sb-admin-2.js"></script>
+
 
 
 </body>
