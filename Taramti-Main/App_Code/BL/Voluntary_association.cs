@@ -197,6 +197,11 @@ public class Voluntary_association
         Auctions = new List<Auction>();
     }
 
+    public Voluntary_association(string code):this()
+    {
+        Association_Code = code;
+    }
+
     public void ShowAssocDetails()
     {
         
@@ -231,11 +236,9 @@ public class Voluntary_association
 
         foreach (DataRow row in DS.Tables[0].Rows)
         {
-            Voluntary_association A = new Voluntary_association();
-            A.Association_Code = row[0].ToString();
-            A.Association_Name = row[1].ToString();
-            A.Association_Desc = row[2].ToString();
-            Lists.Add(A);
+            Voluntary_association a = new Voluntary_association(row[0].ToString());
+            a.GetAssociationByCodeAmuta();
+            Lists.Add(a);
         }
 
         return Lists;
