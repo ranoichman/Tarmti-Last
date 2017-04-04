@@ -96,7 +96,7 @@ public class UserT
             bids = value;
         }
     }
-     
+
     public string Mail
     {
         get
@@ -146,7 +146,7 @@ public class UserT
     }
 
 
-    public UserT(string userId, string firstName, string lastName, bool active,Rank tempRank)
+    public UserT(string userId, string firstName, string lastName, bool active, Rank tempRank)
     {
         UserId = userId;
         FirstName = firstName;
@@ -200,7 +200,7 @@ public class UserT
         {
             return false;
         }
-        
+
     }
 
     /// <summary>
@@ -216,13 +216,13 @@ public class UserT
         SqlParameter parUser = new SqlParameter("@user_id", UserId);
         int auth = -1;
         auth = db.GetScalarByQuery(sqlSelect, CommandType.Text, parUser); //בדיקה האם אדמין
-        if (auth !=1)
+        if (auth != 1)
         {
             sqlSelect = @"SELECT count([association_code])
                         FROM [dbo].[association_access]
                         where user_id=@user_id";
             auth = db.GetScalarByQuery(sqlSelect, CommandType.Text, parUser);
-            if (auth>=1)
+            if (auth >= 1)
             {
                 auth = 2;
             }
@@ -323,7 +323,7 @@ public class UserT
         client.UseDefaultCredentials = true;
         //(2) 
         client.Credentials = new System.Net.NetworkCredential("heregteam@gmail.com", "teamhereg");
-        client.Send(message); 
+        client.Send(message);
     }
 
     //מתודה להבאת פרטי יוזרים לטבלת ניהול משתמשים בדף אדמין
@@ -395,6 +395,33 @@ public class UserT
         db.ExecuteQuery(sqlDelete, CommandType.Text, parUser, parActive);
     }
 
+    /// <summary>
+    /// מתודה להבאת רשימת העמותות אליהם משוייך המשתמש
+    /// </summary>
+    public List<Voluntary_association> GetUserAssociations()
+    {
+        List<Voluntary_association> li_rtn = new List<Voluntary_association>();
+        string StrSql = "SELECT dbo.association_access.association_code, dbo.association.association_name, dbo.association.association_desc, dbo.association.website, dbo.association.year, dbo.association.image " +
+                         "FROM dbo.association_access " +
+                         "INNER JOIN dbo.association ON dbo.association_access.association_code = dbo.association.association_code " +
+                         "LEFT OUTER JOIN dbo.users ON dbo.association_access.user_id = dbo.users.user_id " +
+                         "WHERE(dbo.users.user_id = N'" + userId + "') ";
+        DbService db = new DbService();
+        DataTable DT = db.GetDataSetByQuery(StrSql).Tables[0];
+        foreach (DataRow row in DT.Rows)
+        {
+            Voluntary_association assoc = new Voluntary_association();
+            assoc.Association_Code = row[0].ToString();
+            assoc.Association_Name = row[1].ToString();
+            assoc.Association_Desc = row[2].ToString();
+            assoc.Association_WebSite = row[3].ToString(); 
+            assoc.Association_Year = row[4].ToString(); 
+            assoc.Association_Image = row[5].ToString();
+            li_rtn.Add(assoc);
+        }
+        return li_rtn;
+    }
+
     public void GetUsersAuctions() { }
 
     public void ShowAvgRank() { }
@@ -412,7 +439,7 @@ public class UserT
     public void SendPushToUsers() { }
 
 
-  
+
 
     #endregion
 

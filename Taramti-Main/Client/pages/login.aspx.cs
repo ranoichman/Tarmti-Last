@@ -34,6 +34,8 @@ public partial class Client_pages_login : System.Web.UI.Page
     //כפתור לוגין - להשלים הצגת הודעות
     protected void login_BTN_Click(object sender, EventArgs e)
     {
+
+
         if (Session["counter"] == null)
         {
             Session["counter"] = 0; //מונה לבדיקת מס' הפעמים שהמשתמש טעה - שליחה לדף איפוס אחרי 5 בדיקות
@@ -49,9 +51,9 @@ public partial class Client_pages_login : System.Web.UI.Page
             }
             int auth = temp.CheckAuthDesktop(); //בדיקה אם יש הרשאה לדף ניהול
             Session["UserID"] = temp.UserId;
-            if (remember_CB.Checked && auth!=-1)
+            if (remember_CB.Checked && auth != -1)
             {
-                SaveCookies(auth,temp.UserId);
+                SaveCookies(auth, temp.UserId);
             }
             DirectTo(auth);
         }
@@ -98,7 +100,7 @@ public partial class Client_pages_login : System.Web.UI.Page
                 Response.Redirect(""); //דף אדמין
                 break;
             case 2:
-                Response.Redirect(""); //דף עמותות
+                Response.Redirect("AssocMaster.html"); //דף עמותות
                 break;
             case -1:
                 //הצגת הודעה 

@@ -17,6 +17,7 @@ public class Voluntary_association
     public string association_Account;
     public string association_WebSite;
     public string association_Year;
+    public string association_Image;
     List<Association_Tag> association_Tags;
     List<UserT> permittedUsers;
     List<Auction> auctions;
@@ -144,6 +145,19 @@ public class Voluntary_association
             permittedUsers = value;
         }
     }
+
+    public string Association_Image
+    {
+        get
+        {
+            return association_Image;
+        }
+
+        set
+        {
+            association_Image = value;
+        }
+    }
     #endregion
 
     //Ctor
@@ -166,6 +180,16 @@ public class Voluntary_association
         PermittedUsers = permitted;
     }
 
+    public Voluntary_association(string association_Code, string association_Name, string association_Desc, string website, string year,string image)
+    {
+        Association_Code = association_Code;
+        Association_Name = association_Name;
+        Association_Desc = association_Desc;
+        Association_WebSite = website;
+        Association_Year = year;
+        Association_Image = image;
+    }
+
     public Voluntary_association()
     {
         PermittedUsers = new List<UserT>();
@@ -173,12 +197,16 @@ public class Voluntary_association
         Auctions = new List<Auction>();
     }
 
+    public Voluntary_association(string code):this()
+    {
+        Association_Code = code;
+    }
+
     public void ShowAssocDetails()
     {
 
     }
-
-
+    
     // הפיכה לסטטי כדי להיקרא מאג'קס
     public static List<string> GetAssociationByCode(string code)
     {
@@ -207,11 +235,9 @@ public class Voluntary_association
 
         foreach (DataRow row in DS.Tables[0].Rows)
         {
-            Voluntary_association A = new Voluntary_association();
-            A.Association_Code = row[0].ToString();
-            A.Association_Name = row[1].ToString();
-            A.Association_Desc = row[2].ToString();
-            Lists.Add(A);
+            Voluntary_association a = new Voluntary_association(row[0].ToString());
+            a.GetAssociationByCodeAmuta();
+            Lists.Add(a);
         }
 
         return Lists;
