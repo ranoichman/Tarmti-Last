@@ -175,7 +175,7 @@ public class Voluntary_association
 
     public void ShowAssocDetails()
     {
-        
+
     }
 
 
@@ -235,7 +235,7 @@ public class Voluntary_association
 
 
         SqlParameter parCode = new SqlParameter("@code", Association_Code);
-        DS = db.GetDataSetByQuery(sql1 + sql2 + sql3,CommandType.Text,parCode);
+        DS = db.GetDataSetByQuery(sql1 + sql2 + sql3, CommandType.Text, parCode);
 
         //מילוי פרטים
         foreach (DataRow row in DS.Tables[0].Rows)
@@ -263,7 +263,7 @@ public class Voluntary_association
         //מילוי רשימת תגיות
         foreach (DataRow row in DS.Tables[2].Rows)
         {
-            Association_Tag tag = new Association_Tag(int.Parse(row[0].ToString()),row[1].ToString());
+            Association_Tag tag = new Association_Tag(int.Parse(row[0].ToString()), row[1].ToString());
             Association_Tags.Add(tag);
         }
     }
@@ -328,4 +328,58 @@ public class Voluntary_association
     //}
 
 
+    /// <summary>
+    /// מתודה שמרכזת תעודות זהות של משתמשים מורשים לפי קוד עמותה
+    /// </summary>
+    /// <returns>מחזירה ליסט של סטרינגים(ת.זים)</returns>
+    public static List<string> GetAssociationMurshimByCodeAmuta(int assocCode)
+    {
+
+        string sqlSelect = @"Select [user_id]
+                            from [dbo].[association_access]
+                            Where [association_code] = @assocCode";
+
+        DbService db = new DbService();
+
+        SqlParameter parAssocCode = new SqlParameter("@assocCode", assocCode);
+        DataTable dtMurshim = new DataTable();
+        try
+        {
+            dtMurshim = db.GetDataSetByQuery(sqlSelect, CommandType.Text, parAssocCode).Tables[0];
+            List<string> Murshim = new List<string>();
+
+            foreach (DataRow row in dtMurshim.Rows)
+            {
+                string id = row[0].ToString();
+                Murshim.Add(id);
+            }
+
+            return Murshim;
+        }
+
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+
+    }
+
+    public static bool AddMursheAssoc(string id, int assocCode)
+    {
+        string sqlInsert = @"insert into [dbo].[association_access]
+                           ([user_id]
+                           ,[association_code])
+                            VALUES 
+                            (@id, @assocCode)";
+
+        DbService db = new DbService();
+        SqlParameter parId = new SqlParameter("@id", id);
+        SqlParameter parAssocCode = new SqlParameter("@assocCode", assocCode);
+        if (db.ExecuteQuery(sqlInsert, CommandType.Text, parId, parAssocCode) == 0)
+        {
+            return false;
+        }
+
+        return true;
+    }
 }

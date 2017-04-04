@@ -82,15 +82,56 @@ public class WebService : System.Web.Services.WebService
     [WebMethod]
     public string CheckInDatabase(string id, string mail)
     {
+        JavaScriptSerializer j = new JavaScriptSerializer();
         UserT temp_user = new UserT();
         temp_user.Mail = mail;
         temp_user.UserId = id;
         if (temp_user.CheckForResetPass())
         {
             temp_user.GetUserName();
-            return temp_user.FirstName + " " + temp_user.LastName;
+            return j.Serialize(temp_user);
+            //return temp_user.FirstName + " " + temp_user.LastName;
         }
         return "false";
+    }
+
+    [WebMethod]
+    public string AddMursheAssoc(string id, int assocCode)
+    {
+        if (!CheckMursheAssoc(id, assocCode))
+        {
+            if (Voluntary_association.AddMursheAssoc(id, assocCode))
+            {
+                return "true";
+            }
+            else
+            {
+                return "קיימת בעיה עם הוספת המורשה יש לפנות למנהלי המערכת, תודה";
+            }
+        }
+        //return "vvv";
+        return "המשתמש הוגדר כבר בעבר כמורשה לעמותה זו";
+    }
+
+    /// <summary>
+    /// מתודה שבודקת אם למשתמש יש הרשאה לעמותה לפי קוד עמותה ות.ז משתמש
+    /// </summary>
+    /// <returns>מחזירה נכון או לא</returns>
+    [WebMethod]
+    public bool CheckMursheAssoc(string id, int assocCode)
+    {
+        List<string> MurshimId = new List<string>();
+        MurshimId = Voluntary_association.GetAssociationMurshimByCodeAmuta(assocCode);
+
+        foreach (string MursheId in MurshimId)
+        {
+            while (MursheId == id)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     [WebMethod]

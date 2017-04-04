@@ -21,7 +21,6 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
     <!-- AJAX -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Bootbox -->
@@ -90,52 +89,75 @@
     <script src="../vendor/popups/bootbox.min.js"></script>
 
     <script>
+
         function CheckInDatabase() {
             var userID = $("#userID").val();
             var userMail = $("#email").val();
+
+            ///////////////////////////////
+            //var userID = '123212321';
+            //var userMail = 'golan@gmail.com';
+            ///////////////////////////////////////
+
             $.ajax({
-                dataType: "text",
+                dataType: "json",
                 url: "/../WebService.asmx/CheckInDatabase",
                 contentType: "application/json; charset=utf-8",
                 type: "POST",
-                async : false,
+                async: false,
                 data: JSON.stringify({ id: userID, mail: userMail }),
                 success: function (data) {
-
-                    
-                    if (data.d == "גולן הופרט") {
-                        var UserName = data.d;
-                        bootbox.confirm({
-                            size: "large",
-                            message: "האם את/ה בטוח שאתה מעוניין להגדיר את <b>" + UserName + "</b> כנציג עמותה ולתת לו גישה לאתר ניהול העמותה ",
-                            buttons: {
-                                confirm: {
-                                    label: 'כן, אני בטוח',
-                                    className: 'btn-success pull-right'
-                                },
-                                cancel: {
-                                    label: 'בטל',
-                                    className: 'btn-danger'
-                                }
-                            },
-                            callback: function (result) { /* result is a boolean; true = OK, false = Cancel*/
-                                if (result === true) {
-                                    //AddMursheAssoc(userMail);
-                                }
-                            }
-                        });
-
-                        //alert(UserName +" נוספ/ה בהצלחה למערכת" )
+                    var User = JSON.parse(data.d);
+                    var UserName = User.FirstName + " " + User.LastName;
+                    if (UserName !== "undefined undefined") {
+                        //  השאיפה להוסיף פה דיאלוג שמוודא מול המשתמש שהוא בטוח רוצה להוסיף את המשתמש הנבחר
+                        //ובנוסף לבקש מהמשתמש את הסיסמה שלו על מנת לאשרר את זהותו
+                        //בוטבוקס לא עובד
+                        var Check_Message = AddMursheAssoc()                       
+                        if (Check_Message === "true") {
+                            alert(UserName + " נוספ/ה בהצלחה למערכת")
+                        }
+                        else {
+                            alert(Check_Message)
+                        }
                     }
                     else {
-                        bootbox.alert("ת.ז או אימייל שגויים")
+                        alert("ת.ז או אימייל שגויים")
                     }
                 },
-                error: function (err) {
-                    alert(err.statusText);
+                error: function (e) {
+
+                    alert(e.responseJSON);
                 }
             });
         }
+
+        function AddMursheAssoc() {
+            var userID = $("#userID").val();
+            //var association = JSON.parse(localStorage.getItem("Assoc"));
+            //var assocCode = Association_code;
+
+            //////////////////
+            //var userID = '300294485';
+            //var assocCode = '102';//מוגדר not
+            var assocCode = '103';//לא מוגדר
+            ////////////////
+
+            var Add_Message;
+            $.ajax({
+                dataType: "json",
+                url: "/../WebService.asmx/AddMursheAssoc",
+                contentType: "application/json; charset=utf-8",
+                type: "POST",
+                async: false,
+                data: JSON.stringify({ id: userID, assocCode: assocCode }),
+                success: function (res) {
+                    Add_Message = res.d;                   
+                }
+            });
+            return Add_Message
+        }
+
 
     </script>
 </body>
