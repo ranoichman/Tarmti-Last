@@ -438,7 +438,65 @@ public class UserT
 
     public void SendPushToUsers() { }
 
+    public bool InsertUser()
+    {
+        string sqlInsert = @"insert into [dbo].[users]
+                           ([user_id],[first_name],[last_name],[email],[password])
+                            VALUES 
+                            (@id, @fName, @lname, @mail, @pass)";
 
+        DbService db = new DbService();
+        SqlParameter parId = new SqlParameter("@id", UserId);
+        SqlParameter parFName = new SqlParameter("@fName", FirstName);
+        SqlParameter parLName = new SqlParameter("@lName", LastName);
+        SqlParameter parMail = new SqlParameter("@mail", Mail);
+        SqlParameter parPassword = new SqlParameter("@pass", UserId);
+        if (db.ExecuteQuery(sqlInsert, CommandType.Text, parId, parFName, parLName, parMail, parPassword) == 0)
+        {
+            return false;
+        }
+        return true;
+    }
+
+    public bool CheckUserInAdmin()
+    {
+        string sqlSelect = @"SELECT count([user_id])
+                            FROM [dbo].[Admin]
+                            where ([user_id] = @user_id)";
+        DbService db = new DbService();
+        SqlParameter parUser = new SqlParameter("@user_id", UserId);
+        int res = 0;
+        try
+        {
+            res = db.GetScalarByQuery(sqlSelect, CommandType.Text, parUser);
+            if (res != 0)
+            {
+                return true;
+            }
+            else
+                return false;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+
+    }
+
+    public bool AddMursheManager() {
+        string sqlInsert = @"insert into [dbo].[admin]
+                           ([user_id])
+                            VALUES 
+                            (@id)";
+
+        DbService db = new DbService();
+        SqlParameter parId = new SqlParameter("@id", UserId);
+        if (db.ExecuteQuery(sqlInsert, CommandType.Text, parId) == 0)
+        {
+            return false;
+        }
+        return true;
+    }
 
 
     #endregion

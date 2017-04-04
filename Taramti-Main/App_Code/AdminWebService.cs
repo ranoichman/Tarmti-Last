@@ -57,4 +57,35 @@ public class AdminWebService : System.Web.Services.WebService
         temp_user.ChangeActive();
     }
 
+    [WebMethod]
+    public string CheckInDatabaseAndAdd(string firstName, string lastName, string id, string mail)
+    {
+        JavaScriptSerializer j = new JavaScriptSerializer();
+        UserT temp_user = new UserT();
+        temp_user.FirstName = firstName;
+        temp_user.LastName = lastName;
+        temp_user.Mail = mail;
+        temp_user.UserId = id;
+        if (!temp_user.CheckForResetPass())
+        {
+            temp_user.InsertUser();
+            temp_user.AddMursheManager();
+            //insert to users       
+        }
+        else
+        {
+            //בודקת אם קיים באדמין או לא
+
+            if (temp_user.CheckUserInAdmin())
+            {
+                return "המשתמש כבר הוגדר בעבר כמנהל מערכת";
+            }
+            //מוסיפה לטבלת אדמין
+            else
+            {
+                temp_user.AddMursheManager();
+            }
+        }
+        return "המשתמש הוגדר כמנהל מערכת בהצלחה";
+    }
 }

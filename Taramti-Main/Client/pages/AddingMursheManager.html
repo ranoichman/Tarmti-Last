@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>SB Admin 2 - Bootstrap Admin Theme</title>
+    <title>הוספת מורשה מערכת</title>
     <!-- Bootstrap Core CSS -->
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- MetisMenu CSS -->
@@ -26,12 +26,12 @@
     <!-- Bootbox -->
 
 </head>
-<body style="width:100%">
+<body style="width:90%; margin:0 auto;">
     <!--<div id="wrapper">
         <div id="page-wrapper">-->
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">הוספת משתמש מורשה</h1>
+            <h1 class="page-header">הוספת מנהל מערכת</h1>
         </div>
         <!-- /.col-lg-12 -->
     </div>
@@ -39,26 +39,32 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="panel panel-default">
-                <div class="panel-heading">
-                    שימו לב- כדי להוסיף משתמש מורשה על המשתמש להיות רשום קודם באפליקציה
+                <div class="panel-heading" style="text-align:right;">
+                    שימו לב- למנהל מערכת תהיה גישה מלאה לכל תחומי האתר
                 </div>
                 <div class="panel-body">
                     <div class="row">
                         <!-- /.col-lg-6 (nested) -->
-                        <div class="col-lg-6" style="float:right">
+                        <div class="col-lg-6" style="float:right; margin:0 auto;">
                             <form role="form">
+                                <div class="form-group">
+                                    <label>שם פרטי</label>
+                                    <input class="form-control" id="FirstName" name="FirstName" value="גולן">
+                                </div>
+                                <div class="form-group">
+                                    <label>שם מלא</label>
+                                    <input class="form-control" id="LastName" name="LastName" value="הופרט">
+                                </div>
                                 <div class="form-group">
                                     <label>מייל המשתמש</label>
                                     <input class="form-control" id="email" name="email" type="email" placeholder="User@gmail.com" value="golan@gmail.com">
-                                    <p class="help-block">יש להזין את פרטי המשתמש כפי שנרשמו באפליקציה</p>
                                 </div>
                                 <div class="form-group">
                                     <label>ת.ז המשתמש</label>
                                     <input class="form-control" id="userID" name="userID" value="300294485">
                                 </div>
-
                                 <button type="submit" class="btn btn-default" onclick="CheckInDatabase()">הוסף</button>
-                                <button type="reset" class="btn btn-default">נקה</button>
+                                <!--<button type="reset" class="btn btn-default">נקה</button>-->
                             </form>
                         </div>
                         <!-- /.col-lg-6 (nested) -->
@@ -90,40 +96,27 @@
 
     <script>
 
+        function AreUSure() {
+
+        }
+
         function CheckInDatabase() {
+            var FirstName = $("#FirstName").val();
+            var LastName = $("#LastName").val();
             var userID = $("#userID").val();
             var userMail = $("#email").val();
-
-            ///////////////////////////////
-            //var userID = '123212321';
-            //var userMail = 'golan@gmail.com';
-            ///////////////////////////////////////
+            var Add_Message;
 
             $.ajax({
                 dataType: "json",
-                url: "/../WebService.asmx/CheckInDatabase",
+                url: "/../AdminWebService.asmx/CheckInDatabaseAndAdd",
                 contentType: "application/json; charset=utf-8",
                 type: "POST",
                 async: false,
-                data: JSON.stringify({ id: userID, mail: userMail }),
-                success: function (data) {
-                    var User = JSON.parse(data.d);
-                    var UserName = User.FirstName + " " + User.LastName;
-                    if (UserName !== "undefined undefined") {
-                        //  השאיפה להוסיף פה דיאלוג שמוודא מול המשתמש שהוא בטוח רוצה להוסיף את המשתמש הנבחר
-                        //ובנוסף לבקש מהמשתמש את הסיסמה שלו על מנת לאשרר את זהותו
-                        //בוטבוקס לא עובד
-                        var Check_Message = AddMursheAssoc()                       
-                        if (Check_Message === "true") {
-                            alert(UserName + " נוספ/ה בהצלחה למערכת")
-                        }
-                        else {
-                            alert(Check_Message)
-                        }
-                    }
-                    else {
-                        alert("ת.ז או אימייל שגויים")
-                    }
+                data: JSON.stringify({ firstName: FirstName, lastName: LastName, id: userID, mail: userMail }),
+                success: function (res) {
+                    Add_Message = res.d;
+                    alert(res.d);
                 },
                 error: function (e) {
 
@@ -131,33 +124,6 @@
                 }
             });
         }
-
-        function AddMursheAssoc() {
-            var userID = $("#userID").val();
-            //var association = JSON.parse(localStorage.getItem("Assoc"));
-            //var assocCode = Association_code;
-
-            //////////////////
-            //var userID = '300294485';
-            //var assocCode = '102';//מוגדר not
-            var assocCode = '103';//לא מוגדר
-            ////////////////
-
-            var Add_Message;
-            $.ajax({
-                dataType: "json",
-                url: "/../WebService.asmx/AddMursheAssoc",
-                contentType: "application/json; charset=utf-8",
-                type: "POST",
-                async: false,
-                data: JSON.stringify({ id: userID, assocCode: assocCode }),
-                success: function (res) {
-                    Add_Message = res.d;                   
-                }
-            });
-            return Add_Message
-        }
-
 
     </script>
 </body>
