@@ -153,7 +153,17 @@ public abstract class Auction
         return li_rtn;
     }
 
-
+    public static int GetDonationSumByDates(DateTime start,DateTime end)
+    {
+        string sql = @"SELECT SUM(final_price * donation_percentage / 100)  AS donation_sum
+                        FROM  dbo.auction
+                        WHERE (end_date >= CONVERT(DATETIME, @startDate, 102)) AND (final_price * donation_percentage / 100 > 0) and
+                        (end_date <= CONVERT(DATETIME, @endDate, 102))";
+        SqlParameter parStart = new SqlParameter("@startDate", start);
+        SqlParameter parEnd = new SqlParameter("@endDate", end);
+        DbService db = new DbService();
+        return db.GetScalarByQuery(sql,CommandType.Text,parStart,parEnd);
+    }
 
     //methods
     #region

@@ -89,18 +89,7 @@ public class AdminWebService : System.Web.Services.WebService
         return "המשתמש הוגדר כמנהל מערכת בהצלחה";
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
+    
     [WebMethod(Description = "ספירת המשתמשים הפעילים")]
     public string CountActiveUsers()
     {
@@ -110,22 +99,20 @@ public class AdminWebService : System.Web.Services.WebService
     [WebMethod(Description = "הבאת מכרזים פעילים")]
     public string GetActiveAuctions()
     {
-        DateTime date = Convert.ToDateTime("22/3/2017");
-        /*
-        ///////////////////////////////////////////////////////////////
-        ///////////////////////////////////////////////////////////////
-        למחוק^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        ///////////////////////////////////////////////////////////////
-        ///////////////////////////////////////////////////////////////
-    */
+        //DateTime date = Convert.ToDateTime("22/3/2017");
 
-        //DateTime date = DateTime.Now;
+
+        DateTime date = DateTime.Now;
         JavaScriptSerializer j = new JavaScriptSerializer();
         return j.Serialize(Auction.GetAllAuctionsByDates(date));
     }
 
-
-
+    [WebMethod(Description ="הבאת סכום התרומה בחודש האחרון")]
+    public int GetDonationsLastMonth()
+    {
+        DateTime date = DateTime.Now;
+        return Auction.GetDonationSumByDates(date.AddMonths(-1), date);
+    }
 
 
 }

@@ -231,7 +231,7 @@ public class Voluntary_association
         DbService db = new DbService();
         List<Voluntary_association> Lists = new List<Voluntary_association>();
 
-        DS = db.GetDataSetByQuery(@"select* from dbo.association ");
+        DS = db.GetDataSetByQuery(@"select association_code from dbo.association ");
 
         foreach (DataRow row in DS.Tables[0].Rows)
         {

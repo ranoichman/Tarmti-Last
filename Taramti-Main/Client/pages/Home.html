@@ -59,7 +59,7 @@
                                 </div>
                                 <div class="col-xs-9 text-right">
                                     <div class="huge" id="userAmount_Sum"></div>
-                                    <div id="userAmount_Text"></div>
+                                    <div id="userAmount_Text">אין מידע לתצוגה</div>
                                 </div>
                             </div>
                         </div>
@@ -83,7 +83,7 @@
                                 </div>
                                 <div class="col-xs-9 text-right">
                                     <div class="huge" id="auctionsAmount_Sum"></div>
-                                    <div id="auctionsAmount_text"></div>
+                                    <div id="auctionsAmount_Text">אין מידע לתצוגה</div>
                                 </div>
                             </div>
                         </div>
@@ -106,8 +106,8 @@
                                     <i class="fa fa-money fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge" id="randAmuta_det"></div>
-                                    <div></div>
+                                    <div class="huge" id="donationLM_amount"></div>
+                                    <div id="donationLM_Text">אין מידע לתצוגה</div>
                                 </div>
                             </div>
                         </div>
@@ -134,7 +134,7 @@
                                     <i class="fa fa-refresh fa-2x clickable" onclick="refreshAmuta()"></i>
                                         </div>
                                     <div class="huge" id="randAmuta_Det"></div>
-                                    <div id="randAmuta_Name"></div>
+                                    <div id="randAmuta_Name">אין מידע לתצוגה</div>
                                 </div>
                             </div>
                         </div>
@@ -625,7 +625,6 @@
                     resolve(data.d);
                 },
                 error: function (err) {
-                    reject(err);
                 }
             });
         });
@@ -646,22 +645,36 @@
             });
         });
 
+        var donationsPromise = new Promise(function (resolve, reject) {
+
+            $.ajax({
+                dataType: "json",
+                url: "/../AdminWebService.asmx/GetDonationsLastMonth",
+                contentType: "application/json; charset=utf-8",
+                type: "POST",
+                data: JSON.stringify({}),
+                success: function (data) {
+                    resolve(data.d);
+                },
+                error: function (err) {
+                }
+            });
+        });
+
 
         $(document).ready(function () {
             runAuctionsPromise();
             runUserPromise();
-            
+            runDonationsPromise();
         })
-
-
 
 
         //הרצת פרומיס להבאת כמות משתמשים פעילים
         function runUserPromise() {
             usersPromise.then(function (usersData) {
                 var count = usersData;
-                $("#userAmount_Sum").text(count);
-                $("#userAmount_Text").text("כמות משתמשים פעילים");
+                $("#userAmount_Sum").text(count + " משתמשים פעילים");
+                $("#userAmount_Text").text("");
             });
         }
 
@@ -672,12 +685,20 @@
                 var count = auctionsArr[0];
                 var sum = auctionsArr[1];
                 $("#auctionsAmount_Sum").text("כרגע " + count + " מכרזים פעילים");
-                $("#auctionsAmount_text").text("סכום תרומה של מכרזים פעילים: " + sum);
+                $("#auctionsAmount_Text").text("סכום תרומה של מכרזים פעילים: " + sum);
             });
 
         }
 
+        //הרצת פרומיס להבאת סכום תרומות בחודש האחרון
+        function runDonationsPromise() {
+            donationsPromise.then(function (donationData) {
+                var donationSum = donationData;
+                $("#donationLM_amount").text(donationData + " ש\"ח נתרמו בחודש האחרון!");
+                $("#donationLM_Text").text("");
+            });
 
+        }
 
 
 
