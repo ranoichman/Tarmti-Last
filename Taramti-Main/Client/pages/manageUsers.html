@@ -146,7 +146,7 @@
                         { title: "מורשה עמותות" },
                         { title: "פעיל", orderable: false, className: "clickable" }
                     ],
-                    //order: [[1, 'asc']], //הגדרת ברירת מחדל למיון
+                    order: [[1, 'asc']], //הגדרת ברירת מחדל למיון
                     language: { //תצוגות שפה
                         info: "מציג עמוד  _PAGE_ מתוך _PAGES_",
                         emptyTable: "אין מידע לתצוגה",
@@ -266,6 +266,7 @@
                 }
             });
         }
+        //שינוי פעיל/לא פעיל לכל משתמש
         function changeUserActive(id, status, rowIdx) //status = הסטאטוס החדש, אם המשתמש היה פעיל אזי סטאטוס יהיה שקר
         {
             $.ajax({

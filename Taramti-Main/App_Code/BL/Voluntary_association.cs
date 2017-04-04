@@ -206,8 +206,7 @@ public class Voluntary_association
     {
         
     }
-
-
+    
     // הפיכה לסטטי כדי להיקרא מאג'קס
     public static List<string> GetAssociationByCode(string code)
     {
