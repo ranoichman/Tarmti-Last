@@ -45,47 +45,47 @@
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-envelope fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
-                    <ul class="dropdown-menu dropdown-messages">
+                    <ul id="AdminDDMessages" class="dropdown-menu dropdown-messages">
                         <li>
                             <a href="#">
                                 <div>
-                                    <strong>John Smith</strong>
-                                    <span class="pull-right text-muted">
-                                        <em>Yesterday</em>
+                                    <strong>נופר לוינסקי</strong>
+                                    <span class="pull-left text-muted">
+                                        <em> 09:30</em>
                                     </span>
                                 </div>
-                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
+                                <div>היי, אני מנסה להוסיף נציג לעמותה שלנו ולא מצליחה, אשמח לעזרה...</div>
                             </a>
                         </li>
                         <li class="divider"></li>
                         <li>
                             <a href="#">
                                 <div>
-                                    <strong>John Smith</strong>
-                                    <span class="pull-right text-muted">
-                                        <em>Yesterday</em>
+                                    <strong>ליאור לוי</strong>
+                                    <span class="pull-left text-muted">
+                                        <em> אתמול</em>
                                     </span>
                                 </div>
-                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
+                                <div>הנושא: אי קבלת מוצר שרכשתי. אני רוצה להתלונן על מוכר שלא סיפק את המוצר...</div>
                             </a>
                         </li>
                         <li class="divider"></li>
                         <li>
                             <a href="#">
                                 <div>
-                                    <strong>John Smith</strong>
-                                    <span class="pull-right text-muted">
-                                        <em>Yesterday</em>
+                                    <strong>מערכת</strong>
+                                    <span class="pull-left text-muted">
+                                        <em> אתמול</em>
                                     </span>
                                 </div>
-                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
+                                <div>התראה: משתמש צחי זוהר ת.ז 306983623 ניסה להוסיף עמותה מעל 3 פעמים. ייתכן ומדובר ברמאי...</div>
                             </a>
                         </li>
                         <li class="divider"></li>
                         <li>
                             <a class="text-center" href="#">
-                                <strong>Read All Messages</strong>
-                                <i class="fa fa-angle-right"></i>
+                                <strong>הצג את כל ההודעות</strong>
+                                <i class="fa fa-angle-left"></i>
                             </a>
                         </li>
                     </ul>
@@ -96,13 +96,14 @@
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-tasks fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
-                    <ul class="dropdown-menu dropdown-tasks">
+                    <ul id="AdminDDtasks" class="dropdown-menu dropdown-tasks">
                         <li>
                             <a href="#">
                                 <div>
                                     <p>
-                                        <strong>Task 1</strong>
-                                        <span class="pull-right text-muted">40% Complete</span>
+                                        <strong>מענה למשתמשים</strong>  
+                                        <span class="pull-left text-muted">40% הושלמו</span>
+                                               
                                     </p>
                                     <div class="progress progress-striped active">
                                         <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
@@ -117,8 +118,8 @@
                             <a href="#">
                                 <div>
                                     <p>
-                                        <strong>Task 2</strong>
-                                        <span class="pull-right text-muted">20% Complete</span>
+                                        <strong>משימה 2</strong>
+                                        <span class="pull-left text-muted">20% הושלמו</span>
                                     </p>
                                     <div class="progress progress-striped active">
                                         <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
@@ -133,8 +134,8 @@
                             <a href="#">
                                 <div>
                                     <p>
-                                        <strong>Task 3</strong>
-                                        <span class="pull-right text-muted">60% Complete</span>
+                                        <strong>משימה 3</strong>
+                                        <span class="pull-left text-muted">60% הושלמו</span>
                                     </p>
                                     <div class="progress progress-striped active">
                                         <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
@@ -149,8 +150,8 @@
                             <a href="#">
                                 <div>
                                     <p>
-                                        <strong>Task 4</strong>
-                                        <span class="pull-right text-muted">80% Complete</span>
+                                        <strong>משימה 4</strong>
+                                        <span class="pull-left text-muted">80% הושלמו</span>
                                     </p>
                                     <div class="progress progress-striped active">
                                         <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
@@ -163,8 +164,8 @@
                         <li class="divider"></li>
                         <li>
                             <a class="text-center" href="#">
-                                <strong>See All Tasks</strong>
-                                <i class="fa fa-angle-right"></i>
+                                <strong>צפה בכל המשימות</strong>
+                                <i class="fa fa-angle-left"></i>
                             </a>
                         </li>
                     </ul>
@@ -173,76 +174,16 @@
                 <!-- /.dropdown -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-bell fa-fw"></i> <i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-alerts">
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-comment fa-fw"></i> New Comment
-                                    <span class="pull-right text-muted small">4 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-twitter fa-fw"></i> 3 New Followers
-                                    <span class="pull-right text-muted small">12 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-envelope fa-fw"></i> Message Sent
-                                    <span class="pull-right text-muted small">4 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-tasks fa-fw"></i> New Task
-                                    <span class="pull-right text-muted small">4 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-upload fa-fw"></i> Server Rebooted
-                                    <span class="pull-right text-muted small">4 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a class="text-center" href="#">
-                                <strong>See All Alerts</strong>
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        </li>
-                    </ul>
-                    <!-- /.dropdown-alerts -->
-                </li>
-                <!-- /.dropdown -->
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
-                    <ul class="dropdown-menu dropdown-user">
-                        <li>
-                            <a href="#"><i class="fa fa-user fa-fw"></i> פרופיל משתמש</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-gear fa-fw"></i> הגדרות</a>
-                        </li>
-                        <li class="divider"></li>
+                    <ul id="UserMenu" class="dropdown-menu dropdown-alerts" style="left:0;">
+                        <!--<li>
+                <a href="#"><i class="fa fa-user fa-fw"></i> פרופיל משתמש</a>
+            </li>
+            <li>
+                <a href="#"><i class="fa fa-gear fa-fw"></i> הגדרות</a>
+            </li>
+            <li class="divider"></li>-->
                         <li>
                             <a href="login.html"><i class="fa fa-sign-out fa-fw"></i> התנתק</a>
                         </li>
@@ -251,6 +192,8 @@
                 </li>
                 <!-- /.dropdown -->
             </ul>
+            
+            
             <a class="navbar-brand pull-right" href="Home.html" target="iframe_master">
                 <img id="ImgLogo" src="../../Images/LOGO.JPG" />
             </a>
@@ -258,25 +201,17 @@
             <div style="padding-right:0px; width:200px" class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul style="padding-right:0px; width:220px" class="nav" id="side-menu">
-                        <!--<li class="sidebar-search">
-                            <div class="input-group custom-search-form">
-                                <input type="text" class="form-control" placeholder="Search...">
-                                <span class="input-group-btn">
-                                    <button class="btn btn-default" type="button">
-                                        <i class="fa fa-search"></i>
-                                    </button>
-                                </span>
-                            </div>-->
-                            <!-- /input-group -->
-                        <!--</li>-->
+                        <li>
+                            <div id="WelcomwUser"><strong>שלום קליאופטרה,</strong></div>
+                        </li>
                         <li>
                             <a href="#"><i class="fa fa-table fa-fw"></i> ניהול טבלאות<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="manageUsers.html" target="iframe_master">ניהול משתמשים</a>
+                                    <a href="manageUsers.html" target="iframe_master"> ניהול משתמשים</a>
                                 </li>
                                 <li>
-                                    <a href="manageAssoc.html" target="iframe_master">ניהול עמותות</a>
+                                    <a href="manageAssoc.html" target="iframe_master">ניהול עמותות </a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -285,9 +220,9 @@
                             <a href="AddingMursheManager.html" target="iframe_master"><i class="fa fa-edit fa-fw"></i> הוספת מורשים</a>
                         </li>
                         <li>
-                            <a href="#" target="iframe_master"><i class="fa fa-bar-chart-o fa-fw"></i>דוחות</a>
+                            <a href="#" target="iframe_master"><i class="fa fa-bar-chart-o fa-fw"></i> דוחות</a>
                         </li>
-                        <li>
+                        <!--<li>
                             <a href="#" target="iframe_master"><i class="fa fa-wrench fa-fw"></i> ניהול הגדרות<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
@@ -303,9 +238,9 @@
                                     <a href="#">בלאט</a>
                                 </li>
                              
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
+                            </ul>-->
+                             <!--/.nav-second-level--> 
+                        <!--</li>-->
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->

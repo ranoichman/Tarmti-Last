@@ -5,7 +5,7 @@
  */
 body {
     background-color: #f8f8f8;
-    direction:rtl;
+    direction: rtl;
 }
 
 #wrapper {
@@ -64,26 +64,37 @@ body {
     .navbar-top-links .dropdown-messages,
     .navbar-top-links .dropdown-tasks,
     .navbar-top-links .dropdown-alerts {
-        width: 310px;
+        width: 200px;
         min-width: 0;
     }
 
-    .navbar-top-links .dropdown-messages {
-        margin-left: 5px;
-    }
+#UserMenu {
+    width: 150px;
+    min-width: 0;
+}
 
-    .navbar-top-links .dropdown-tasks {
-        margin-left: -59px;
-    }
+#AdminDDMessages, #AdminDDtasks{
+     width: 300px;
+     min-width: 0;
+}
 
-    .navbar-top-links .dropdown-alerts {
-        margin-left: -123px;
-    }
 
-    .navbar-top-links .dropdown-user {
-        right: 0;
-        left: auto;
-    }
+.navbar-top-links .dropdown-messages {
+    margin-left: 5px;
+}
+
+.navbar-top-links .dropdown-tasks {
+    margin-left: -59px;
+}
+
+.navbar-top-links .dropdown-alerts {
+    margin-left: -123px;
+}
+
+.navbar-top-links .dropdown-user {
+    right: 0;
+    left: auto;
+}
 
 .sidebar .sidebar-nav.navbar-collapse {
     padding-left: 0;
@@ -541,4 +552,8 @@ table.dataTable thead .sorting_desc_disabled {
 
 .clickable {
     cursor: pointer;
+}
+
+.dropdown-menu li {
+    text-align: right;
 }
