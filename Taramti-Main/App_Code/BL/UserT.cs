@@ -413,8 +413,8 @@ public class UserT
             assoc.Association_Code = row[0].ToString();
             assoc.Association_Name = row[1].ToString();
             assoc.Association_Desc = row[2].ToString();
-            assoc.Association_WebSite = row[3].ToString(); 
-            assoc.Association_Year = row[4].ToString(); 
+            assoc.Association_WebSite = row[3].ToString();
+            assoc.Association_Year = row[4].ToString();
             assoc.Association_Image = row[5].ToString();
             li_rtn.Add(assoc);
         }
@@ -444,7 +444,27 @@ public class UserT
 
     public void UpdateUser() { }
 
-    public void GetUserDetails() { }
+    public UserT GetUserDetails()
+    {
+        DbService db = new DbService();
+        DataSet DS = new DataSet();
+        string StrSql = "";
+        StrSql = "select * from users where user_id ='" + UserId + "' ";
+        DS = db.GetDataSetByQuery(StrSql);
+        if (DS.Tables[0].Rows.Count > 0)
+        {
+            FirstName = DS.Tables[0].Rows[0][1].ToString();
+            LastName = DS.Tables[0].Rows[0][2].ToString();
+            Address = DS.Tables[0].Rows[0][4].ToString();
+            Mail = DS.Tables[0].Rows[0][5].ToString();
+            Active = bool.Parse(DS.Tables[0].Rows[0][8].ToString());
+        }
+        else
+        {
+
+        }
+        return this;
+    }
 
     public void GetUserBids() { }
 
@@ -497,7 +517,8 @@ public class UserT
 
     }
 
-    public bool AddMursheManager() {
+    public bool AddMursheManager()
+    {
         string sqlInsert = @"insert into [dbo].[admin]
                            ([user_id])
                             VALUES 

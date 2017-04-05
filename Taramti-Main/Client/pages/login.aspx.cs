@@ -98,7 +98,7 @@ public partial class Client_pages_login : System.Web.UI.Page
         switch (auth)
         {
             case 1:
-                Response.Redirect(""); //דף אדמין
+                Response.Redirect("ManagerMaster.html"); //דף אדמין
                 break;
             case 2:
                 Response.Redirect("AssocMaster.html"); //דף עמותות

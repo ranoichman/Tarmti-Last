@@ -84,6 +84,30 @@
             } //for
         }) //doc ready
 
+        // מילוי פרטי היוזר המחובר
+        $.ajax({
+            dataType: "json",
+            url: "/../WebService.asmx/GetUserDetails",
+            contentType: "application/json; charset=utf-8",
+            type: "POST",
+            data: JSON.stringify({}),
+            success: function (data) {
+
+                var st_arr = JSON.parse(data.d);
+                
+                if (st_arr == "NOCOOKIE") {
+                    window.location = "login.aspx";
+                }
+
+                $("#WelcomwUser").text("שלום, " + st_arr.FirstName + " " + st_arr.LastName);
+                //nav nav-second-level collapse in
+                $("#AmutaInfo").css({ 'background-color': '#eee' });
+            },
+            error: function (err) {
+                alert(err.responseText);
+            }
+        });//ajax
+
 
     </script>
 
@@ -154,13 +178,13 @@
                         <!-- /input-group -->
                         <!--</li>-->
                         <li>
-                            <div id="WelcomwUser"><strong>שלום יעקב,</strong></div>
+                            <div id="WelcomwUser"><strong> </strong></div>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-table fa-fw"></i> העמותה שלנו<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
+                            <ul class="nav nav-second-level collapse in">
                                 <li>
-                                    <a href="AmutaInfo.html" target="iframe_Assoc_master"> פרטי העמותה</a>
+                                    <a href="AmutaInfo.html" target="iframe_Assoc_master" id="AmutaInfo" > פרטי העמותה</a>
                                 </li>
                                 <li>
                                     <a href="AmutaInfo.html" target="iframe_Assoc_master"> עדכון פרטי העמותה</a>
@@ -172,7 +196,7 @@
                             <a href="AddingMursheAcoss.html" target="iframe_Assoc_master"><i class="fa fa-edit fa-fw"></i> הוספת מורשים</a>
                         </li>
                         <li>
-                            <a href="#" target="iframe_Assoc_master"><i class="fa fa-bar-chart-o fa-fw"></i> דוחות</a>
+                            <a href="AmutaInfo.html" target="iframe_Assoc_master"><i class="fa fa-bar-chart-o fa-fw"></i> דוחות</a>
                         </li>
 
                     </ul>
