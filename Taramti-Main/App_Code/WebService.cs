@@ -145,9 +145,14 @@ public class WebService : System.Web.Services.WebService
         temp_user.Password = newPass;
         temp_user.UpdatePassword();
         return "true";
-
+        
     }
 
+    /// <summary>
+    /// נקודתית!!!!!!!!!!!!!!
+    /// בפונקציה זו נדרוס את כתובת היוזר בערך ההרשאה של היוזר!!!
+    /// </summary>
+    /// <returns></returns>
     //(Description ="WebService to return the logged in user ID and info ")
     [WebMethod(EnableSession = true)]
     public string GetUserDetails()
@@ -159,15 +164,20 @@ public class WebService : System.Web.Services.WebService
         
         if (context.Session["UserID"] == null)
         {
-            //Context.Response.AddHeader("Location", "<www.walla.co.il>");
-            //HttpContext.Current.Response.Redirect(System.IO.Path.GetFileNameWithoutExtension(HttpContext.Current.Request.PhysicalPath));
             return j.Serialize("NOCOOKIE");
         }
-
         temp_user.UserId = (string)(context.Session["UserID"]);
+        int auth = temp_user.CheckAuthDesktop();
+        if (auth == -1)
+        {
+            return j.Serialize("NOCOOKIE");
+        }
+        else
+        {
+            
+            temp_user.Address = auth.ToString();
+        }
 
-
-        //temp_user.UserId = HttpContext.Current.Session["UserID"].ToString();
         temp_user.GetUserDetails();
         return j.Serialize(temp_user);
     }

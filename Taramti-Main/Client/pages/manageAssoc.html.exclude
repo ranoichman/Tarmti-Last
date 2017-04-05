@@ -1,0 +1,229 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>ניהול עמותות</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- MetisMenu CSS -->
+    <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <!-- DataTables CSS -->
+    <link href="../vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet">
+    <!-- DataTables Responsive CSS -->
+    <link href="../vendor/datatables-responsive/dataTables.responsive.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+    <!-- Custom Fonts -->
+    <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- our CSS -->
+    <link href="../css/formCSS.css" rel="stylesheet" />
+
+    <!-- AJAX -->
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>-->
+    <!-- User JS Class-->
+    <script src="../js/classes/User.js"></script>
+
+
+</head>
+
+<body dir="rtl">
+    <div id="wrapper">
+
+        <div id="page-wrapper" style="margin: 0 0 0 0;">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">ניהול עמותות</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-12">
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+
+                            <table class="table order-column table-bordered table-striped table-hover" id="assocMNG_TBL"></table>
+                            <!-- /.table-responsive -->
+                            <div class="well">
+                                <h4>DataTables Usage Information</h4>
+                                <p>DataTables is a very flexible, advanced tables plugin for jQuery. In SB Admin, we are using a specialized version of DataTables built for Bootstrap 3. We have also customized the table headings to use Font Awesome icons in place of images. For complete documentation on DataTables, visit their website at <a target="_blank" href="https://datatables.net/">https://datatables.net/</a>.</p>
+                                <a class="btn btn-default btn-lg btn-block" target="_blank" href="https://datatables.net/">View DataTables Documentation</a>
+                            </div>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+        </div>
+        <!-- /#page-wrapper -->
+    </div>
+
+    <!-- /#wrapper -->
+    <!-- jQuery -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="../vendor/metisMenu/metisMenu.min.js"></script>
+
+    <!-- bootbox popups Plugin JavaScript -->
+    <script src="../vendor/popups/bootbox.min.js"></script>
+
+    <!-- DataTables JavaScript -->
+    <script src="../vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="../vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
+    <script src="../vendor/datatables-responsive/dataTables.responsive.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="../dist/js/sb-admin-2.js"></script>
+    <!-- Page-Level Demo Scripts - Tables - Use for reference -->
+
+    <script>
+
+        var myPromise = new Promise(function (resolve, reject) {
+            $.ajax({
+                dataType: "json",
+                url: "/../AssociationsWebService.asmx/GetAllAmotaDetails",
+                contentType: "application/json; charset=utf-8",
+                type: "POST",
+                data: JSON.stringify({}),
+                success: function (data) {
+                    resolve(data.d);
+                },
+                error: function (err) {
+                    return err;
+                }
+            });
+            //resolve(userMNG.getAll());
+
+        });
+
+        var usersMap = new Map(); //מערך מסוג מפה לשמירת כל המשתמשים שהם מורשי גישה
+
+
+
+        //הרצת הפרומיס
+        function runPromise() {
+
+            myPromise.then(function (data) {
+                var arrAssoc = new Array();
+                var j = 0;
+                var usersSet = new Set();
+                var prmRes = JSON.parse(data)
+                for (i in prmRes) { // assign to "set"
+
+                    var tags = "";
+                    //מילוי רשימת תגיות
+                    for (let tag of prmRes[i].Association_Tags)
+                    {
+                        tags += tag.Tag_Name + ", ";
+                    }
+                    tags = tags.slice(0, -2);
+
+                    var $users = $("<div>");
+                    //מילוי רשימת משתמשים
+                    for (let user of prmRes[i].PermittedUsers)
+                    {
+                        let fullName = user.FirstName + " " + user.LastName;
+                        let temp_user = new userMNG(user.UserId, fullName, "", 1, user.Active);
+                        temp_user.display_info();
+                        if (!(usersMap.has(fullName))) {
+                            usersMap.set(fullName, temp_user);
+                        }
+                        
+                        let $name = $("<p>").addClass("clickable").text(fullName);
+                        $users.append($name);
+
+
+                    }
+                    //users = users.slice(0, -2);
+                    arrAssoc[j] = { "code": prmRes[i].Association_Code, "name": prmRes[i].Association_Name, "tags": tags, "users": $users[0].innerHTML};
+                    j++;
+                } //end assign "set" for
+
+                //הגדרת המידע בטבלה
+                $('#assocMNG_TBL').DataTable({
+                    data: arrAssoc, //מקור מידע
+                    columns: [
+                        { title: "קוד עמותה", data: "code" },
+                        { title: "שם", data: "name" },
+                        { title: "תגיות עמותות", data: "tags", orderable: false },
+                        { title: "מורשי גישה", data: "users", orderable: false }
+                    ],
+                    //order: [[1, 'asc']], //הגדרת ברירת מחדל למיון
+                    language: { //תצוגות שפה
+                        info: "מציג עמוד  _PAGE_ מתוך _PAGES_",
+                        emptyTable: "אין מידע לתצוגה",
+                        infoEmpty: "מציג 0 מתוך 0 רשומות",
+                        infoFiltered: "",
+                        search: "חיפוש:",
+                        lengthMenu: 'הצג <select>' +
+			             '<option value="20" selected>20</option>' +
+			             '<option value="50">50</option>' +
+			             '<option value="100">100</option>' +
+			             '<option value="-1">את כל</option>' +
+			             '</select> תוצאות',
+                        paginate: {
+                            next: "הבא",
+                            previous: "הקודם"
+                        }
+                    },
+                    responsive: true
+                });
+
+                $('#assocMNG_TBL tbody td p.clickable').on('click', function () {
+                    //showUserInfo();
+                    //var $diag = $("<div>").attr("id", "dialog");
+                    var $diag;
+                    var name = $(this).text();
+                    for (let entry of usersMap.entries()) {
+                        if (name == entry[0]) {
+                            $diag = entry[1].display_info();
+                        }
+                    }
+                    $diag.attr("id", "dialog");
+                    $("th[aria-label='מורשי גישה']").append($diag);
+                    $diag.dialog();
+                
+                })
+
+            });//end promise - success
+
+        }
+
+        //מתודה להצגת פרטי המשתמש
+        function showUserInfo() {
+            var $diag = $("<div>").attr("id","dialog");
+            for (let entry of usersMap.entries()){
+                if (this.text() == entry[0]) {
+                    var $p = ("<p>").text(entry[1].display_info);
+                    $diag.append($p);
+                }
+                $("th[aria-label='מורשי גישה']").append($diag);
+                $diag.dialog();
+            }
+
+        }
+
+
+    </script>
+
+
+</body>
+</html>

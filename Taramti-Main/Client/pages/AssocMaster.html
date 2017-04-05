@@ -34,6 +34,31 @@
 
         $(document).ready(function () {
 
+            // מילוי פרטי היוזר המחובר
+            $.ajax({
+                dataType: "json",
+                url: "/../WebService.asmx/GetUserDetails",
+                contentType: "application/json; charset=utf-8",
+                type: "POST",
+                async: false, 
+                data: JSON.stringify({}),
+                success: function (data) {
+
+                    var st_arr = JSON.parse(data.d);
+
+                    if (st_arr == "NOCOOKIE" || st_arr.Address == "1") {
+                        window.location = "login.aspx";
+                    }
+
+                    $("#WelcomwUser").text("שלום, " + st_arr.FirstName + " " + st_arr.LastName);
+                    //nav nav-second-level collapse in
+                    $("#AmutaInfo").css({ 'background-color': '#eee' });
+                },
+                error: function (err) {
+                    alert(err.responseText);
+                }
+            });//ajax
+
 
             if (localStorage.getItem("Association_Code_Array") == null) {
                 $.ajax({
@@ -84,29 +109,7 @@
             } //for
         }) //doc ready
 
-        // מילוי פרטי היוזר המחובר
-        $.ajax({
-            dataType: "json",
-            url: "/../WebService.asmx/GetUserDetails",
-            contentType: "application/json; charset=utf-8",
-            type: "POST",
-            data: JSON.stringify({}),
-            success: function (data) {
-
-                var st_arr = JSON.parse(data.d);
-                
-                if (st_arr == "NOCOOKIE") {
-                    window.location = "login.aspx";
-                }
-
-                $("#WelcomwUser").text("שלום, " + st_arr.FirstName + " " + st_arr.LastName);
-                //nav nav-second-level collapse in
-                $("#AmutaInfo").css({ 'background-color': '#eee' });
-            },
-            error: function (err) {
-                alert(err.responseText);
-            }
-        });//ajax
+        
 
 
     </script>
@@ -187,7 +190,7 @@
                                     <a href="AmutaInfo.html" target="iframe_Assoc_master" id="AmutaInfo" > פרטי העמותה</a>
                                 </li>
                                 <li>
-                                    <a href="AmutaInfo.html" target="iframe_Assoc_master"> עדכון פרטי העמותה</a>
+                                    <a href="EditAssoc.html" target="iframe_Assoc_master"> עדכון פרטי העמותה</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -196,7 +199,7 @@
                             <a href="AddingMursheAcoss.html" target="iframe_Assoc_master"><i class="fa fa-edit fa-fw"></i> הוספת מורשים</a>
                         </li>
                         <li>
-                            <a href="AmutaInfo.html" target="iframe_Assoc_master"><i class="fa fa-bar-chart-o fa-fw"></i> דוחות</a>
+                            <a href="EditAssoc.html" target="iframe_Assoc_master"><i class="fa fa-bar-chart-o fa-fw"></i> דוחות</a>
                         </li>
 
                     </ul>

@@ -44,7 +44,7 @@
 
                 var st_arr = JSON.parse(data.d);
 
-                if (st_arr == "NOCOOKIE") {
+                if (st_arr == "NOCOOKIE" || st_arr.Address == "2") {
                     window.location = "login.aspx";
                 }
 
@@ -254,7 +254,7 @@
                             <a href="AddingMursheManager.html" target="iframe_master"><i class="fa fa-edit fa-fw"></i> הוספת מורשים</a>
                         </li>
                         <li>
-                            <a href="AmutaInfo.html" target="iframe_master"><i class="fa fa-bar-chart-o fa-fw"></i> דוחות</a>
+                            <a href="EditAssoc.html" target="iframe_master"><i class="fa fa-bar-chart-o fa-fw"></i> דוחות</a>
                         </li>
                         <!--<li>
                             <a href="#" target="iframe_master"><i class="fa fa-wrench fa-fw"></i> ניהול הגדרות<span class="fa arrow"></span></a>

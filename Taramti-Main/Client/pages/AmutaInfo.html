@@ -47,43 +47,51 @@
 
         $(document).ready(function () {
 
-            var codeA = localStorage.getItem("Assoc");
-         
-            $.ajax({
-                dataType: "json",
-                url: "/../AssociationsWebService.asmx/GetAmutaDetails",
-                contentType: "application/json; charset=utf-8",
-                type: "POST",
-                data: JSON.stringify({code : codeA}),
-                success: function (data) {
+            if (window.self == window.top) {
+                window.location = "AssocMaster.html";
+            }
 
-                    var st_arr = JSON.parse(data.d);
+            else {
+                var codeA = localStorage.getItem("Assoc");
 
-                    $("#LBLAmutaCode").html(st_arr.Association_Code);
-                    $("#LBLAmutaName").html(st_arr.Association_Name);
-                    $("#H1Name").append(st_arr.Association_Name);
-                    $("#AmutaInfo").html(st_arr.Association_Desc);
-                    $("#LBLAmutaAccount").html(st_arr.Association_Account);
-                    $("#LBLAmutaWeb").html(st_arr.Association_WebSite);
-                    $("#LBLAmutaYear").html(st_arr.Association_Year);
+                $.ajax({
+                    dataType: "json",
+                    url: "/../AssociationsWebService.asmx/GetAmutaDetails",
+                    contentType: "application/json; charset=utf-8",
+                    type: "POST",
+                    data: JSON.stringify({ code: codeA }),
+                    success: function (data) {
 
-                    var arrUsers = new Array();
-                    var J = 0;
+                        var st_arr = JSON.parse(data.d);
 
-                    for (i in st_arr.PermittedUsers)
-                    {
-                        arrUsers[J] = [st_arr.PermittedUsers[i].UserId, st_arr.PermittedUsers[i].FirstName + " " + st_arr.PermittedUsers[i].LastName, st_arr.PermittedUsers[i].Rank, 1, st_arr.PermittedUsers[i].Active ? "פעיל" : "לא פעיל"];
-                        J++;
+                        $("#LBLAmutaCode").html(st_arr.Association_Code);
+                        $("#LBLAmutaName").html(st_arr.Association_Name);
+                        $("#H1Name").append(st_arr.Association_Name);
+                        $("#AmutaInfo").html(st_arr.Association_Desc);
+                        $("#LBLAmutaAccount").html(st_arr.Association_Account);
+                        $("#LBLAmutaWeb").html(st_arr.Association_WebSite);
+                        $("#LBLAmutaYear").html(st_arr.Association_Year);
+
+                        var arrUsers = new Array();
+                        var J = 0;
+
+                        for (i in st_arr.PermittedUsers) {
+                            arrUsers[J] = [st_arr.PermittedUsers[i].UserId, st_arr.PermittedUsers[i].FirstName + " " + st_arr.PermittedUsers[i].LastName, st_arr.PermittedUsers[i].Rank, 1, st_arr.PermittedUsers[i].Active ? "פעיל" : "לא פעיל"];
+                            J++;
+                        }
+
+                        CreateTable(arrUsers);
+
+
+                    },
+                    error: function (err) {
+                        alert(err.responseText);
                     }
+                });
+            }
+           
 
-                    CreateTable(arrUsers);
-
-                  
-                },
-                error: function (err) {
-                    alert(err.responseText);
-                }
-            });
+           
         })
 
         function CreateTable(arrUsers) {

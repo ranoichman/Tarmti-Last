@@ -19,6 +19,8 @@
     <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
     <!-- Custom Fonts -->
     <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -90,6 +92,9 @@
     <script src="../vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
     <script src="../vendor/datatables-responsive/dataTables.responsive.js"></script>
 
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
     <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
@@ -108,16 +113,20 @@
                 error: function (err) {
                     return err;
                 }
-            });
-            //resolve(userMNG.getAll());
-
-        });
+            });//ajax
+        });//promise
 
         var usersMap = new Map(); //מערך מסוג מפה לשמירת כל המשתמשים שהם מורשי גישה
 
         $(document).ready(function () {
 
-            runPromise();
+            if (window.self == window.top) {
+                window.location = "AssocMaster.html";
+            }
+            else {
+                runPromise();
+            }
+            
 
         });//doc.ready
 
@@ -148,15 +157,14 @@
                         temp_user.display_info();
                         if (!(usersMap.has(fullName))) {
                             usersMap.set(fullName, temp_user);
-                        }
-                        
+                        }//if
+
                         let $name = $("<p>").addClass("clickable").text(fullName);
                         $users.append($name);
 
 
-                    }
-                    //users = users.slice(0, -2);
-                    arrAssoc[j] = { "code": prmRes[i].Association_Code, "name": prmRes[i].Association_Name, "tags": tags, "users": $users[0].innerHTML};
+                    }//for
+                    arrAssoc[j] = { "code": prmRes[i].Association_Code, "name": prmRes[i].Association_Name, "tags": tags, "users": $users[0].innerHTML };
                     j++;
                 } //end assign "set" for
 
@@ -190,9 +198,9 @@
                     responsive: true
                 });
 
+                //פתיחת דיאלוג עם פרטי מורש הגישה
                 $('#assocMNG_TBL tbody td p.clickable').on('click', function () {
-                    //showUserInfo();
-                    //var $diag = $("<div>").attr("id", "dialog");
+                    $("#dialog").remove();
                     var $diag;
                     var name = $(this).text();
                     for (let entry of usersMap.entries()) {
@@ -200,153 +208,18 @@
                             $diag = entry[1].display_info();
                         }
                     }
-                    $diag.attr("id", "dialog");
-                    $('th[aria-label=מורשי גישה]').append($diag);
+                    $diag.attr({"id": "dialog", "title":"פרטי מורשה גישה"});
+                    $("th[aria-label='מורשי גישה']").append($diag);
                     $diag.dialog();
-                
+
                 })
 
-                //toggleActive();
-                //highlightRow();
-                //$('input[name=activeRB]').on('change', function () { toggleActive() });
                 //} //end add to table for
 
             });//end promise - success
 
         }
 
-        //מתודה להצגת פרטי המשתמש
-        function showUserInfo() {
-            var $diag = $("<div>").attr("id","dialog");
-            for (let entry of usersMap.entries()){
-                if (this.text() == entry[0]) {
-                    var $p = ("<p>").text(entry[1].display_info);
-                    $diag.append($p);
-                }
-                $("th[aria-label='מורשי גישה']").append($diag);
-                $diag.dialog();
-            }
-
-        }
-
-
-
-
-        //שינוי התצוגה בטבלה - רק פעילים/לא פעילים
-        //function toggleActive() {
-        //    var $data_table = $('#usersMNG_TBL').DataTable();
-        //    var column_index = 4; //מס' עמודה לפילטור
-        //    var radio = $("input[name='activeRB']:checked").val(); // ערך מדויק לחיפוש
-
-        //    $data_table.columns(column_index).search('^' + radio + '$', true, false).draw();
-
-        //}
-
-        ////פונקציית לחיצה על פעיל/לא פעיל
-        //function highlightRow() {
-
-        //    $('#usersMNG_TBL tbody td.clickable').on('click', function () {
-        //        var table = $('#usersMNG_TBL').DataTable();
-        //        var rowIdx = table.row(this).index();
-        //        var id = table.cell(rowIdx, 0).data(); //ת.ז המשתמש שנלחץ
-        //        var name = table.cell(rowIdx, 1).data();//שם המשתמש שנלחץ
-        //        if ($("input[name='activeRB']:checked").val() === "פעיל") {
-        //            showDelPopUP(name, id);
-        //        }
-        //        else {
-        //            showApprovePopUP(name, id);
-        //        }
-
-
-        //    });
-        //}
-
-        ////הצגת פופאפ לפני מחיקת משתמש
-        ////פונקציית לחיצה על פעיל/לא פעיל
-        //function highlightRow() {
-        //    $('#usersMNG_TBL tbody td.clickable').on('click', function () {
-        //        var table = $('#usersMNG_TBL').DataTable();
-        //        var rowIdx = table.row(this).index();
-        //        var id = table.cell(rowIdx, 0).data(); //ת.ז המשתמש שנלחץ
-        //        var name = table.cell(rowIdx, 1).data(); //שם המשתמש שנלחץ
-        //        if ($("input[name='activeRB']:checked").val() === "פעיל") {
-        //            showDelPopUP(name, id, rowIdx);
-        //        }
-        //        else {
-        //            showApprovePopUP(name, id, rowIdx);
-        //        }
-        //    });
-        //    }
-
-        ////הצגת פופאפ לפני מחיקת משתמש
-        //function showDelPopUP(name, id, rowIdx) {
-        //    bootbox.confirm({
-        //        size: "large",
-        //        message: "למחוק את <b>" + name + "</b>? למשתמש לא תהיה יותר גישה לאתר!",
-        //        buttons: {
-        //            confirm: {
-        //                label: 'המשך',
-        //                className: 'btn-success pull-right'
-        //            },
-        //            cancel: {
-        //                label: 'בטל',
-        //                className: 'btn-danger'
-        //            },
-        //        },
-        //        callback: function (result) { /* result is a boolean; true = OK, false = Cancel*/
-        //            if (result === true) {
-        //                changeUserActive(id, false,rowIdx);
-        //            }
-        //        }
-        //    });
-        //}
-        ////הצגת פופאפ לפני ביטול מחיקת משתמש
-        //function showApprovePopUP(name, id, rowIdx) {
-        //    bootbox.confirm({
-        //        size: "large",
-        //        message: "האם להחזיר לפעילות <b>" + name + "</b>? למשתמש תותר גישה לאתר!",
-        //        buttons: {
-        //            confirm: {
-        //                label: 'המשך',
-        //                className: 'btn-success  pull-right'
-        //            },
-        //            cancel: {
-        //                label: 'בטל',
-        //                className: 'btn-danger'
-        //            }
-        //        },
-        //        callback: function (result) { /* result is a boolean; true = OK, false = Cancel*/
-        //            if (result === true) {
-        //                changeUserActive(id, true,rowIdx);
-        //            }
-        //        }
-        //    });
-        //}
-
-        //function changeUserActive(id, status, rowIdx) //status = הסטאטוס החדש, אם המשתמש היה פעיל אזי סטאטוס יהיה שקר
-        //{
-        //    $.ajax({
-        //        dataType: "json",
-        //        url: "/../AdminWebService.asmx/ChangeActive",
-        //        contentType: "application/json; charset=utf-8",
-        //        type: "POST",
-        //        data: JSON.stringify({ id: id, active: status }),
-        //        success: function (data) {
-        //            //toggleActive();
-        //            var table = $('#usersMNG_TBL').DataTable();
-        //            var active = table.cell(rowIdx, 4).data();
-        //            if (active === "פעיל") {
-        //                table.cell(rowIdx, 4).data("לא פעיל");
-        //            }
-        //            else {
-        //                table.cell(rowIdx, 4).data("פעיל");
-        //            }
-        //            table.draw();
-        //        },
-        //        error: function (err) {
-        //        }
-        //    });
-        //}
     </script>
 
 

@@ -96,6 +96,13 @@
 
     <script>
 
+        $(document).ready(function () {
+
+            if (window.self == window.top) {
+                window.location = "AssocMaster.html";
+            }
+        })// DocReady
+
         function AreUSure() {
 
         }

@@ -11,13 +11,13 @@ using System.Web;
 /// 
 public class Voluntary_association
 {
-    public string association_Code;
-    public string association_Name;
-    public string association_Desc;
-    public string association_Account;
-    public string association_WebSite;
-    public string association_Year;
-    public string association_Image;
+    string association_Code;
+    string association_Name;
+    string association_Desc;
+    string association_Account;
+    string association_WebSite;
+    string association_Year;
+    string association_Image;
     List<Association_Tag> association_Tags;
     List<UserT> permittedUsers;
     List<Auction> auctions;
@@ -180,11 +180,22 @@ public class Voluntary_association
         PermittedUsers = permitted;
     }
 
-    public Voluntary_association(string association_Code, string association_Name, string association_Desc, string website, string year,string image)
+    public Voluntary_association(string association_Code, string association_Name, string association_Desc, string website, string year, string image)
     {
         Association_Code = association_Code;
         Association_Name = association_Name;
         Association_Desc = association_Desc;
+        Association_WebSite = website;
+        Association_Year = year;
+        Association_Image = image;
+    }
+
+    public Voluntary_association(string association_Code, string association_Name, string association_Desc, string account, string website, string year, string image)
+    {
+        Association_Code = association_Code;
+        Association_Name = association_Name;
+        Association_Desc = association_Desc;
+        Association_Account = account;
         Association_WebSite = website;
         Association_Year = year;
         Association_Image = image;
@@ -197,16 +208,18 @@ public class Voluntary_association
         Auctions = new List<Auction>();
     }
 
-    public Voluntary_association(string code):this()
+    public Voluntary_association(string code) : this()
     {
         Association_Code = code;
     }
+
+
 
     public void ShowAssocDetails()
     {
 
     }
-    
+
     // הפיכה לסטטי כדי להיקרא מאג'קס
     public static List<string> GetAssociationByCode(string code)
     {
@@ -283,6 +296,8 @@ public class Voluntary_association
         foreach (DataRow row in DS.Tables[1].Rows)
         {
             UserT permitted = new UserT(row[0].ToString(), row[1].ToString(), row[2].ToString(), bool.Parse(row[3].ToString()));
+            List<Voluntary_association> temp_li = permitted.GetUserAssociations();
+            permitted.Address = temp_li.Count.ToString(); //שימוש חד פעמי בשדה כתובת להעברת מס' לדף הטמל
             PermittedUsers.Add(permitted);
         }
 
@@ -293,66 +308,6 @@ public class Voluntary_association
             Association_Tags.Add(tag);
         }
     }
-
-    //public void GetAssociationByCodeAmuta()
-    //{
-    //    DbService db = new DbService();
-    //    DataSet DS = new DataSet();
-    //    //Voluntary_association A = new Voluntary_association();
-    //    string sql = "select * from association  " +
-    //                 "where association_code= @code )";
-    //    SqlParameter parCode = new SqlParameter("@code", Association_Code);
-    //    DS = db.GetDataSetByQuery(sql, CommandType.Text, parCode);
-    //    foreach (DataRow row in DS.Tables[0].Rows)
-    //    {
-
-    //        Association_Code = row[0].ToString();
-    //        Association_Name = row[1].ToString();
-    //        Association_Desc = row[2].ToString();
-    //        Association_Account = row[3].ToString();
-    //        Association_WebSite = row[4].ToString();
-    //        Association_Year = row[6].ToString();
-    //    }
-
-    //    sql = "SELECT dbo.users.user_id,dbo.users.first_name, dbo.users.last_name,dbo.users.active " +
-    //          "FROM dbo.association_access LEFT JOIN " +
-    //          "dbo.users ON dbo.association_access.user_id = dbo.users.user_id " +
-    //          "WHERE(dbo.association_access.association_code = @code )";
-    //    DS.Tables.Add();
-    //    DS = db.GetDataSetByQuery(sql, CommandType.Text, parCode);
-
-    //    foreach (DataRow row in DS.Tables[0].Rows)
-    //    {
-    //        UserT permitted = new UserT(row[0].ToString(), row[1].ToString(), row[2].ToString(), bool.Parse(row[3].ToString()));
-    //        PermittedUsers.Add(permitted);
-    //    }
-    //}
-
-
-
-
-    //public static List<Voluntary_association> GetAssociationByUser(string userID)
-    //{
-    //    DataSet DS = new DataSet();
-    //    DbService db = new DbService();
-    //    List<Voluntary_association> Lists = new List<Voluntary_association>();
-
-    //    string StrSql = "SELECT dbo.association_access.user_id, dbo.association_access.association_code, dbo.association.association_name, dbo.association.association_desc, " +
-    //                     "dbo.association.account, dbo.association.website, dbo.association.image, dbo.association.year " +
-    //                     "FROM dbo.association INNER JOIN dbo.association_access ON dbo.association.association_code = dbo.association_access.association_code " +
-    //                     "WHERE(dbo.association_access.user_id =" + userID + ")";
-    //    DS = db.GetDataSetByQuery(StrSql);
-    //    if (DS.Tables[0].Rows.Count > 0)
-    //    {
-    //        Voluntary_association A = new Voluntary_association();
-    //        A.Association_Code = DS.Tables[0].Rows[0][1].ToString();
-    //        A.Association_Name = DS.Tables[0].Rows[0][2].ToString();
-    //        A.Association_Desc = DS.Tables[0].Rows[0][3].ToString();
-    //        Lists.Add(A);
-    //    }
-    //    return Lists;
-    //}
-
 
     /// <summary>
     /// מתודה שמרכזת תעודות זהות של משתמשים מורשים לפי קוד עמותה
@@ -407,5 +362,41 @@ public class Voluntary_association
         }
 
         return true;
+    }
+
+    public int GetDonationSum()
+    {
+        string sql = @"SELECT sum(final_price * donation_percentage / 100) AS donation_amount
+                        FROM dbo.auction
+                        WHERE (association_code = @code)";
+        SqlParameter parCode = new SqlParameter("@code", Association_Code);
+        DbService db = new DbService();
+        return db.GetScalarByQuery(sql, CommandType.Text, parCode);
+    }
+
+
+
+    // מתודה לעדכון נתוני העמותה בשרת
+    public void UpdateTbl()
+    { 
+        DbService db = new DbService();
+        string StrSql = "update dbo.association set " +
+                        "association_name = @name, " +
+                        "association_desc = @desc, " +
+                        "account = @acc, " +
+                        "website = @web, " +
+                        "image = @image, " +
+                        "year = @year " +
+                        "where association_code ='" + Association_Code + "' ";
+
+        SqlParameter parname = new SqlParameter("@name", Association_Name);
+        SqlParameter pardesc = new SqlParameter("@desc", Association_Desc);
+        SqlParameter paraccount = new SqlParameter("@acc", Association_Account);
+        SqlParameter parweb = new SqlParameter("@web", Association_WebSite);
+        SqlParameter parimg = new SqlParameter("@image", Association_Image);
+        SqlParameter paryear = new SqlParameter("@year", Association_Year);
+
+        db.ExecuteQuery(StrSql, CommandType.Text, parname, pardesc, paraccount, parweb, parimg, paryear);
+
     }
 }

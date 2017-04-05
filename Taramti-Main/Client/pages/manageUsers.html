@@ -116,8 +116,13 @@
 
         $(document).ready(function () {
 
-            runPromise();
-
+            if (window.self == window.top) {
+                window.location = "ManagerMaster.html";
+            } else {
+                runPromise();
+            }
+          
+            
         });//doc.ready
 
         function runPromise() {
