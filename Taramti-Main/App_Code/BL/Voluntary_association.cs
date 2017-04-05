@@ -190,6 +190,17 @@ public class Voluntary_association
         Association_Image = image;
     }
 
+    public Voluntary_association(string association_Code, string association_Name, string association_Desc, string account, string website, string year, string image)
+    {
+        Association_Code = association_Code;
+        Association_Name = association_Name;
+        Association_Desc = association_Desc;
+        Association_Account = account;
+        Association_WebSite = website;
+        Association_Year = year;
+        Association_Image = image;
+    }
+
     public Voluntary_association()
     {
         PermittedUsers = new List<UserT>();
@@ -361,5 +372,31 @@ public class Voluntary_association
         SqlParameter parCode = new SqlParameter("@code", Association_Code);
         DbService db = new DbService();
         return db.GetScalarByQuery(sql, CommandType.Text, parCode);
+    }
+
+
+
+    // מתודה לעדכון נתוני העמותה בשרת
+    public void UpdateTbl()
+    { 
+        DbService db = new DbService();
+        string StrSql = "update dbo.association set " +
+                        "association_name = @name, " +
+                        "association_desc = @desc, " +
+                        "account = @acc, " +
+                        "website = @web, " +
+                        "image = @image, " +
+                        "year = @year " +
+                        "where association_code ='" + Association_Code + "' ";
+
+        SqlParameter parname = new SqlParameter("@name", Association_Name);
+        SqlParameter pardesc = new SqlParameter("@desc", Association_Desc);
+        SqlParameter paraccount = new SqlParameter("@acc", Association_Account);
+        SqlParameter parweb = new SqlParameter("@web", Association_WebSite);
+        SqlParameter parimg = new SqlParameter("@image", Association_Image);
+        SqlParameter paryear = new SqlParameter("@year", Association_Year);
+
+        db.ExecuteQuery(StrSql, CommandType.Text, parname, pardesc, paraccount, parweb, parimg, paryear);
+
     }
 }

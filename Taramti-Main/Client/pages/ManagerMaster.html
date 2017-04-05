@@ -44,7 +44,7 @@
 
                 var st_arr = JSON.parse(data.d);
 
-                if (st_arr == "NOCOOKIE") {
+                if (st_arr == "NOCOOKIE" || st_arr.Address == "2") {
                     window.location = "login.aspx";
                 }
 
