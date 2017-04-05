@@ -1,17 +1,36 @@
-$(function() {
 
+//$(function () {
+//    var arr = [{ "y": "Tnu Lachiot", "a": 150, "b": 40 }, { "y": "Nizkakim", "a": 250, "b": 150 }, { "y": "Atalef", "a": 50, "b": 20 }, { "y": "Cancer Fighting", "a": 250, "b": 80 }]
+//    var Chart = Morris.Area({
+//        element: 'morris-area-chart',
+//        data: [{ "y": null, "a": null, "b": null }],
+//        xkey: 'y',
+//        ykeys: ['a', 'b'],
+//        labels: ['Amuta', 'Michraz Amount', 'donation Amount'],
+//        pointSize: 2,
+//        hideHover: 'auto',
+//        resize: true
+//    });
+////    Chart.setdata(arr);
+
+    
+
+//        Chart.setdata(arr);
+
+//    });
+$(function () {
     Morris.Area({
         element: 'morris-area-chart',
         data: [{
-            period: '2010 Q1',
+            period: '2010 ÷1',
             iphone: 2666,
             ipad: null,
             itouch: 2647
         }, {
             period: '2010 Q2',
-            iphone: 2778,
-            ipad: 2294,
-            itouch: 2441
+            iphone: 50,
+            ipad: 10,
+            itouch: 50
         }, {
             period: '2010 Q3',
             iphone: 4912,
@@ -55,7 +74,7 @@ $(function() {
         }],
         xkey: 'period',
         ykeys: ['iphone', 'ipad', 'itouch'],
-        labels: ['iPhone', 'iPad', 'iPod Touch'],
+        labels: ['drhdrt', 'cghft', 'ghfthfyt'],
         pointSize: 2,
         hideHover: 'auto',
         resize: true
@@ -113,5 +132,4 @@ $(function() {
         hideHover: 'auto',
         resize: true
     });
-    
 });

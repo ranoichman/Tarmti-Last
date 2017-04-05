@@ -114,5 +114,11 @@ public class AdminWebService : System.Web.Services.WebService
         return Auction.GetDonationSumByDates(date.AddMonths(-1), date);
     }
 
-
+    [WebMethod(Description = "הבאת שם עמותה, סכום מכרזים וסכום התרומה לכל עמותה בחודש האחרון")]
+    public string Chart_NameTotalSumDonationSum_OfLastMonth()
+    {
+        JavaScriptSerializer j = new JavaScriptSerializer();
+        DateTime date = DateTime.Now;
+        return j.Serialize(Auction.GetAssocNameTotalSumDonationSumByDates(date.AddMonths(-1), date));
+    }
 }
