@@ -43,6 +43,7 @@ public class AdminWebService : System.Web.Services.WebService
         JavaScriptSerializer j = new JavaScriptSerializer();
         return j.Serialize(Voluntary_association.GetAssociationByCode(code));
     }
+
     [WebMethod]
     public string GetAllUsers()
     {
@@ -113,6 +114,19 @@ public class AdminWebService : System.Web.Services.WebService
         DateTime date = DateTime.Now;
         return Auction.GetDonationSumByDates(date.AddMonths(-1), date);
     }
+
+    [WebMethod(Description ="הבאת סכום התרומות הכולל לעמותה לפי קוד")]
+    public int GetDonationSum(string code)
+    {
+        Voluntary_association v = new Voluntary_association(code);
+        return v.GetDonationSum();
+    }
+
+
+
+
+
+
 
 
 }
