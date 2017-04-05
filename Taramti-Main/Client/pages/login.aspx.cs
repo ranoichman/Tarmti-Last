@@ -18,6 +18,7 @@ public partial class Client_pages_login : System.Web.UI.Page
 */
     protected void Page_Load(object sender, EventArgs e)
     {
+        
         if (Request.Cookies["userCookie"] != null)
         {
             if (Request.Cookies["authCookie"] != null)

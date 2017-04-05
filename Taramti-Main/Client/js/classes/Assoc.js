@@ -1,12 +1,16 @@
 ﻿class assocMNG {
 
-    constructor(code, name, donataion, tags) {
-        //this.id = userID;
-        //this.name = name;
-        //this.rank = rank;
-        //this.assocAmount = assocAmount //כמות העמותות שהמשתמש מורשה גישה אליהן
-        //this.active = active == true ? "פעיל" : " לא פעיל";
+    constructor(code, name, tags) {
+        this.code = code;
+        this.name = name;
+        this.tags = tags;
+        this.donations = 0;
     } //ctor end
+
+    setDonation(amount) {
+        this.donations = amount;
+    }
+
 
     //display_info() {
     //    var $pId = $("<p>").text("ת.ז: " + this.id);
