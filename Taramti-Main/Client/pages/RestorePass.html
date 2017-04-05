@@ -129,12 +129,14 @@
                                     <h4 id="headerMsg">הזן ת.ז וסיסמא חדשה רצויה</h4>
                                     <input class="form-control" placeholder="ת.ז" id="userID" name="userID" type="tel"  pattern=".{9,9}" required title="ת.ז חייבת להכיל 9 ספרות" >
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group has-feedback">
                                     <input class="form-control" id="newPass" placeholder="סיסמא חדשה" pattern="^\S{6,}$" name="pass" type="password" onmouseout="scorePassword()" onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Must have at least 6 characters' : ''); if(this.checkValidity()) form.newPass2.pattern = this.value;" required>
+                                    <span id="pass_Icon" class="glyphicon glyphicon-eye-open form-control-feedback" onclick="toggle()" style="left:0"></span>
                                     <!--<input class="form-control" name="Valid" type="text" placeholder="ff" onkeyup="checkPassStrength()"/>-->
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group has-feedback">
                                     <input class="form-control" id="newPass2" placeholder="חזור על סיסמא חדשה" pattern="^\S{6,}$" name="newPass" type="password" onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Please enter the same Password as above' : '');" required>
+                                    <span id="pass_Icon" class="glyphicon glyphicon-eye-open form-control-feedback" onclick="toggle()" style="left:0"></span>
                                     <label id="lbl"></label>
                               </div>
                                 <div id="btnDiv">

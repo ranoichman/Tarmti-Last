@@ -96,7 +96,7 @@
                 window.location = "AssocMaster.html";
             }
         })// DocReady
-
+        
         function CheckInDatabase() {
             var userID = $("#userID").val();
             var userMail = $("#email").val();
@@ -123,13 +123,16 @@
                         var Check_Message = AddMursheAssoc()                       
                         if (Check_Message === "true") {
                             alert(UserName + " נוספ/ה בהצלחה למערכת")
+                            bootbox.alert(UserName + " נוספ/ה בהצלחה למערכת");
                         }
                         else {
                             alert(Check_Message)
+                            bootbox.alert(Check_Message)
                         }
                     }
                     else {
                         alert("ת.ז או אימייל שגויים")
+                        bootbox.alert("ת.ז או אימייל שגויים")
                     }
                 },
                 error: function (e) {

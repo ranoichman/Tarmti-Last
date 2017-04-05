@@ -135,7 +135,7 @@
                 for (i in prmRes) { // assign to "set"
                     let fullName = prmRes[i].FirstName + " " + prmRes[i].LastName;
                     //usersSet.add(new userMNG(prmRes[i].UserId, fullName, prmRes[i].Rank.RankDesc, 1, prmRes[i].Active));
-                    arrUsers[j] = [prmRes[i].UserId, fullName, prmRes[i].Rank.RankDesc, 1, prmRes[i].Active ? "פעיל" : "לא פעיל"];
+                    arrUsers[j] = { "userID": prmRes[i].UserId, "fullName": fullName, "rank": prmRes[i].Rank.RankDesc, "assocCount": prmRes[i].Address, "active": prmRes[i].Active ? "פעיל" : "לא פעיל" };
                     j++;
                 } //end assign "set" for
 
@@ -143,11 +143,11 @@
                 $('#usersMNG_TBL').DataTable({
                     data: arrUsers, //מקור מידע
                     columns: [
-                        { title: "ת.ז", orderable: false },
-                        { title: "שם" },
-                        { title: "ניקוד" },
-                        { title: "מורשה עמותות" },
-                        { title: "פעיל", orderable: false, className: "clickable" }
+                        { title: "ת.ז", orderable: false, data:"userID" },
+                        { title: "שם", data: "fullName" },
+                        { title: "ניקוד", data: "rank" },
+                        { title: "מורשה עמותות", data: "assocCount" },
+                        { title: "פעיל", orderable: false, className: "clickable", data: "active" }
                     ],
                     order: [[1, 'asc']], //הגדרת ברירת מחדל למיון
                     language: { //תצוגות שפה

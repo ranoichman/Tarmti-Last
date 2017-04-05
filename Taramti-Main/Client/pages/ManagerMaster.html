@@ -39,6 +39,7 @@
             url: "/../WebService.asmx/GetUserDetails",
             contentType: "application/json; charset=utf-8",
             type: "POST",
+            async: false,
             data: JSON.stringify({}),
             success: function (data) {
 
@@ -245,7 +246,7 @@
                                     <a href="manageUsers.html" target="iframe_master"> ניהול משתמשים</a>
                                 </li>
                                 <li>
-                                    <a href="manageAssoc.html" target="iframe_master">ניהול עמותות </a>
+                                    <a href="manageAmutot.html" target="iframe_master">ניהול עמותות </a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->

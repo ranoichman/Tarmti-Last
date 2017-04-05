@@ -153,7 +153,7 @@
                     for (let user of prmRes[i].PermittedUsers)
                     {
                         let fullName = user.FirstName + " " + user.LastName;
-                        let temp_user = new userMNG(user.UserId, fullName, "", 1, user.Active);
+                        let temp_user = new userMNG(user.UserId, fullName, "", user.Address, user.Active);
                         temp_user.display_info();
                         if (!(usersMap.has(fullName))) {
                             usersMap.set(fullName, temp_user);

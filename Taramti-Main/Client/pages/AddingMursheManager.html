@@ -124,9 +124,9 @@
                 success: function (res) {
                     Add_Message = res.d;
                     alert(res.d);
+                    bootbox.alert(res.d);
                 },
                 error: function (e) {
-
                     alert(e.responseJSON);
                 }
             });

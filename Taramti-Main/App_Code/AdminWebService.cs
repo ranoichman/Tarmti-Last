@@ -120,14 +120,7 @@ public class AdminWebService : System.Web.Services.WebService
         Voluntary_association v = new Voluntary_association(code);
         return v.GetDonationSum();
     }
-
-
-
-
-
-
-
-
+     
     [WebMethod(Description = "הבאת שם עמותה, סכום מכרזים וסכום התרומה לכל עמותה בחודש האחרון")]
     public string Chart_NameTotalSumDonationSum_OfLastMonth()
     {

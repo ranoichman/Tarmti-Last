@@ -329,10 +329,13 @@ public class UserT
     internal static List<UserT> GetAllUsers()
     {
         List<UserT> li_rtn = new List<UserT>();
-        string sqlSelect = @"SELECT dbo.users.user_id, dbo.users.first_name ,dbo.users.last_name, dbo.users.active, SUM(dbo.auction.score) AS rank
-                              FROM dbo.auction RIGHT OUTER JOIN dbo.users ON
-                              dbo.auction.buyer_id = dbo.users.user_id OR dbo.auction.seller_id = dbo.users.user_id
-                             GROUP BY dbo.users.user_id, dbo.users.first_name, dbo.users.last_name, dbo.users.active";
+        //string sqlSelect = @"SELECT dbo.users.user_id, dbo.users.first_name ,dbo.users.last_name, dbo.users.active, SUM(dbo.auction.score) AS rank
+        //                      FROM dbo.auction RIGHT OUTER JOIN dbo.users ON
+        //                      dbo.auction.buyer_id = dbo.users.user_id OR dbo.auction.seller_id = dbo.users.user_id
+        //                     GROUP BY dbo.users.user_id, dbo.users.first_name, dbo.users.last_name, dbo.users.active";
+        string sqlSelect = @"select V_full_users_rank_combo.user_id, users.first_name,users.last_name,users.active, V_full_users_rank_combo.Rank, V_association_access.association_access
+                            from V_full_users_rank_combo, V_association_access, users
+                            where V_full_users_rank_combo.user_id = V_association_access.user_id and V_full_users_rank_combo.user_id = users.user_id";
         DbService db = new DbService();
         DataTable usersDT = db.GetDataSetByQuery(sqlSelect).Tables[0];
         List<Rank> ranksList = Rank.GetAllRanks();
@@ -353,8 +356,9 @@ public class UserT
                     break;
                 }
             }
-
-            li_rtn.Add(new UserT(id, fName, lName, active, tempRank));
+            UserT temp_user = new UserT(id, fName, lName, active, tempRank);
+            temp_user.Address = row["association_access"].Equals(DBNull.Value) ? "0" : row["association_access"].ToString();//שימוש חד פעמי בשדה כתובת להעברת מס' לדף הטמל
+            li_rtn.Add(temp_user);
         }
 
         return li_rtn;

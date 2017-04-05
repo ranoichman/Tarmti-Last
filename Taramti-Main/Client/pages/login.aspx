@@ -45,12 +45,11 @@
                             <h3 class="panel-title">תרמתי בבית - התחברות</h3>
                         </div>
                         <div class="panel-body">
-                            <asp:TextBox ID="mail_TB" placeholder="אימייל" runat="server" class="form-control" Text="golan@gmail.com" />
-
-                            <%--להוסיף ולידטור של מייל!!!!!!!!!!--%>
-                            <%--להוסיף ולידטור של מייל!!!!!!!!!!--%>
-                            <%--להוסיף ולידטור של מייל!!!!!!!!!!--%>
-
+                            <asp:PlaceHolder ID="serverMSG_PH" runat="server" />
+                            <br />
+                            <%--<input class="form-control" id="mail_TB" placeholder="אימייל" name="email" type="email"  runat="server"/>--%>
+                            <asp:TextBox ID="mail_TB" placeholder="אימייל" runat="server" class="form-control" Text="" />
+                            <asp:RegularExpressionValidator ID="mail_TB_Valid" ControlToValidate="mail_TB" runat="server" ErrorMessage="כתובת אימייל לא תקינה" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"></asp:RegularExpressionValidator>
 
                             <div class="form-group has-feedback">
                                 <asp:TextBox ID="pass_TB" placeholder="סיסמה" TextMode="Password" runat="server" class="form-control" />

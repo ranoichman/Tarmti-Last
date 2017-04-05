@@ -213,8 +213,6 @@ public class Voluntary_association
         Association_Code = code;
     }
 
-
-
     public void ShowAssocDetails()
     {
 
@@ -287,11 +285,7 @@ public class Voluntary_association
             Association_WebSite = row[4].ToString();
             Association_Year = row[6].ToString();
         }
-
-
-        //DS.Tables.Add();
-        //DS = db.GetDataSetByQuery(sql, CommandType.Text, parCode);
-
+        
         //מילוי רשימת מורשי גישה
         foreach (DataRow row in DS.Tables[1].Rows)
         {
