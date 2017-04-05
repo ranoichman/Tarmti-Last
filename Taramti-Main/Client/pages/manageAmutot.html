@@ -19,6 +19,8 @@
     <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
     <!-- Custom Fonts -->
     <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -90,6 +92,9 @@
     <script src="../vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
     <script src="../vendor/datatables-responsive/dataTables.responsive.js"></script>
 
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
     <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
@@ -108,10 +113,8 @@
                 error: function (err) {
                     return err;
                 }
-            });
-            //resolve(userMNG.getAll());
-
-        });
+            });//ajax
+        });//promise
 
         var usersMap = new Map(); //מערך מסוג מפה לשמירת כל המשתמשים שהם מורשי גישה
 
@@ -148,15 +151,14 @@
                         temp_user.display_info();
                         if (!(usersMap.has(fullName))) {
                             usersMap.set(fullName, temp_user);
-                        }
-                        
+                        }//if
+
                         let $name = $("<p>").addClass("clickable").text(fullName);
                         $users.append($name);
 
 
-                    }
-                    //users = users.slice(0, -2);
-                    arrAssoc[j] = { "code": prmRes[i].Association_Code, "name": prmRes[i].Association_Name, "tags": tags, "users": $users[0].innerHTML};
+                    }//for
+                    arrAssoc[j] = { "code": prmRes[i].Association_Code, "name": prmRes[i].Association_Name, "tags": tags, "users": $users[0].innerHTML };
                     j++;
                 } //end assign "set" for
 
@@ -190,9 +192,9 @@
                     responsive: true
                 });
 
+                //פתיחת דיאלוג עם פרטי מורש הגישה
                 $('#assocMNG_TBL tbody td p.clickable').on('click', function () {
-                    //showUserInfo();
-                    //var $diag = $("<div>").attr("id", "dialog");
+                    $("#dialog").remove();
                     var $diag;
                     var name = $(this).text();
                     for (let entry of usersMap.entries()) {
@@ -200,30 +202,17 @@
                             $diag = entry[1].display_info();
                         }
                     }
-                    $diag.attr("id", "dialog");
+                    $diag.attr({"id": "dialog", "title":"פרטי מורשה גישה"});
                     $("th[aria-label='מורשי גישה']").append($diag);
                     $diag.dialog();
-                
+
                 })
+
+                //} //end add to table for
 
             });//end promise - success
 
         }
-
-        //מתודה להצגת פרטי המשתמש
-        function showUserInfo() {
-            var $diag = $("<div>").attr("id","dialog");
-            for (let entry of usersMap.entries()){
-                if (this.text() == entry[0]) {
-                    var $p = ("<p>").text(entry[1].display_info);
-                    $diag.append($p);
-                }
-                $("th[aria-label='מורשי גישה']").append($diag);
-                $diag.dialog();
-            }
-
-        }
-
 
     </script>
 

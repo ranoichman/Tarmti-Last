@@ -30,7 +30,6 @@
 
     <!-- AJAX -->
     <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>-->
-    
     <!-- User JS Class-->
     <script src="../js/classes/User.js"></script>
 
@@ -65,8 +64,7 @@
                                         <th id="userActive">פעיל</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                </tbody>
+                                <tbody></tbody>
                             </table>
                             <!-- /.table-responsive -->
                             <div class="well">
@@ -384,7 +382,7 @@
     <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
     <!-- Metis Menu Plugin JavaScript -->
     <script src="../vendor/metisMenu/metisMenu.min.js"></script>
-    
+
     <!-- DataTables JavaScript -->
     <script src="../vendor/datatables/js/jquery.dataTables.min.js"></script>
     <!--<script src="../vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>-->
@@ -392,13 +390,13 @@
     <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
-    
+
     <script>
-        
+
     </script>
-    
-    
-    
+
+
+
     <script>
         $(document).ready(function () {
             $('#usersMNG_TBL').DataTable({
@@ -406,7 +404,7 @@
             });
             $('#usersMNG_TBL td.dataTables_empty').parent().remove();
             runPromise();
-            
+
         });//doc.ready
 
         function runPromise() {

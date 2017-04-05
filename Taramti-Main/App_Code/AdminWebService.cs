@@ -89,8 +89,7 @@ public class AdminWebService : System.Web.Services.WebService
         }
         return "המשתמש הוגדר כמנהל מערכת בהצלחה";
     }
-
-    
+  
     [WebMethod(Description = "ספירת המשתמשים הפעילים")]
     public string CountActiveUsers()
     {

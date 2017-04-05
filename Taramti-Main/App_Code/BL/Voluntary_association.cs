@@ -285,6 +285,8 @@ public class Voluntary_association
         foreach (DataRow row in DS.Tables[1].Rows)
         {
             UserT permitted = new UserT(row[0].ToString(), row[1].ToString(), row[2].ToString(), bool.Parse(row[3].ToString()));
+            List<Voluntary_association> temp_li = permitted.GetUserAssociations();
+            permitted.Address = temp_li.Count.ToString(); //שימוש חד פעמי בשדה כתובת להעברת מס' לדף הטמל
             PermittedUsers.Add(permitted);
         }
 
@@ -360,6 +362,4 @@ public class Voluntary_association
         DbService db = new DbService();
         return db.GetScalarByQuery(sql, CommandType.Text, parCode);
     }
-
-
 }

@@ -404,9 +404,10 @@ public class UserT
                          "FROM dbo.association_access " +
                          "INNER JOIN dbo.association ON dbo.association_access.association_code = dbo.association.association_code " +
                          "LEFT OUTER JOIN dbo.users ON dbo.association_access.user_id = dbo.users.user_id " +
-                         "WHERE(dbo.users.user_id = N'" + userId + "') ";
+                         "WHERE(dbo.users.user_id = @user_id) ";
+        SqlParameter parUserID = new SqlParameter("@user_id", UserId);
         DbService db = new DbService();
-        DataTable DT = db.GetDataSetByQuery(StrSql).Tables[0];
+        DataTable DT = db.GetDataSetByQuery(StrSql,CommandType.Text,parUserID).Tables[0];
         foreach (DataRow row in DT.Rows)
         {
             Voluntary_association assoc = new Voluntary_association();
