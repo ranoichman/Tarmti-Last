@@ -95,6 +95,7 @@
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
 
     <script>
+
         var myPromise = new Promise(function (resolve, reject) {
             $.ajax({
                 dataType: "json",
@@ -115,11 +116,7 @@
 
         var usersMap = new Map(); //מערך מסוג מפה לשמירת כל המשתמשים שהם מורשי גישה
 
-        $(document).ready(function () {
 
-            runPromise();
-
-        });//doc.ready
 
         //הרצת הפרומיס
         function runPromise() {

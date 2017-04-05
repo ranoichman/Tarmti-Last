@@ -59,6 +59,13 @@ public class AssociationsWebService : System.Web.Services.WebService
         return j.Serialize(List);
     }
 
+    [WebMethod (Description = "Updates the Association information in the DataBase")]
+    public void UpdateAssociation(string code, string name, string desc, string account, string web, string img, string year)
+    {
+        Voluntary_association temp = new Voluntary_association(code,name,desc,account,web,year,img);
+        temp.UpdateTbl();
+
+    }
 }
 
 

@@ -49,24 +49,48 @@
                     $("#website").val(st_arr.Association_WebSite);
                     $("#logo").val(st_arr.association_Image);
                     $("#year").val(st_arr.Association_Year);
-
-                    //var arrUsers = new Array();
-                    //var J = 0;
-
-                    //for (i in st_arr.PermittedUsers) {
-                    //    arrUsers[J] = [st_arr.PermittedUsers[i].UserId, st_arr.PermittedUsers[i].FirstName + " " + st_arr.PermittedUsers[i].LastName, st_arr.PermittedUsers[i].Rank, 1, st_arr.PermittedUsers[i].Active ? "פעיל" : "לא פעיל"];
-                    //    J++;
-                    //}
-
-                    //CreateTable(arrUsers);
-
-
                 },
                 error: function (err) {
                     alert(err.responseText);
                 }
             });
         })
+
+        function UpdateTbl()
+        {
+            var Code = ($("#Code").val() != "" ) ?  $("#Code").val() : null;
+            var Name = $("#Name").val() != "" ? $("#Name").val() : null;
+            var Desc = $("#desc").val() != "" ? $("#desc").val() : null;
+            var Account = $("#account").val() != "" ? $("#account").val() : null;
+            var Web = $("#website").val() != "" ? $("#website").val() : null;
+            var Year = $("#year").val() != "" ? $("#year").val() : null;
+            var Logo = $("#logo").val() != "" ? $("#logo").val() : null;
+
+            $.ajax({
+                dataType: "json",
+                url: "/../AssociationsWebService.asmx/UpdateAssociation",
+                contentType: "application/json; charset=utf-8",
+                type: "POST",
+                data: JSON.stringify({ code: Code, name: Name, desc: Desc, account: Account, web: Web, img: Logo, year: Year }),
+                success: function (data) {
+
+                    var st_arr = JSON.parse(data.d);
+
+                    alert("הנתונים עודכנו בהצלחה!");
+                    //$("#DivName").text(st_arr.Association_Name);
+                    //$("#Code").val(st_arr.Association_Code);
+                    //$("#Name").val(st_arr.Association_Name);
+                    //$("#desc").val(st_arr.Association_Desc);
+                    //$("#account").val(st_arr.Association_Account);
+                    //$("#website").val(st_arr.Association_WebSite);
+                    //$("#logo").val(st_arr.association_Image);
+                    //$("#year").val(st_arr.Association_Year);
+                },
+                error: function (err) {
+                    alert(err.responseText);
+                }
+            }); // Ajax
+        }
 
 
     </script>
@@ -124,7 +148,7 @@
                                     <label>שנת היווסדות</label>
                                     <input class="form-control" id="year" name="userID">
                                 </div>
-                                <button type="submit" class="btn btn-default" onclick="CheckInDatabase()">הוסף</button>
+                                <button type="submit" class="btn btn-default" onclick="UpdateTbl()">הוסף</button>
                                 <!--<button type="reset" class="btn btn-default">נקה</button>-->
                             </form>
                         </div>
