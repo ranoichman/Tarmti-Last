@@ -26,34 +26,42 @@
     <!-- Bootbox -->
 
     <script>
-
+      
         $(document).ready(function () {
 
-            var codeA = localStorage.getItem("Assoc");
+            if (window.self == window.top) {
+                window.location = "AssocMaster.html";
+            }
+            else {
+                var codeA = localStorage.getItem("Assoc");
 
-            $.ajax({
-                dataType: "json",
-                url: "/../AssociationsWebService.asmx/GetAmutaDetails",
-                contentType: "application/json; charset=utf-8",
-                type: "POST",
-                data: JSON.stringify({ code: codeA }),
-                success: function (data) {
+                $.ajax({
+                    dataType: "json",
+                    url: "/../AssociationsWebService.asmx/GetAmutaDetails",
+                    contentType: "application/json; charset=utf-8",
+                    type: "POST",
+                    data: JSON.stringify({ code: codeA }),
+                    success: function (data) {
 
-                    var st_arr = JSON.parse(data.d);
+                        var st_arr = JSON.parse(data.d);
 
-                    $("#DivName").text(st_arr.Association_Name);
-                    $("#Code").val(st_arr.Association_Code);
-                    $("#Name").val(st_arr.Association_Name);
-                    $("#desc").val(st_arr.Association_Desc);
-                    $("#account").val(st_arr.Association_Account);
-                    $("#website").val(st_arr.Association_WebSite);
-                    $("#logo").val(st_arr.association_Image);
-                    $("#year").val(st_arr.Association_Year);
-                },
-                error: function (err) {
-                    alert(err.responseText);
-                }
-            });
+                        $("#DivName").text(st_arr.Association_Name);
+                        $("#Code").val(st_arr.Association_Code);
+                        $("#Name").val(st_arr.Association_Name);
+                        $("#desc").val(st_arr.Association_Desc);
+                        $("#account").val(st_arr.Association_Account);
+                        $("#website").val(st_arr.Association_WebSite);
+                        $("#logo").val(st_arr.association_Image);
+                        $("#year").val(st_arr.Association_Year);
+                    },
+                    error: function (err) {
+                        alert(err.responseText);
+                    }
+                });
+            }
+
+
+           
         })
 
         function UpdateTbl()

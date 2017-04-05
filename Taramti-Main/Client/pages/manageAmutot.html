@@ -120,7 +120,13 @@
 
         $(document).ready(function () {
 
-            runPromise();
+            if (window.self == window.top) {
+                window.location = "AssocMaster.html";
+            }
+            else {
+                runPromise();
+            }
+            
 
         });//doc.ready
 

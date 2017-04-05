@@ -596,6 +596,22 @@
 
 
     <script>
+
+        $(document).ready(function () {
+
+            if (window.self == window.top) {
+                window.location = "ManagerMaster.html";
+            }
+            else {
+                runAuctionsPromise();
+                runUserPromise();
+                runDonationsPromise();
+                runAssocPromise();
+            }
+
+           
+        })
+
         var usersPromise = new Promise(function (resolve, reject) {
             $.ajax({
                 dataType: "json",
@@ -663,12 +679,7 @@
 
         var assocMap = new Map(); //יצירת מערך מסוג מפה שמחזיק פרטי עמותה
 
-        $(document).ready(function () {
-            runAuctionsPromise();
-            runUserPromise();
-            runDonationsPromise();
-            runAssocPromise();
-        })
+   
 
         //הרצת פרומיס להבאת כמות משתמשים פעילים
         function runUserPromise() {
