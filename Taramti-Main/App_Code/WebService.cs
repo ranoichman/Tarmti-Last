@@ -8,6 +8,9 @@ using System.Web.Script.Serialization;
 
 /// <summary>
 /// Summary description for WebService
+/// 
+/// 
+/// NOCOOKIE במידה ואין קוקיז, נחזיר 
 /// </summary>
 [WebService(Namespace = "http://tempuri.org/")]
 [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
@@ -145,4 +148,27 @@ public class WebService : System.Web.Services.WebService
 
     }
 
+    //(Description ="WebService to return the logged in user ID and info ")
+    [WebMethod(EnableSession = true)]
+    public string GetUserDetails()
+    {
+        JavaScriptSerializer j = new JavaScriptSerializer();
+        UserT temp_user = new UserT();
+
+        HttpContext context = HttpContext.Current;
+        
+        if (context.Session["UserID"] == null)
+        {
+            //Context.Response.AddHeader("Location", "<www.walla.co.il>");
+            //HttpContext.Current.Response.Redirect(System.IO.Path.GetFileNameWithoutExtension(HttpContext.Current.Request.PhysicalPath));
+            return j.Serialize("NOCOOKIE");
+        }
+
+        temp_user.UserId = (string)(context.Session["UserID"]);
+
+
+        //temp_user.UserId = HttpContext.Current.Session["UserID"].ToString();
+        temp_user.GetUserDetails();
+        return j.Serialize(temp_user);
+    }
 }

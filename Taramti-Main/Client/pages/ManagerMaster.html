@@ -24,9 +24,43 @@
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        
+             <!-- AJAX -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <![endif]-->
 </head>
 <body>
+
+    <script>
+
+        $(document).ready(function () {
+        $.ajax({
+            dataType: "json",
+            url: "/../WebService.asmx/GetUserDetails",
+            contentType: "application/json; charset=utf-8",
+            type: "POST",
+            data: JSON.stringify({}),
+            success: function (data) {
+
+                var st_arr = JSON.parse(data.d);
+
+                if (st_arr == "NOCOOKIE") {
+                    window.location = "login.aspx";
+                }
+
+                $("#WelcomwUser").text("שלום, " + st_arr.FirstName + " " + st_arr.LastName);
+                //nav nav-second-level collapse in
+                //$("#AmutaInfo").css({ 'background-color': '#eee' });
+            },
+            error: function (err) {
+                alert(err.responseText);
+            }
+        });//ajax
+        }) //doc ready
+
+    </script>
+
+
     <!--<div id="wrapper">-->
         <!-- Navigation -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
@@ -202,7 +236,7 @@
                 <div class="sidebar-nav navbar-collapse">
                     <ul style="padding-right:0px; width:220px" class="nav" id="side-menu">
                         <li>
-                            <div id="WelcomwUser"><strong>שלום קליאופטרה,</strong></div>
+                            <div id="WelcomwUser"><strong></strong></div>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-table fa-fw"></i> ניהול טבלאות<span class="fa arrow"></span></a>

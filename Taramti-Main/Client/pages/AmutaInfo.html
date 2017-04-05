@@ -72,7 +72,7 @@
 
                     for (i in st_arr.PermittedUsers)
                     {
-                        arrUsers[J] = [st_arr.PermittedUsers[i].UserId, st_arr.PermittedUsers[i].FirstName, st_arr.PermittedUsers[i].Rank, 1, st_arr.PermittedUsers[i].Active ? "פעיל" : "לא פעיל"];
+                        arrUsers[J] = [st_arr.PermittedUsers[i].UserId, st_arr.PermittedUsers[i].FirstName + " " + st_arr.PermittedUsers[i].LastName, st_arr.PermittedUsers[i].Rank, 1, st_arr.PermittedUsers[i].Active ? "פעיל" : "לא פעיל"];
                         J++;
                     }
 
