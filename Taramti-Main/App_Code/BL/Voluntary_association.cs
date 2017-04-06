@@ -22,10 +22,6 @@ public class Voluntary_association
     List<UserT> permittedUsers;
     List<Auction> auctions;
 
-    /// <summary>
-    ///  להוסיף שליפה אחר כך של האוקשנים גם וגם של התגים
-    /// </summary>
-
 
     //props
     #region
@@ -213,29 +209,46 @@ public class Voluntary_association
         Association_Code = code;
     }
 
+
+    /*
+     ////////////////////////////
+     ////////////////////////////
+     מתודות
+     ////////////////////////////
+     ////////////////////////////
+    */
+
+
+    //methods
+    #region
     public void ShowAssocDetails()
     {
 
     }
 
-    // הפיכה לסטטי כדי להיקרא מאג'קס
-    public static List<string> GetAssociationByCode(string code)
-    {
-        DbService db = new DbService();
-        DataSet DS = new DataSet();
-        List<string> Lists = new List<string>();
-        string sql = "select * from association  " +
-                     "where association_code='" + code + "' ";
-        DS = db.GetDataSetByQuery(sql);
-        foreach (DataRow row in DS.Tables[0].Rows)
-        {
-            Lists.Add(row[0].ToString());
-        }
 
-        return Lists;
-    }
+    //public static List<string> GetAssociationByCode(string code)
+    //{
+    //    DbService db = new DbService();
+    //    DataSet DS = new DataSet();
+    //    List<string> Lists = new List<string>();
+    //    string sql = "select * from association  " +
+    //                 "where association_code='" + code + "' ";
+    //    DS = db.GetDataSetByQuery(sql);
+    //    foreach (DataRow row in DS.Tables[0].Rows)
+    //    {
+    //        Lists.Add(row[0].ToString());
+    //    }
+
+    //    return Lists;
+    //}
 
     // הפיכה לסטטי כדי להיקרא מאג'קס
+
+    /// <summary>
+    /// הבאת כל פרטי העמותות
+    /// </summary>
+    /// <returns>מחזירה רשימה עם פרטי כל העמותות</returns>
     public static List<Voluntary_association> GetAllAssociations()
     {
         DataSet DS = new DataSet();
@@ -254,6 +267,9 @@ public class Voluntary_association
         return Lists;
     }
 
+    /// <summary>
+    /// הבאת פרטי העמותה על פי קוד
+    /// </summary>
     public void GetAssociationByCodeAmuta()
     {
         DbService db = new DbService();
@@ -283,9 +299,10 @@ public class Voluntary_association
             Association_Desc = row[2].ToString();
             Association_Account = row[3].ToString();
             Association_WebSite = row[4].ToString();
+            Association_Image = row[5].ToString();
             Association_Year = row[6].ToString();
         }
-        
+
         //מילוי רשימת מורשי גישה
         foreach (DataRow row in DS.Tables[1].Rows)
         {
@@ -339,6 +356,12 @@ public class Voluntary_association
 
     }
 
+    /// <summary>
+    /// מתודה להוספת משתמש כמורשה גישה לעמותה   
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="assocCode"></param>
+    /// <returns>מחזירה אמת אם המשתמש נוסף, שקר אחרת</returns>
     public static bool AddMursheAssoc(string id, int assocCode)
     {
         string sqlInsert = @"insert into [dbo].[association_access]
@@ -358,6 +381,12 @@ public class Voluntary_association
         return true;
     }
 
+
+
+    /// <summary>
+    /// הבאת סך התרומות לעמותה
+    /// </summary>
+    /// <returns>מחזירה את סכום התרומות לפי קוד</returns>
     public int GetDonationSum()
     {
         string sql = @"SELECT sum(final_price * donation_percentage / 100) AS donation_amount
@@ -367,19 +396,18 @@ public class Voluntary_association
         DbService db = new DbService();
         return db.GetScalarByQuery(sql, CommandType.Text, parCode);
     }
-
-
-
-    // מתודה לעדכון נתוני העמותה בשרת
+    /// <summary>
+    /// מתודה לעדכון נתוני העמותה בשרת
+    /// </summary>
     public void UpdateTbl()
-    { 
+    {
         DbService db = new DbService();
         string StrSql = "update dbo.association set " +
                         "association_name = @name, " +
                         "association_desc = @desc, " +
                         "account = @acc, " +
                         "website = @web, " +
-                        "image = @image, " +
+                        //"image = @image, " +
                         "year = @year " +
                         "where association_code ='" + Association_Code + "' ";
 
@@ -387,10 +415,15 @@ public class Voluntary_association
         SqlParameter pardesc = new SqlParameter("@desc", Association_Desc);
         SqlParameter paraccount = new SqlParameter("@acc", Association_Account);
         SqlParameter parweb = new SqlParameter("@web", Association_WebSite);
-        SqlParameter parimg = new SqlParameter("@image", Association_Image);
+        //SqlParameter parimg = new SqlParameter("@image", "");
         SqlParameter paryear = new SqlParameter("@year", Association_Year);
 
-        db.ExecuteQuery(StrSql, CommandType.Text, parname, pardesc, paraccount, parweb, parimg, paryear);
+        db.ExecuteQuery(StrSql, CommandType.Text, parname, pardesc, paraccount, parweb, paryear);
 
     }
+
+    #endregion
+
+
+
 }

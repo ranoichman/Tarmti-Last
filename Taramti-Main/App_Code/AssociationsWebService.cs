@@ -30,8 +30,6 @@ public class AssociationsWebService : System.Web.Services.WebService
     [WebMethod(Description = "Gets associations information for the Associations page")]
     public string GetAmutaDetails(string code)
     {
-        //string userID = HttpContext.Current.Session["AmutaCode"].ToString();
-        //string code = "100";
         JavaScriptSerializer j = new JavaScriptSerializer();
         Voluntary_association Assoc = new Voluntary_association();
         Assoc.Association_Code = code;
@@ -39,7 +37,7 @@ public class AssociationsWebService : System.Web.Services.WebService
         return j.Serialize(Assoc);
     }
 
-    [WebMethod]
+    [WebMethod (Description ="הבאת פרטי כל העמותות")]
     public string GetAllAmotaDetails()
     {
         JavaScriptSerializer j = new JavaScriptSerializer();
@@ -59,19 +57,16 @@ public class AssociationsWebService : System.Web.Services.WebService
             return j.Serialize("NOCOOKIE");
         }
         temp_user.UserId = (string)(context.Session["UserID"]);
-        //string id = "302921481";
 
         List<Voluntary_association> List = new List<Voluntary_association>();
-        UserT temp = new UserT();
-        //temp.UserId = id;
-        List = temp.GetUserAssociations();
+        List = temp_user.GetUserAssociations();
         return j.Serialize(List);
     }
 
     [WebMethod (Description = "Updates the Association information in the DataBase")]
-    public void UpdateAssociation(string code, string name, string desc, string account, string web, string img, string year)
+    public void UpdateAssociation(string code, string name, string desc, string account, string web, string year)
     {
-        Voluntary_association temp = new Voluntary_association(code,name,desc,account,web,year,img);
+        Voluntary_association temp = new Voluntary_association(code,name,desc,account,web,year);
         temp.UpdateTbl();
     }
 }

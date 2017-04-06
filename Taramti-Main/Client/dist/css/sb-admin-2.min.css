@@ -499,4 +499,5 @@ table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTa
         border-right-width: 14px;
         border-left-width: 0;
     }
+    /*min-width: 500px*/
 }

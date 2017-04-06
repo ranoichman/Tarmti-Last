@@ -36,7 +36,7 @@
 
 </head>
 
-<body dir="rtl">
+<body id="manageBody" dir="rtl">
     <div id="wrapper">
 
         <div id="page-wrapper" style="margin: 0 0 0 0;">
@@ -59,13 +59,13 @@
                                 <input type="radio" name="activeRB" value="פעיל" checked="checked" class="radio-custom" /> <span class="radio-custom">הצג משתמשים פעילים</span>
                                 <input type="radio" name="activeRB" value="לא פעיל" class="radio-custom" /> <span class="radio-custom"> הצג משתמשים לא פעילים</span>
                             </div>
-                            <table class="table order-column table-bordered table-striped table-hover" id="usersMNG_TBL"></table>
+                            <table class="table order-column table-bordered table-striped table-hover" id="usersMNG_TBL" style="width:100%"></table>
                             <!-- /.table-responsive -->
-                            <div class="well">
+                            <!--<div class="well">
                                 <h4>DataTables Usage Information</h4>
                                 <p>DataTables is a very flexible, advanced tables plugin for jQuery. In SB Admin, we are using a specialized version of DataTables built for Bootstrap 3. We have also customized the table headings to use Font Awesome icons in place of images. For complete documentation on DataTables, visit their website at <a target="_blank" href="https://datatables.net/">https://datatables.net/</a>.</p>
                                 <a class="btn btn-default btn-lg btn-block" target="_blank" href="https://datatables.net/">View DataTables Documentation</a>
-                            </div>
+                            </div>-->
                         </div>
                         <!-- /.panel-body -->
                     </div>
@@ -98,6 +98,9 @@
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
 
     <script>
+        //התאמת הטבלה לרוחב הדף
+        $("#page-wrapper").css("width", $("html").width());
+
         var myPromise = new Promise(function (resolve, reject) {
             $.ajax({
                 dataType: "json",

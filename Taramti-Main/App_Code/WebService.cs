@@ -33,42 +33,42 @@ public class WebService : System.Web.Services.WebService
     }
 
     // מתודה להחזרת פרטי עמותה ספציפים ע"פ קוד עמותה
-    [WebMethod]
-    public Voluntary_association GetAssociationInfo(string code)
-    {
-        // Voluntary_association V = new Voluntary_association();
-        DataTable DT = new DataTable();
-        List<string> L = Voluntary_association.GetAssociationByCode(code);
+    //[WebMethod]
+    //public Voluntary_association GetAssociationInfo(string code)
+    //{
+    //    // Voluntary_association V = new Voluntary_association();
+    //    DataTable DT = new DataTable();
+    //    List<string> L = Voluntary_association.GetAssociationByCode(code);
 
-        if (DT.Rows.Count > 0)
-        {
-            return new Voluntary_association(DT.Rows[0][0].ToString(), DT.Rows[0][1].ToString(), DT.Rows[0][2].ToString());
-        }
-        else
-        {
-            return new Voluntary_association();
-        }
-    }
+    //    if (DT.Rows.Count > 0)
+    //    {
+    //        return new Voluntary_association(DT.Rows[0][0].ToString(), DT.Rows[0][1].ToString(), DT.Rows[0][2].ToString());
+    //    }
+    //    else
+    //    {
+    //        return new Voluntary_association();
+    //    }
+    //}
 
     // מתודה להחזרת כלל העמותות
-    [WebMethod]
-    public List<Voluntary_association> GetAllAssociations()
-    {
-        // Voluntary_association V = new Voluntary_association();
-        DataTable DT = new DataTable();
-        List<Voluntary_association> L = Voluntary_association.GetAllAssociations();
-        if (DT.Rows.Count > 0)
-        {
-            //return  new Voluntary_association(DT.Rows[0][0].ToString(), DT.Rows[0][1].ToString(), DT.Rows[0][2].ToString());
-            return L;
-        }
-        else
-        {
-            return L;
-        }
-    }
+    //[WebMethod]
+    //public List<Voluntary_association> GetAllAssociations()
+    //{
+    //    // Voluntary_association V = new Voluntary_association();
+    //    DataTable DT = new DataTable();
+    //    List<Voluntary_association> L = Voluntary_association.GetAllAssociations();
+    //    if (DT.Rows.Count > 0)
+    //    {
+    //        //return  new Voluntary_association(DT.Rows[0][0].ToString(), DT.Rows[0][1].ToString(), DT.Rows[0][2].ToString());
+    //        return L;
+    //    }
+    //    else
+    //    {
+    //        return L;
+    //    }
+    //}
 
-    [WebMethod]
+    [WebMethod (Description = "בדיקה אם פרטי המשתמש נכונים ואיפוס סיסמה")]
     public string CheckValidUser(string id, string mail)
     {
         UserT temp_user = new UserT();
@@ -82,7 +82,7 @@ public class WebService : System.Web.Services.WebService
         return "false";
     }
 
-    [WebMethod]
+    [WebMethod (Description ="")]
     public string CheckInDatabase(string id, string mail)
     {
         JavaScriptSerializer j = new JavaScriptSerializer();
@@ -98,7 +98,7 @@ public class WebService : System.Web.Services.WebService
         return "false";
     }
 
-    [WebMethod]
+    [WebMethod (Description ="הוספת משתמש כמורשה גישה לעמותה")]
     public string AddMursheAssoc(string id, int assocCode)
     {
         if (!CheckMursheAssoc(id, assocCode))
@@ -112,7 +112,6 @@ public class WebService : System.Web.Services.WebService
                 return "קיימת בעיה עם הוספת המורשה יש לפנות למנהלי המערכת, תודה";
             }
         }
-        //return "vvv";
         return "המשתמש הוגדר כבר בעבר כמורשה לעמותה זו";
     }
 
@@ -145,7 +144,6 @@ public class WebService : System.Web.Services.WebService
         temp_user.Password = newPass;
         temp_user.UpdatePassword();
         return "true";
-        
     }
 
     /// <summary>

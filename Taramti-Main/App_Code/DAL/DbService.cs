@@ -146,42 +146,4 @@ public class DbService
         return res;
     }
 
-
-
-    /*
-     * ********************************************************
-     * ********************************************************
-    // רק לבדיקקקקקקקקקקקקקקקקההההההההההההההההההההההההההההההההההההההההההההההההה
-     * ********************************************************
-     * ********************************************************
-    */
-
-    public int GetScalarByQuery2(string sqlQuery, CommandType cmdType = CommandType.Text, params SqlParameter[] parametersArray)
-    {
-        cmd = new SqlCommand(sqlQuery, con);
-        cmd.CommandType = cmdType;
-        int res = 0;
-        string id = "0";
-        foreach (SqlParameter s in parametersArray)
-        {
-            cmd.Parameters.AddWithValue(s.ParameterName, s.Value);
-        }
-
-        try
-        {
-            //con.Open();
-            //id = cmd.ExecuteScalar().ToString();
-            id = "0";
-            res = Convert.ToInt32(id);
-        }
-        catch (Exception e)
-        {
-            //do something with the error
-        }
-        finally
-        {
-            //con.Close();
-        }
-        return res;
-    }
 }

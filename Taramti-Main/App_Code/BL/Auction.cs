@@ -122,7 +122,7 @@ public abstract class Auction
     /// <summary>
     /// הבאת כל המכרזים הפעילים
     /// </summary>
-    /// <param name="date"></param>
+    /// <param name="date">תאריך לבדיקה</param>
     /// <returns>תחזיר את כל הקודים של המכרזים הפעילים ואת סכום הביד הנוכחי הגבוה ביותר</returns>
     public static int[] GetAllAuctionsByDates(DateTime date)
     {
@@ -153,6 +153,12 @@ public abstract class Auction
         return li_rtn;
     }
 
+    /// <summary>
+    /// הבאת סך התרומות בין 2 תאריכים
+    /// </summary>
+    /// <param name="start">תאריך התחלה לבדיקה</param>
+    /// <param name="end">תאריך סיום לבדיקה</param>
+    /// <returns>תחזיר את הסכום</returns>
     public static int GetDonationSumByDates(DateTime start, DateTime end)
     {
         string sql = @"SELECT SUM(final_price * donation_percentage / 100)  AS donation_sum
@@ -165,6 +171,12 @@ public abstract class Auction
         return db.GetScalarByQuery(sql, CommandType.Text, parStart, parEnd);
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="start">תאריך התחלה לבדיקה</param>
+    /// <param name="end">תאריך סיום לבדיקה</param>
+    /// <returns>תחזיר רשימה של מערכים המכילים שם עמותה, סך הכסף במכרזים וסך התרומות לכל עמותה,</returns>
     public static List<string[]> GetAssocNameTotalSumDonationSumByDates(DateTime start, DateTime end)
     {
         string sql = @"SELECT association_name, sum(final_price) AS total_sum ,SUM(final_price * donation_percentage / 100)  AS donation_sum

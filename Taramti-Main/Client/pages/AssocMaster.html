@@ -82,7 +82,7 @@
                         localStorage.setItem("Assoc", assocCodes[0].code);
                     },
                     error: function (err) {
-                        alert(err.responseText);
+                        //alert(err.responseText);
                     }
                 });//ajax
 
@@ -102,7 +102,8 @@
 
                     location.href = "AssocMaster.html";
                 });
-
+         
+            
                 ($a).append($div);
                 ($li).append($a);
                 $("#DDM_Amutot").append($li);
@@ -125,6 +126,9 @@
                     alert(err.responseText);
                 }
             });//ajax
+
+            //LocalStorage מחיקת 
+            localStorage.clear();
             location.href = "login.aspx";
             //document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
            

@@ -574,3 +574,35 @@ table.dataTable thead .sorting_desc_disabled {
 th{
     text-align:right;
 }
+
+.homeInfo{
+    float:right;
+}
+
+#refreshIcon{
+    left:95%;
+}
+
+#randAmuta_Det{
+    padding-right:30px;
+}
+
+#pass_TB{
+    padding-right:12px !important;
+}
+#pass_Icon {
+    cursor: pointer;
+    pointer-events: all;
+    float:left;
+    left:0 !important;
+    right:88%;
+}
+
+#remember_CB{
+    margin-left:5px;
+}
+th{
+    text-align:right;
+}
+
+#amutaimg { min-height: 400px; }

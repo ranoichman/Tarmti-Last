@@ -174,10 +174,24 @@ public class UserT
         Active = active;
     }
 
+
+
+    /*
+     ////////////////////////////
+     ////////////////////////////
+     מתודות
+     ////////////////////////////
+     ////////////////////////////
+    */
+
+
     //methods
     #region
 
-    //מתודה לבדיקה האם המשתמש קיים
+    /// <summary>
+    /// מתודה לבדיקה האם המשתמש קיים
+    /// </summary>
+    /// <returns>תחזיר אמת אם המשתמש קיים, שקר אחרת</returns>
     public bool CheckLogin()
     {
         string sqlSelect = @"SELECT [user_id]
@@ -264,7 +278,9 @@ public class UserT
 
     }
 
-    //מתודה לשינוי סיסמה במסד הנתונים
+    /// <summary>
+    /// מתודה לשינוי סיסמה במסד הנתונים
+    /// </summary>
     public void UpdatePassword()
     {
         string sqlUpdate = "UPDATE [dbo].[users] SET [password]=@password WHERE user_id = @userID";
@@ -274,8 +290,10 @@ public class UserT
         db.ExecuteQuery(sqlUpdate, CommandType.Text, parPass, parUser);
     }
 
-    //מתודה לשליחת מייל
     // פונקציה לשליחת מיילים
+    /// <summary>
+    /// מתודה לשליחת מייל
+    /// </summary>
     public void SendMail()
     {
         // עדכון סיסמא
@@ -291,7 +309,6 @@ public class UserT
         MyHdr += "<BR>";
         MyHdr += "בקשתך לאיפוס סיסמא התקבלה וסיסמתך שונתה בהצלחה.  ";
         MyHdr += "<BR>";
-        //MyHdr += "<BR dir='ltr'>";
         MyHdr += " סיסמתך החדשה הינה: " + "000000";
         MyHdr += "</DIV>";
         MyHdr += "<DIV align=right>";
@@ -300,7 +317,7 @@ public class UserT
 
         MailMessage message = new MailMessage();
         // To 
-        message.To.Add(new MailAddress("heregteam@gmail.com"));
+        message.To.Add(new MailAddress(Mail));
         // From Query
         message.From = new MailAddress("recoverpass@taramti.co.il");
 
@@ -326,14 +343,13 @@ public class UserT
         client.Send(message);
     }
 
-    //מתודה להבאת פרטי יוזרים לטבלת ניהול משתמשים בדף אדמין
+    /// <summary>
+    /// מתודה להבאת פרטי יוזרים לטבלת ניהול משתמשים בדף אדמין
+    /// </summary>
+    /// <returns>מחזירה רשימה המכילה משתמשים</returns>
     internal static List<UserT> GetAllUsers()
     {
         List<UserT> li_rtn = new List<UserT>();
-        //string sqlSelect = @"SELECT dbo.users.user_id, dbo.users.first_name ,dbo.users.last_name, dbo.users.active, SUM(dbo.auction.score) AS rank
-        //                      FROM dbo.auction RIGHT OUTER JOIN dbo.users ON
-        //                      dbo.auction.buyer_id = dbo.users.user_id OR dbo.auction.seller_id = dbo.users.user_id
-        //                     GROUP BY dbo.users.user_id, dbo.users.first_name, dbo.users.last_name, dbo.users.active";
         string sqlSelect = @"select V_full_users_rank_combo.user_id, users.first_name,users.last_name,users.active, V_full_users_rank_combo.Rank, V_association_access.association_access
                             from V_full_users_rank_combo, V_association_access, users
                             where V_full_users_rank_combo.user_id = V_association_access.user_id and V_full_users_rank_combo.user_id = users.user_id";
@@ -390,6 +406,9 @@ public class UserT
 
     }
 
+    /// <summary>
+    /// שינוי סטטוס המשתמש בין פעיל ולא פעיל
+    /// </summary>
     public void ChangeActive()
     {
         string sqlDelete = "UPDATE [dbo].[users] SET active = @active WHERE user_id = @userID";
@@ -402,6 +421,7 @@ public class UserT
     /// <summary>
     /// מתודה להבאת רשימת העמותות אליהם משוייך המשתמש
     /// </summary>
+    /// <returns>מחזירה רשימה של עמותות</returns>
     public List<Voluntary_association> GetUserAssociations()
     {
         List<Voluntary_association> li_rtn = new List<Voluntary_association>();

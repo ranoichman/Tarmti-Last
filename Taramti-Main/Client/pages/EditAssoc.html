@@ -51,7 +51,7 @@
                         $("#desc").val(st_arr.Association_Desc);
                         $("#account").val(st_arr.Association_Account);
                         $("#website").val(st_arr.Association_WebSite);
-                        $("#logo").val(st_arr.association_Image);
+                        //$("#logo").val(st_arr.Association_Image);
                         $("#year").val(st_arr.Association_Year);
                     },
                     error: function (err) {
@@ -72,30 +72,22 @@
             var Account = $("#account").val() != "" ? $("#account").val() : null;
             var Web = $("#website").val() != "" ? $("#website").val() : null;
             var Year = $("#year").val() != "" ? $("#year").val() : null;
-            var Logo = $("#logo").val() != "" ? $("#logo").val() : null;
+            //var Logo = $("#logo").val() != "" ? $("#logo").val() : "";
 
             $.ajax({
                 dataType: "json",
                 url: "/../AssociationsWebService.asmx/UpdateAssociation",
                 contentType: "application/json; charset=utf-8",
                 type: "POST",
-                data: JSON.stringify({ code: Code, name: Name, desc: Desc, account: Account, web: Web, img: Logo, year: Year }),
+                data: JSON.stringify({ code: Code, name: Name, desc: Desc, account: Account, web: Web, year: Year }),
                 success: function (data) {
 
                     var st_arr = JSON.parse(data.d);
 
                     alert("הנתונים עודכנו בהצלחה!");
-                    //$("#DivName").text(st_arr.Association_Name);
-                    //$("#Code").val(st_arr.Association_Code);
-                    //$("#Name").val(st_arr.Association_Name);
-                    //$("#desc").val(st_arr.Association_Desc);
-                    //$("#account").val(st_arr.Association_Account);
-                    //$("#website").val(st_arr.Association_WebSite);
-                    //$("#logo").val(st_arr.association_Image);
-                    //$("#year").val(st_arr.Association_Year);
                 },
                 error: function (err) {
-                    alert(err.responseText);
+                    //alert(err.responseText);
                 }
             }); // Ajax
         }
@@ -147,11 +139,11 @@
                                     <label>אתר העמותה</label>
                                     <input class="form-control" id="website" name="userID" >
                                 </div>
-                                <div class="form-group">
+                                <!--<div class="form-group">
                                     <label>לוגו העמותה</label>
-                                    <!--<input class="form-control" id="logo" name="userID" >-->
+                                   
                                     <input type="file" id="logo" />
-                                </div>
+                                </div>-->
                                 <div class="form-group">
                                     <label>שנת היווסדות</label>
                                     <input class="form-control" id="year" name="userID">
