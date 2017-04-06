@@ -176,14 +176,14 @@ public class Voluntary_association
         PermittedUsers = permitted;
     }
 
-    public Voluntary_association(string association_Code, string association_Name, string association_Desc, string website, string year, string image)
+    public Voluntary_association(string association_Code, string association_Name, string association_Desc, string account, string website,string year)
     {
         Association_Code = association_Code;
         Association_Name = association_Name;
         Association_Desc = association_Desc;
         Association_WebSite = website;
         Association_Year = year;
-        Association_Image = image;
+        Association_Account = account;
     }
 
     public Voluntary_association(string association_Code, string association_Name, string association_Desc, string account, string website, string year, string image)
