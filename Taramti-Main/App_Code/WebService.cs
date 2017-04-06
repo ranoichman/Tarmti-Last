@@ -181,4 +181,18 @@ public class WebService : System.Web.Services.WebService
         temp_user.GetUserDetails();
         return j.Serialize(temp_user);
     }
+
+    [WebMethod (Description = "Clearing User cookies")]
+    public void ClearCookie()
+    {
+        HttpRequest Request = System.Web.HttpContext.Current.Request;
+
+        if (Request.Cookies.Get("userCookie") != null)
+        {
+            HttpCookie cookie = Request.Cookies["userCookie"];
+            cookie.Expires= DateTime.Now.AddYears(-12);
+            HttpContext.Current.Response.SetCookie(cookie);
+        }
+
+    }
 }
