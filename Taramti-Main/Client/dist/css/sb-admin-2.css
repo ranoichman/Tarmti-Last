@@ -574,3 +574,16 @@ table.dataTable thead .sorting_desc_disabled {
 th{
     text-align:right;
 }
+
+.homeInfo{
+    float:right;
+}
+
+#refreshIcon{
+    left:95%;
+}
+
+#randAmuta_Det{
+    padding-right:30px;
+}
+
