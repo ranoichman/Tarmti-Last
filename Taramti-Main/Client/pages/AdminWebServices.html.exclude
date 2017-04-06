@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+
+	<meta charset="utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="lib/jquery.mobile-1.4.5.min.js"></script>
+
+    <link href="css/fa-fa-icons.min.css" rel="stylesheet" />
+    <link href="css/w3.css" rel="stylesheet" />
+    <link href="css/jqmCss.css" rel="stylesheet" />
+    <link href="css/StyleSheet.css" rel="stylesheet" />
+
+    <script src="js/jquery.js"></script>
+    <script src="js/jqm.js"></script>
+
+    <script>
+
+        function GetAllAssoc () {
+            $.ajax({
+                dataType: "json",
+                url: "/../AdminWebService.asmx/GetAllAssociations",
+                contentType: "application/json; charset=utf-8",
+                type: "POST",
+                data: JSON.stringify({}),
+                success: function (data) {
+
+                    var st_arr = JSON.parse(data.d);
+                  
+                    for (i in st_arr) {
+
+                        var $tr = $("<tr>");
+                        var $td_name = $("<td>").text(st_arr[i].Association_Code);
+
+                        $tr.append($td_name);
+                        $("#Association_Div ").append($tr);
+                        //
+                    }
+
+                },
+                error: function (err) { }
+            });
+
+        };
+
+        function GetByCode() {
+            var codey = $('#TB').val();
+                $.ajax({
+                dataType: "json",
+                url: "/../AdminWebService.asmx/GetAssociationByCode",
+                contentType: "application/json; charset=utf-8",
+                type: "POST",
+                data: JSON.stringify({code : codey}),
+                success: function (data) {
+
+                    var st_arr = JSON.parse(data.d);
+
+                    for (i in st_arr) {
+
+                        var $tr = $("<tr>");
+                        var $td_name = $("<td>").text(st_arr[i].association_Code);
+                        var $td_desc = $("<td>").text(st_arr[i].association_Name);
+                        var $td_account = $("<td>").text(st_arr[i].association_Desc);
+                        var $td_website = $("<td>").text(st_arr[i]);
+
+                        $tr.append($td_name, $td_desc, $td_account, $td_website);
+                        $("#Association_Div ").append($tr);
+                        //
+                    }
+                },
+                error: function (err) { }
+            });
+        };
+
+        
+
+
+    </script>
+</head>
+<body dir="rtl">
+
+    <div id="Association_Div">
+        <button id="1" value="GetAllProj" onclick="GetAllAssoc()">GetAll</button>
+        <button id="1" value="GetAllProj" onclick="GetByCode()">GetByCode</button>
+        <input type="text" id="TB" />
+    </div>
+
+</body>
+</html>

@@ -170,7 +170,8 @@ public class UserT
 
     public UserT(string id, bool active)
     {
-
+        UserId = id;
+        Active = active;
     }
 
     //methods

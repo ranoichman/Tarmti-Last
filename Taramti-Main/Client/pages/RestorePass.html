@@ -21,10 +21,36 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    
+
+    <!-- jQuery -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="../vendor/metisMenu/metisMenu.min.js"></script>
+    <!-- Custom Theme JavaScript -->
+    <script src="../dist/js/sb-admin-2.js"></script>
     <!-- AJAX -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
     <script>
+        var show = false;
+        function toggle() {
+            if (!show) {
+                $("#pass_TB").attr("type", "text");
+                $("#pass_Icon").removeClass("glyphicon glyphicon-eye-open");
+                $("#pass_Icon").addClass("glyphicon glyphicon-eye-close");
+                show = true;
+            }
+            else {
+                $("#pass_TB").attr("type", "password");
+                $("#pass_Icon").removeClass("glyphicon glyphicon-eye-close");
+                $("#pass_Icon").addClass("glyphicon glyphicon-eye-open");
+                show = false;
+            }
+        }
+
         function scorePassword() {
             var pass = $("#newPass").val();
             var score = 0;
@@ -102,8 +128,6 @@
                         //}
                     },
                     error: function (err) {
-                        alert(err.statusText);
-                        //alert("Yooo");
                     }
                 });
             }
@@ -149,14 +173,6 @@
             </div>
         </div>
     </div>
-    <!-- jQuery -->
-    <script src="../vendor/jquery/jquery.min.js"></script>
-    <!-- Bootstrap Core JavaScript -->
-    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
-    <!-- Metis Menu Plugin JavaScript -->
-    <script src="../vendor/metisMenu/metisMenu.min.js"></script>
-    <!-- Custom Theme JavaScript -->
-    <script src="../dist/js/sb-admin-2.js"></script>
    
 
 </body>

@@ -23,7 +23,6 @@
     <![endif]-->
     <!-- AJAX -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <!-- Bootbox -->
 
 </head>
 <body style="width:90%; margin:0 auto;">
@@ -85,8 +84,7 @@
     <script src="../vendor/metisMenu/metisMenu.min.js"></script>
     <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>
-    <!-- bootbox popups Plugin JavaScript -->
-    <script src="../vendor/popups/bootbox.min.js"></script>
+
 
     <script>
 
@@ -123,16 +121,13 @@
                         var Check_Message = AddMursheAssoc()                       
                         if (Check_Message === "true") {
                             alert(UserName + " נוספ/ה בהצלחה למערכת")
-                            bootbox.alert(UserName + " נוספ/ה בהצלחה למערכת");
                         }
                         else {
-                            alert(Check_Message)
-                            bootbox.alert(Check_Message)
+                            alert(Check_Message);
                         }
                     }
                     else {
                         alert("ת.ז או אימייל שגויים")
-                        bootbox.alert("ת.ז או אימייל שגויים")
                     }
                 },
                 error: function (e) {
