@@ -112,20 +112,11 @@
                     success: function (data) {
 
                         var res = JSON.parse(data.d);
-                        //if (res) {
-                        //alert("YOYOMA");
+           
                         $("#headerMsg").text("סיסמתך שונתה בהצלחה")
                         //alert("סיסמתך שונתה בהצלחה");
                         window.location.replace("login.aspx");
-                        //var $btn_back = $("<a>")
-                        //$btn_back.attr("href", "#login.aspx");
-                        //$btn_back.addClass("btn btn-lg btn-success btn-block");
-                        //$btn_back.text("חזור לדף התחברות");
-                        //$("#btnDiv").append($btn_back);
-                        //}
-                        //else {
-                        //$("#headerMsg").text("ת.ז או סיסמא שגויים, הזן ת.ז וסיסמא לצורך שינו הסיסמה");
-                        //}
+        
                     },
                     error: function (err) {
                     }
