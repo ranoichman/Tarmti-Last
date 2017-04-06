@@ -171,7 +171,8 @@ public abstract class Auction
                         FROM  dbo.auction, association
 						where auction.association_code = association.association_code and (end_date >= CONVERT(DATETIME, @startDate, 102)) AND (final_price * donation_percentage / 100 > 0) and
                         (end_date <= CONVERT(DATETIME, @endDate, 102))
-						group by association_name ";
+						group by association_name 
+order by sum(final_price) ";
         SqlParameter parStart = new SqlParameter("@startDate", start);
         SqlParameter parEnd = new SqlParameter("@endDate", end);
         DbService db = new DbService();
@@ -182,14 +183,14 @@ public abstract class Auction
             dt = db.GetDataSetByQuery(sql, CommandType.Text, parStart, parEnd).Tables[0];
 
             List<string[]> dlist = new List<string[]>();
-            string[] arr = new string[] { "עמותה", "סכום מכרזים", "סך הכל לתרומה" };
+            string[] arr = new string[] { "עמותה", "סך הכל לתרומה", "סכום מכרזים" };
             dlist.Add(arr);
 
             foreach (DataRow row in dt.Rows)
             {
                 string asc = row[0].ToString() != null ? row[0].ToString() : "";
-                string sum = row[1].ToString() != null ? row[1].ToString() : "";
-                string sum2 = row[2].ToString() != null ? row[2].ToString() : "";
+                string sum = row[1].ToString() != null ? row[2].ToString() : "";
+                string sum2 = row[2].ToString() != null ? row[1].ToString() : "";
                 arr = new string[] { asc, sum, sum2 };
                 //object obj = new object[row[0].ToString()];
 
@@ -205,6 +206,48 @@ public abstract class Auction
         }
 
     }
+
+
+    //public static List<string[]> GetAssocNameTotalSumDonationSumByDates(DateTime start, DateTime end)
+    //{
+    //    string sql = @"SELECT association_name, sum(final_price) AS total_sum ,SUM(final_price * donation_percentage / 100)  AS donation_sum
+    //                    FROM  dbo.auction, association
+				//		where auction.association_code = association.association_code and (end_date >= CONVERT(DATETIME, @startDate, 102)) AND (final_price * donation_percentage / 100 > 0) and
+    //                    (end_date <= CONVERT(DATETIME, @endDate, 102))
+				//		group by association_name ";
+    //    SqlParameter parStart = new SqlParameter("@startDate", start);
+    //    SqlParameter parEnd = new SqlParameter("@endDate", end);
+    //    DbService db = new DbService();
+    //    DataTable dt = new DataTable();
+
+    //    try
+    //    {
+    //        dt = db.GetDataSetByQuery(sql, CommandType.Text, parStart, parEnd).Tables[0];
+
+    //        List<string[]> dlist = new List<string[]>();
+    //        string[] arr = new string[] { "עמותה", "סכום מכרזים", "סך הכל לתרומה" };
+    //        dlist.Add(arr);
+
+    //        foreach (DataRow row in dt.Rows)
+    //        {
+    //            string asc = row[0].ToString() != null ? row[0].ToString() : "";
+    //            string sum = row[1].ToString() != null ? row[1].ToString() : "";
+    //            string sum2 = row[2].ToString() != null ? row[2].ToString() : "";
+    //            arr = new string[] { asc, sum, sum2 };
+    //            //object obj = new object[row[0].ToString()];
+
+    //            dlist.Add(arr);
+    //        }
+
+    //        return dlist;
+    //    }
+
+    //    catch (Exception ex)
+    //    {
+    //        throw ex;
+    //    }
+
+    //}
 
 
     //methods

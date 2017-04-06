@@ -17,10 +17,11 @@
     <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    [if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]
+    <![if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]>
+
 </head>
 <body>
     <div id="wrapper">
@@ -34,76 +35,19 @@
             </div>
             <!-- /.row -->
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-9">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Area Chart Example
+                            גרף
                         </div>
                         <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            <div id="chart_div" style="width: 100%; height: 500px; float:right;"></div>                       </div>
-                        <!-- /.panel-body -->
-                    </div>
-                    <!-- /.panel -->
-                </div>
-                <!-- /.col-lg-6 -->
-                <div class="col-lg-6">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Bar Chart Example
-                        </div>
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            <div id="morris-bar-chart"></div>
+                        <div class="panel-body" style="width:80%; height:550px ;padding:0 0 0 0">
+                            <iframe style="width:97%; height:550px; position:absolute" src="HillyT.html" name="iframe_reports"></iframe>
                         </div>
                         <!-- /.panel-body -->
                     </div>
                     <!-- /.panel -->
                 </div>
-                <!-- /.col-lg-6 -->
-                <div class="col-lg-6">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Line Chart Example
-                        </div>
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            <div id="morris-line-chart"></div>
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>
-                    <!-- /.panel -->
-                </div>
-                <!-- /.col-lg-6 -->
-                <div class="col-lg-6">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Donut Chart Example
-                        </div>
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            <div id="morris-donut-chart"></div>
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>
-                    <!-- /.panel -->
-                </div>
-                <!-- /.col-lg-6 -->
-                <div class="col-lg-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Morris.js Usage
-                        </div>
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            <p>Morris.js is a jQuery based charting plugin created by Olly Smith. In SB Admin, we are using the most recent version of Morris.js which includes the resize function, which makes the charts fully responsive. The documentation for Morris.js is available on their website, <a target="_blank" href="http://morrisjs.github.io/morris.js/">http://morrisjs.github.io/morris.js/</a>.</p>
-                            <a target="_blank" class="btn btn-default btn-lg btn-block" href="http://morrisjs.github.io/morris.js/">View Morris.js Documentation</a>
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>
-                    <!-- /.panel -->
-                </div>
-                <!-- /.col-lg-6 -->
             </div>
             <!-- /.row -->
         </div>
@@ -121,41 +65,148 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawChart);
-      var arr = [['עמותה', 'סכום ממכרזים', 'סה"כ נתרם'], ['מלחמה בסרטן', 200, 100], ['נזקקים', 100, 20], ['גברים מוכים', 50, 5], ['עטלף', 500, 200]]
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart);
+        var arr1 = [['עמותה', 'סכום ממכרזים', 'סה"כ נתרם'], ['מלחמה בסרטן', 200, 100], ['נזקקים', 100, 20], ['גברים מוכים', 50, 5], ['עטלף', 500, 200]]
 
-      //function drawChart() {
+        function drawChart() {
 
-      //    $.ajax({
-      //        dataType: "json",
-      //        url: "/../AdminWebService.asmx/Chart_NameTotalSumDonationSum_OfLastMonth",
-      //        contentType: "application/json; charset=utf-8",
-      //        type: "POST",
-      //        data: JSON.stringify({}),
-      //        success: function (res) {
-      //            var arr = JSON.parse(res.d)
-      //            var data = google.visualization.arrayToDataTable(arr);
+            $.ajax({
+                dataType: "json",
+                url: "/../AdminWebService.asmx/Chart_NameTotalSumDonationSum_OfLastMonth",
+                contentType: "application/json; charset=utf-8",
+                type: "POST",
+                data: JSON.stringify({}),
+                success: function (res) {
+                    var arr = JSON.parse(res.d)
+                    var data = google.visualization.arrayToDataTable(arr1);
 
-      //            var options = {
-      //                hAxis: { title: 'Year', titleTextStyle: { color: '#333' } },
-      //                vAxis: { minValue: 0 }
-      //            };
+                    var options = {
+                        hAxis: { title: 'Year', titleTextStyle: { color: '#333' } },
+                        vAxis: { minValue: 0 }
+                    };
 
-      //            var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
-      //            chart.draw(data, options);
-
-
-
-      //        },
-      //        error: function (err) {
-      //        }
-      //    });
+                    var chart = new google.visualization.AreaChart(document.getElementById('dual_y_div'));
+                    chart.draw(data, options);
 
 
 
+                },
+                error: function (err) {
+                }
+            });
+        }
 
-      //}
+        //google.charts.load('current', { packages: ['corechart', 'bar'] });
+        //google.charts.setOnLoadCallback(drawStacked);
+
+        //function drawStacked() {
+        //    var data = new google.visualization.DataTable();
+        //    data.addColumn('timeofday', 'עמותה');
+        //    data.addColumn('number', 'תרומה');
+        //    data.addColumn('number', 'סך העסקאות');
+
+
+        //    data.addRows([
+        //      [{ v: [8, 0, 0], f: 'תנו ל' }, 100, 250],
+        //      [{ v: [9, 0, 0], f: 'נזקקים' }, 2, .5],
+        //      [{ v: [10, 0, 0], f: 'סרטן' }, 3, 1],
+        //      [{ v: [11, 0, 0], f: 'עוד' }, 4, 2.25],
+        //      [{ v: [12, 0, 0], f: 'ועוד' }, 5, 2.25],
+        //    ]);
+
+        //    var options = {
+        //        isStacked: true,
+        //        hAxis: {
+        //            title: 'עמותה',
+        //            viewWindow: {
+        //                hAxis:['dsfsd']
+        //            }
+        //        },
+        //        vAxis: {
+        //            title: 'סה"כ בש"ח'
+        //        }
+        //    };
+
+        //    var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+        //    chart.draw(data, options);
+        //}
+
+        //google.charts.load('current', { 'packages': ['bar'] });
+        //google.charts.setOnLoadCallback(drawChart);
+
+        //function drawChart() {
+        //    var data = google.visualization.arrayToDataTable([
+        //      ['עמותה', 'Assocation', 'עבר לתרומה'],
+        //      ['תנו', 1000, 400],
+        //      ['לחיות', 1170, 460],
+        //      ['לחיות2', 660, 1120],
+        //      ['בבקשב', 1030, 540]
+        //    ]);
+
+        //    var options = {
+        //        chart: {
+        //        },
+        //        bars: 'vertical',
+        //        vAxis: { format: 'decimal' },
+        //        height: 400,
+        //        colors: ['#1b9e77', '#7570b3']
+        //    };
+
+        //    var chart = new google.charts.Bar(document.getElementById('chart_div'));
+
+        //    chart.draw(data, google.charts.Bar.convertOptions(options));
+
+        //}
+
+        //google.charts.load('current', { 'packages': ['bar'] });
+        //google.charts.setOnLoadCallback(drawStuff);
+
+        //function drawStuff() {
+        //    //var data = new google.visualization.arrayToDataTable([
+        //    //  ['עמותה', 'סך כסף', 'תרומה'],
+        //    //  ['תנו לחיות לחיות', 8000, 23.3],
+        //    //  ['Sagittarius Dwarf', 24000, 4.5],
+        //    //  ['Ursa Major II Dwarf', 30000, 14.3],
+        //    //  ['Lg. Magellanic Cloud', 50000, 0.9],
+        //    //  ['Bootes I', 60000, 13.1]
+        //    //]);
+
+        //    $.ajax({
+        //        dataType: "json",
+        //        url: "/../AdminWebService.asmx/Chart_NameTotalSumDonationSum_OfLastMonth",
+        //        contentType: "application/json; charset=utf-8",
+        //        type: "POST",
+        //        data: JSON.stringify({}),
+        //        success: function (res) {
+        //            var arr = JSON.parse(res.d)
+        //            var data = google.visualization.arrayToDataTable(arr);
+        //            var options = {
+        //                width: 900,
+        //                chart: {
+        //                    title: 'Nearby galaxies',
+        //                    subtitle: 'distance on the left, brightness on the right'
+        //                },
+        //                series: {
+        //                    0: { axis: 'distance' }, // Bind series 0 to an axis named 'distance'.
+        //                    1: { axis: 'brightness' } // Bind series 1 to an axis named 'brightness'.
+        //                },
+        //                axes: {
+        //                    y: {
+        //                        distance: { label: 'parsecs' }, // Left y-axis.
+        //                        brightness: { side: 'right', label: 'apparent magnitude' } // Right y-axis.
+        //                    }
+        //                }
+        //            }
+        //            var chart = new google.charts.Bar(document.getElementById('dual_y_div'));
+        //            chart.draw(data, options);
+
+        //        },
+        //        error: function (err) {
+        //        }
+        //    });
+        //}
+
     </script>
 </body>
 </html>

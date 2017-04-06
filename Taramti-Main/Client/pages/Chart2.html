@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+</head>
+<body>
+    <div id="chart_div" style="width: 900px; height: 500px;"></div>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+
+    <script type="text/javascript">
+        google.charts.load('current', { 'packages': ['bar'] });
+        google.charts.setOnLoadCallback(drawChart);
+        //var arr1 = [['עמותה', 'סכום ממכרזים', 'סה"כ נתרם'], ['מלחמה בסרטן', 200, 100], ['נזקקים', 100, 20], ['גברים מוכים', 50, 5], ['עטלף', 500, 200]]
+
+        function drawChart() {
+            //var data = google.visualization.arrayToDataTable([
+            //  ['עמותה', 'Assocation', 'עבר לתרומה'],
+            //  ['תנו', 1000, 400],
+            //  ['לחיות', 1170, 460],
+            //  ['לחיות2', 660, 1120],
+            //  ['בבקשב', 1030, 540]
+            //]);
+
+            $.ajax({
+                dataType: "json",
+                url: "/../AdminWebService.asmx/Chart_NameTotalSumDonationSum_OfLastMonth",
+                contentType: "application/json; charset=utf-8",
+                type: "POST",
+                async: false,
+                data: JSON.stringify({}),
+                success: function (res) {
+                    var arr = JSON.parse(res.d)
+
+                    for (i in arr) {
+                        if (i != 0) {
+                            arr[i][1] = parseFloat(arr[i][1]);
+                            arr[i][2] = parseFloat(arr[i][2]);
+                        }
+                       
+
+                    }
+                    var data = google.visualization.arrayToDataTable(arr);
+
+
+
+                    var options = {
+                        chart: {
+                        },
+                        bars: 'vertical',
+                        vAxis: { format: 'decimal' },
+                        height: 400,
+                        colors: ['#1b9e77', '#7570b3']
+                    };
+
+                    var chart = new google.charts.Bar(document.getElementById('chart_div'));
+
+                    chart.draw(data, google.charts.Bar.convertOptions(options));
+
+                },
+                error: function (err) {
+                    alert(err)
+                }
+
+            });
+        }
+    </script>
+</body>
+</html>
