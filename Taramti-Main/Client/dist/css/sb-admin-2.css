@@ -574,3 +574,5 @@ table.dataTable thead .sorting_desc_disabled {
 th{
     text-align:right;
 }
+
+#amutaimg { min-height: 400px; }

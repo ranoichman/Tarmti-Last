@@ -19,6 +19,8 @@
     <link href="../vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet">
     <!-- DataTables Responsive CSS -->
     <link href="../vendor/datatables-responsive/dataTables.responsive.css" rel="stylesheet">
+    <!-- HTML -->
+    <link href="../dist/css/sb-admin-2.css" rel="stylesheet" />
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -71,6 +73,12 @@
                         $("#LBLAmutaAccount").html(st_arr.Association_Account);
                         $("#LBLAmutaWeb").html(st_arr.Association_WebSite);
                         $("#LBLAmutaYear").html(st_arr.Association_Year);
+
+                        var img = $('<img id="dynamic">'); //Equivalent: $(document.createElement('img'))
+                        img.attr({'src' : st_arr.Association_Image , 'width' : '250px'});
+                        img.appendTo('#amutaimginternal');
+
+                        //$("#amutaimginternal").html(st_arr.Association_Image);
 
                         var arrUsers = new Array();
                         var J = 0;
@@ -144,24 +152,28 @@
         <div class="col-lg-12">
             <h1 class="page-header" id="H1Name">פרטי עמותת - </h1>
             <!--<span id="H1Name"></span>-->
+
+
         </div>
         <!-- /.col-lg-12 -->
     </div>
     <!-- /.row -->
-    <div class="row">
+    <div  class="row">
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
 
                 </div>
-                <div class="panel-body">
+                <div class="panel-body" id="amutaimg" style="min-height:300px">
+                    <div class="row" style="float:left; left:150px; position:fixed " id="amutaimginternal" >
+                    </div>
                     <div class="row">
                         <!-- /.col-lg-6 (nested) -->
                         <div class="col-lg-6" style="float:right">
                             <form role="form">
                                 <div class="form-group">
                                     <div class="panel-group" id="accordion">
-                                        <div class="panel panel-default">
+                                        <div class="panel panel-default" style="min-width: 540px">
                                             <div class="panel-heading">
                                                 <h4 class="panel-title">
                                                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"><b>פרטי עמותה כלליים </b></a>
@@ -182,6 +194,7 @@
                                                     
                                                 </div>
                                             </div>
+
                                         </div>
                                         <div class="panel panel-default">
                                             <div class="panel-heading">
@@ -215,8 +228,10 @@
                         <!-- /.col-lg-6 (nested) -->
 
                     </div>
+         
                     <!-- /.row (nested) -->
                 </div>
+   
                 <!-- /.panel-body -->
             </div>
             <!-- /.panel -->
@@ -224,7 +239,7 @@
         <!-- /.col-lg-12 -->
 
     <!-- /.row -->
-    <!--</div>-->
+    </div>
     <!-- /#page-wrapper -->
     <!--</div>-->
     <!-- /#wrapper -->

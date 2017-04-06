@@ -283,6 +283,7 @@ public class Voluntary_association
             Association_Desc = row[2].ToString();
             Association_Account = row[3].ToString();
             Association_WebSite = row[4].ToString();
+            Association_Image = row[5].ToString();
             Association_Year = row[6].ToString();
         }
         
