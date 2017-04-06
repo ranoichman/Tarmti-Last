@@ -23,7 +23,11 @@
     <![endif]-->
     <!-- AJAX -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-
+    <style>
+        button.btn.btn-default{
+             width:100px;          
+        }
+    </style>
 </head>
 <body style="width:90%; margin:0 auto;">
     <!--<div id="wrapper">
@@ -44,16 +48,16 @@
                 <div class="panel-body">
                     <div class="row">
                         <!-- /.col-lg-6 (nested) -->
-                        <div class="col-lg-6" style="float:right">
+                        <div class="col-sm-6" style="float:right">
                             <form role="form">
                                 <div class="form-group">
                                     <label>מייל המשתמש</label>
-                                    <input class="form-control" id="email" name="email" type="email" placeholder="User@gmail.com" >
+                                    <input class="form-control" id="email" name="email" type="email" placeholder="User@gmail.com">
                                     <p class="help-block">יש להזין את פרטי המשתמש כפי שנרשמו באפליקציה</p>
                                 </div>
                                 <div class="form-group">
                                     <label>ת.ז המשתמש</label>
-                                    <input class="form-control" id="userID" name="userID" >
+                                    <input class="form-control" id="userID" name="userID">
                                 </div>
 
                                 <button type="submit" class="btn btn-default" onclick="CheckInDatabase()">הוסף</button>
@@ -94,7 +98,7 @@
                 window.location = "AssocMaster.html";
             }
         })// DocReady
-        
+
         function CheckInDatabase() {
             var userID = $("#userID").val();
             var userMail = $("#email").val();
@@ -118,7 +122,7 @@
                         //  השאיפה להוסיף פה דיאלוג שמוודא מול המשתמש שהוא בטוח רוצה להוסיף את המשתמש הנבחר
                         //ובנוסף לבקש מהמשתמש את הסיסמה שלו על מנת לאשרר את זהותו
                         //בוטבוקס לא עובד
-                        var Check_Message = AddMursheAssoc()                       
+                        var Check_Message = AddMursheAssoc()
                         if (Check_Message === "true") {
                             alert(UserName + " נוספ/ה בהצלחה למערכת")
                         }
@@ -157,7 +161,7 @@
                 async: false,
                 data: JSON.stringify({ id: userID, assocCode: assocCode }),
                 success: function (res) {
-                    Add_Message = res.d;                   
+                    Add_Message = res.d;
                 }
             });
             return Add_Message
