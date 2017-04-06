@@ -281,9 +281,9 @@ public class Voluntary_association
                         FROM dbo.association_access LEFT JOIN 
                         dbo.users ON dbo.association_access.user_id = dbo.users.user_id 
                         WHERE(dbo.association_access.association_code = @code )";
-        string sql3 = @" SELECT dbo.tags.tage_code, dbo.tags.tag_desc
+        string sql3 = @" SELECT dbo.tags.tag_code, dbo.tags.tag_desc
                         FROM  dbo.tag_of_association INNER JOIN
-                        dbo.tags ON dbo.tag_of_association.tag_code = dbo.tags.tage_code
+                        dbo.tags ON dbo.tag_of_association.tag_code = dbo.tags.tag_code
                         WHERE        (dbo.tag_of_association.association_code = @code)";
 
 

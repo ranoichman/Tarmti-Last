@@ -46,6 +46,12 @@
 
 
     <script>
+        //$("iframe").load(function () {
+        //    var w = $("iframe").width();
+        //    $("#collapseOne").css("width", w / 2);
+        //})
+        
+
 
         $(document).ready(function () {
 
@@ -79,7 +85,10 @@
                         $("#LBLAmutaYear").html(st_arr.Association_Year);
 
                         var img = $('<img id="dynamic">'); //Equivalent: $(document.createElement('img'))
-                        img.attr({'src' : st_arr.Association_Image , 'width' : '250px'});
+                        img.attr({ 'src': st_arr.Association_Image});
+
+                        
+
                         img.appendTo('#amutaimginternal');
 
                         //$("#amutaimginternal").html(st_arr.Association_Image);
@@ -171,7 +180,7 @@
                 <div class="panel-body" id="amutaimg" style="min-height:300px">
                     <div class="row" style="float:left; left:150px; position:fixed " id="amutaimginternal" >
                     </div>
-                    <div class="row">
+                    <div id="collapseRow" class="row">
                         <!-- /.col-lg-6 (nested) -->
                         <div class="col-lg-10" style="float:right">
                             <form role="form">

@@ -48,12 +48,12 @@
                             <form role="form">
                                 <div class="form-group">
                                     <label>מייל המשתמש</label>
-                                    <input class="form-control" id="email" name="email" type="email" placeholder="User@gmail.com" value="golan@gmail.com">
+                                    <input class="form-control" id="email" name="email" type="email" placeholder="User@gmail.com" >
                                     <p class="help-block">יש להזין את פרטי המשתמש כפי שנרשמו באפליקציה</p>
                                 </div>
                                 <div class="form-group">
                                     <label>ת.ז המשתמש</label>
-                                    <input class="form-control" id="userID" name="userID" value="300294485">
+                                    <input class="form-control" id="userID" name="userID" >
                                 </div>
 
                                 <button type="submit" class="btn btn-default" onclick="CheckInDatabase()">הוסף</button>
@@ -139,13 +139,13 @@
 
         function AddMursheAssoc() {
             var userID = $("#userID").val();
-            //var association = JSON.parse(localStorage.getItem("Assoc"));
+            var assocCode = JSON.parse(localStorage.getItem("Assoc"));
             //var assocCode = Association_code;
 
             //////////////////
             //var userID = '300294485';
             //var assocCode = '102';//מוגדר not
-            var assocCode = '103';//לא מוגדר
+            //var assocCode = '103';//לא מוגדר
             ////////////////
 
             var Add_Message;
