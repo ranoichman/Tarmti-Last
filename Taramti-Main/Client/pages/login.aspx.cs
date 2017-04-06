@@ -78,6 +78,7 @@ public partial class Client_pages_login : System.Web.UI.Page
 
                     Session["counter"] = counter;
                     Label lbl = new Label();
+                    lbl.Font.Size = 14;
                     lbl.Text = "אימייל או סיסמה שגויים";
                     serverMSG_PH.Controls.Add(lbl);
                 }
