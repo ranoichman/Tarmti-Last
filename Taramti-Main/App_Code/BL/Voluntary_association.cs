@@ -176,14 +176,14 @@ public class Voluntary_association
         PermittedUsers = permitted;
     }
 
-    public Voluntary_association(string association_Code, string association_Name, string association_Desc, string website, string year, string image)
+    public Voluntary_association(string association_Code, string association_Name, string association_Desc, string account, string website, string year)
     {
         Association_Code = association_Code;
         Association_Name = association_Name;
         Association_Desc = association_Desc;
         Association_WebSite = website;
         Association_Year = year;
-        Association_Image = image;
+        Association_Account = account;
     }
 
     public Voluntary_association(string association_Code, string association_Name, string association_Desc, string account, string website, string year, string image)
@@ -281,9 +281,9 @@ public class Voluntary_association
                         FROM dbo.association_access LEFT JOIN 
                         dbo.users ON dbo.association_access.user_id = dbo.users.user_id 
                         WHERE(dbo.association_access.association_code = @code )";
-        string sql3 = @" SELECT dbo.tags.tage_code, dbo.tags.tag_desc
+        string sql3 = @" SELECT dbo.tags.tag_code, dbo.tags.tag_desc
                         FROM  dbo.tag_of_association INNER JOIN
-                        dbo.tags ON dbo.tag_of_association.tag_code = dbo.tags.tage_code
+                        dbo.tags ON dbo.tag_of_association.tag_code = dbo.tags.tag_code
                         WHERE        (dbo.tag_of_association.association_code = @code)";
 
 
