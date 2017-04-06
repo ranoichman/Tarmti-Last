@@ -380,7 +380,7 @@ public class Voluntary_association
                         "association_desc = @desc, " +
                         "account = @acc, " +
                         "website = @web, " +
-                        "image = @image, " +
+                        //"image = @image, " +
                         "year = @year " +
                         "where association_code ='" + Association_Code + "' ";
 
@@ -388,10 +388,10 @@ public class Voluntary_association
         SqlParameter pardesc = new SqlParameter("@desc", Association_Desc);
         SqlParameter paraccount = new SqlParameter("@acc", Association_Account);
         SqlParameter parweb = new SqlParameter("@web", Association_WebSite);
-        SqlParameter parimg = new SqlParameter("@image", "");
+        //SqlParameter parimg = new SqlParameter("@image", "");
         SqlParameter paryear = new SqlParameter("@year", Association_Year);
 
-        db.ExecuteQuery(StrSql, CommandType.Text, parname, pardesc, paraccount, parweb, parimg, paryear);
+        db.ExecuteQuery(StrSql, CommandType.Text, parname, pardesc, paraccount, parweb, paryear);
 
     }
 }
