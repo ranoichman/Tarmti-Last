@@ -125,7 +125,7 @@
                 data: JSON.stringify({ firstName: FirstName, lastName: LastName, id: userID, mail: userMail }),
                 success: function (res) {
                     Add_Message = res.d;
-                    alert(res.d);
+                    //alert(res.d);
                     $("#dialog").text(res.d);
                     $("#dialog").dialog();
                 },
@@ -134,6 +134,11 @@
                 }
             });
         }
+
+
+
+
+
 
     </script>
 </body>
