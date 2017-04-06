@@ -30,7 +30,6 @@ public class AssociationsWebService : System.Web.Services.WebService
     [WebMethod(Description = "Gets associations information for the Associations page")]
     public string GetAmutaDetails(string code)
     {
-        //string userID = HttpContext.Current.Session["AmutaCode"].ToString();
         JavaScriptSerializer j = new JavaScriptSerializer();
         Voluntary_association Assoc = new Voluntary_association();
         Assoc.Association_Code = code;
@@ -38,7 +37,7 @@ public class AssociationsWebService : System.Web.Services.WebService
         return j.Serialize(Assoc);
     }
 
-    [WebMethod]
+    [WebMethod (Description ="הבאת פרטי כל העמותות")]
     public string GetAllAmotaDetails()
     {
         JavaScriptSerializer j = new JavaScriptSerializer();

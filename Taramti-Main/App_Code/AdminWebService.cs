@@ -28,7 +28,7 @@ public class AdminWebService : System.Web.Services.WebService
         return "Hello World";
     }
 
-    [WebMethod]
+    [WebMethod (Description ="הבאת כל העמותות")]
     public string GetAllAssociations()
     {
         JavaScriptSerializer j = new JavaScriptSerializer();
@@ -36,29 +36,29 @@ public class AdminWebService : System.Web.Services.WebService
         return j.Serialize(Voluntary_association.GetAllAssociations());
     }
 
-    // לשים מספר דינמי בדוק הנשלח 
-    [WebMethod]
-    public string GetAssociationByCode(string code)
-    {
-        JavaScriptSerializer j = new JavaScriptSerializer();
-        return j.Serialize(Voluntary_association.GetAssociationByCode(code));
-    }
+    //// לשים מספר דינמי בדוק הנשלח 
+    //[WebMethod]
+    //public string GetAssociationByCode(string code)
+    //{
+    //    JavaScriptSerializer j = new JavaScriptSerializer();
+    //    return j.Serialize(Voluntary_association.GetAssociationByCode(code));
+    //}
 
-    [WebMethod]
+    [WebMethod (Description ="הבאת כל המשתמשים")]
     public string GetAllUsers()
     {
         JavaScriptSerializer j = new JavaScriptSerializer();
         return j.Serialize(UserT.GetAllUsers());
     }
 
-    [WebMethod]
+    [WebMethod (Description ="שינוי סטטוס למשתמש")]
     public void ChangeActive(string id, bool active)
     {
         UserT temp_user = new UserT(id, active);
         temp_user.ChangeActive();
     }
 
-    [WebMethod]
+    [WebMethod (Description ="בדיקה במסד הנתונים והוספת משתמש כאדמין")]
     public string CheckInDatabaseAndAdd(string firstName, string lastName, string id, string mail)
     {
         JavaScriptSerializer j = new JavaScriptSerializer();
@@ -99,9 +99,6 @@ public class AdminWebService : System.Web.Services.WebService
     [WebMethod(Description = "הבאת מכרזים פעילים")]
     public string GetActiveAuctions()
     {
-        //DateTime date = Convert.ToDateTime("22/3/2017");
-
-
         DateTime date = DateTime.Now;
         JavaScriptSerializer j = new JavaScriptSerializer();
         return j.Serialize(Auction.GetAllAuctionsByDates(date));

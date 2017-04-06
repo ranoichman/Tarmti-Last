@@ -80,7 +80,10 @@ public class Rank
     #region
     public void GetUserPerRank() { }
     
-    //מתודה להבאת נתוני כל הדירוגים
+    /// <summary>
+    /// הבאת נתוני כל הדירוגים
+    /// </summary>
+    /// <returns>תחזיר רשימה המכילה את נתוני כל הדירוגים</returns>
     internal static List<Rank> GetAllRanks()
     {
         List<Rank> li_rtn = new List<Rank>();
