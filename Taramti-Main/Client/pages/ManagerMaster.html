@@ -59,6 +59,28 @@
         });//ajax
         }) //doc ready
 
+
+
+        function delete_cookie(name) {
+
+            $.ajax({
+                dataType: "json",
+                url: "/../WebService.asmx/ClearCookie",
+                contentType: "application/json; charset=utf-8",
+                type: "POST",
+                async: false,
+                data: JSON.stringify({}),
+                success: function (data) {
+                },
+                error: function (err) {
+                    alert(err.responseText);
+                }
+            });//ajax
+            location.href = "login.aspx";
+            //document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+
+        }; // Ajax
+
     </script>
 
 
@@ -220,7 +242,8 @@
             </li>
             <li class="divider"></li>-->
                         <li>
-                            <a href="login.aspx"><i class="fa fa-sign-out fa-fw"></i> התנתק</a>
+                            <!--<a href="login.aspx"><i class="fa fa-sign-out fa-fw"></i> התנתק</a>-->
+                            <a onclick="delete_cookie('userCookie')"><i class="fa fa-sign-out fa-fw"></i> התנתק</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
