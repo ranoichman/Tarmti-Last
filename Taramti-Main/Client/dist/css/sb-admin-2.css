@@ -557,3 +557,20 @@ table.dataTable thead .sorting_desc_disabled {
 .dropdown-menu li {
     text-align: right;
 }
+#pass_TB{
+    padding-right:12px !important;
+}
+#pass_Icon {
+    cursor: pointer;
+    pointer-events: all;
+    float:left;
+    left:0 !important;
+    right:88%;
+}
+
+#remember_CB{
+    margin-left:5px;
+}
+th{
+    text-align:right;
+}

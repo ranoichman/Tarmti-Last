@@ -71,7 +71,8 @@
                         var st_arr = JSON.parse(data.d);
                         var assocCodes = new Array();
                         var j = 0;
-                        for (i in st_arr) {
+                        for (i in st_arr)
+                        {
                             assocCodes[j] = { "code": st_arr[i].Association_Code, "name": st_arr[i].Association_Name, "website": st_arr[i].Association_WebSite };
                             j++;
                         }// for
@@ -108,6 +109,28 @@
             } //for
         }) //doc ready
 
+
+        function delete_cookie(name) {
+
+            $.ajax({
+                dataType: "json",
+                url: "/../WebService.asmx/ClearCookie",
+                contentType: "application/json; charset=utf-8",
+                type: "POST",
+                async: false,
+                data: JSON.stringify({}),
+                success: function (data) {
+
+                    alert("YOYOYOMMAA");
+                },
+                error: function (err) {
+                    alert(err.responseText);
+                }
+            });//ajax
+            location.href = "login.aspx";
+            //document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+           
+        };
         
 
 
@@ -154,7 +177,8 @@
                         </li>
                         <li class="divider"></li>-->
                         <li>
-                            <a href="login.aspx"><i class="fa fa-sign-out fa-fw"></i> התנתק</a>
+                            <!--<a href="login.aspx"><i class="fa fa-sign-out fa-fw"></i> התנתק</a>-->
+                            <a onclick="delete_cookie('userCookie')"><i class="fa fa-sign-out fa-fw"></i> התנתק</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->

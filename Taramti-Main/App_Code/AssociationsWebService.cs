@@ -47,14 +47,23 @@ public class AssociationsWebService : System.Web.Services.WebService
         return j.Serialize(Voluntary_association.GetAllAssociations());
     }
 
-    [WebMethod(Description = "Gets the logged in user's associated associations ")]
+    [WebMethod(Description = "Gets the logged in user's associated associations ",EnableSession =true)]
     public string GetUserAmutot()
     {
-        string id = "302921481";
+        UserT temp_user = new UserT();
         JavaScriptSerializer j = new JavaScriptSerializer();
+        HttpContext context = HttpContext.Current;
+
+        if (context.Session["UserID"] == null)
+        {
+            return j.Serialize("NOCOOKIE");
+        }
+        temp_user.UserId = (string)(context.Session["UserID"]);
+        //string id = "302921481";
+
         List<Voluntary_association> List = new List<Voluntary_association>();
         UserT temp = new UserT();
-        temp.UserId = id;
+        //temp.UserId = id;
         List = temp.GetUserAssociations();
         return j.Serialize(List);
     }
@@ -64,7 +73,6 @@ public class AssociationsWebService : System.Web.Services.WebService
     {
         Voluntary_association temp = new Voluntary_association(code,name,desc,account,web,year,img);
         temp.UpdateTbl();
-
     }
 }
 
