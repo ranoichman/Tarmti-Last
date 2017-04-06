@@ -51,7 +51,7 @@
                         $("#desc").val(st_arr.Association_Desc);
                         $("#account").val(st_arr.Association_Account);
                         $("#website").val(st_arr.Association_WebSite);
-                        $("#logo").val(st_arr.association_Image);
+                        $("#logo").val(st_arr.Association_Image);
                         $("#year").val(st_arr.Association_Year);
                     },
                     error: function (err) {
@@ -72,7 +72,7 @@
             var Account = $("#account").val() != "" ? $("#account").val() : null;
             var Web = $("#website").val() != "" ? $("#website").val() : null;
             var Year = $("#year").val() != "" ? $("#year").val() : null;
-            var Logo = $("#logo").val() != "" ? $("#logo").val() : null;
+            var Logo = $("#logo").val() != "" ? $("#logo").val() : "";
 
             $.ajax({
                 dataType: "json",

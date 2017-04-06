@@ -54,6 +54,10 @@
             }
 
             else {
+
+                //התאמת רוחב הטבלה
+                //$("#panel panel-default").css("width", $("html").width());
+
                 var codeA = localStorage.getItem("Assoc");
 
                 $.ajax({
@@ -169,16 +173,19 @@
                     </div>
                     <div class="row">
                         <!-- /.col-lg-6 (nested) -->
-                        <div class="col-lg-6" style="float:right">
+                        <div class="col-lg-10" style="float:right">
                             <form role="form">
                                 <div class="form-group">
                                     <div class="panel-group" id="accordion">
-                                        <div class="panel panel-default" style="min-width: 540px">
+                                        <div class="panel panel-default" id="panel panel-default" style="min-width: 550px">
+                                             <!--style="min-width: 540px">-->
                                             <div class="panel-heading">
                                                 <h4 class="panel-title">
                                                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"><b>פרטי עמותה כלליים </b></a>
                                                 </h4>
                                             </div>
+
+                                            
                                             <div id="collapseOne" class="panel-collapse collapse in">
                                                 <div class="panel-body">
                                                    <label><u> שם עמותה</u>:</label>

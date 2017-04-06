@@ -31,7 +31,6 @@ public class AssociationsWebService : System.Web.Services.WebService
     public string GetAmutaDetails(string code)
     {
         //string userID = HttpContext.Current.Session["AmutaCode"].ToString();
-        //string code = "100";
         JavaScriptSerializer j = new JavaScriptSerializer();
         Voluntary_association Assoc = new Voluntary_association();
         Assoc.Association_Code = code;
@@ -59,12 +58,9 @@ public class AssociationsWebService : System.Web.Services.WebService
             return j.Serialize("NOCOOKIE");
         }
         temp_user.UserId = (string)(context.Session["UserID"]);
-        //string id = "302921481";
 
         List<Voluntary_association> List = new List<Voluntary_association>();
-        UserT temp = new UserT();
-        //temp.UserId = id;
-        List = temp.GetUserAssociations();
+        List = temp_user.GetUserAssociations();
         return j.Serialize(List);
     }
 
