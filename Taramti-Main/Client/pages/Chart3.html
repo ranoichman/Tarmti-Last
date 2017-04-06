@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <script>
+        //  function drawStuff() {
+        //    var data = new google.visualization.arrayToDataTable([
+        //      ['עמותה', 'סך כסף', 'תרומה'],
+        //      ['תנו לחיות לחיות', 8000, 23.3],
+        //      ['Sagittarius Dwarf', 24000, 4.5],
+        //      ['Ursa Major II Dwarf', 30000, 14.3],
+        //      ['Lg. Magellanic Cloud', 50000, 0.9],
+        //      ['Bootes I', 60000, 13.1]
+        //    ]);
+
+        //    var options = {
+        //      width: 900,
+        //      chart: {
+        //        title: 'Nearby galaxies',
+        //        subtitle: 'distance on the left, brightness on the right'
+        //      },
+        //      series: {
+        //        0: { axis: 'distance' }, // Bind series 0 to an axis named 'distance'.
+        //        1: { axis: 'brightness' } // Bind series 1 to an axis named 'brightness'.
+        //      },
+        //      axes: {
+        //        y: {
+        //          distance: {label: 'parsecs'}, // Left y-axis.
+        //          brightness: {side: 'right', label: 'apparent magnitude'} // Right y-axis.
+        //        }
+        //      }
+        //    };
+
+        //  var chart = new google.charts.Bar(document.getElementById('dual_y_div'));
+        //  chart.draw(data, options);
+        //};
+    </script>
+</head>
+<body>
+    <div id="dual_y_div" style="width: 900px; height: 500px;"></div>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', { 'packages': ['bar'] });
+        google.charts.setOnLoadCallback(drawStuff);
+
+
+        function drawStuff() {
+
+            $.ajax({
+                dataType: "json",
+                url: "/../AdminWebService.asmx/Chart_NameTotalSumDonationSum_OfLastMonth",
+                contentType: "application/json; charset=utf-8",
+                type: "POST",
+                async: false,
+                data: JSON.stringify({}),
+                success: function (res) {
+                    var arr = JSON.parse(res.d)
+
+                    for (i in arr) {
+                        if (i != 0) {
+                            arr[i][1] = parseFloat(arr[i][1]);
+                            arr[i][2] = parseFloat(arr[i][2]);
+                        }
+                    }
+                    var data = google.visualization.arrayToDataTable(arr);
+                    var options = {
+                        hAxis: { title: 'עמותה', titleTextStyle: { color: '#333' }, minValue: 0 },
+                        vAxis: { minValue: 0 }
+                    };
+
+                    var chart = new google.charts.Bar(document.getElementById('dual_y_div'));
+                    chart.draw(data, options);
+
+                },
+                error: function (err) {
+                    alert(err)
+                }
+
+            });
+        }
+    </script>
+</body>
+</html>

@@ -14,7 +14,6 @@
     <script type="text/javascript">
         google.charts.load('current', { 'packages': ['corechart'] });
         google.charts.setOnLoadCallback(drawChart);
-        var arr1 = [['עמותה', 'סכום ממכרזים', 'סה"כ נתרם'], ['מלחמה בסרטן', 200, 100], ['נזקקים', 100, 20], ['גברים מוכים', 50, 5], ['עטלף', 500, 200]]
 
         function drawChart() {
 
@@ -26,18 +25,23 @@
                 data: JSON.stringify({}),
                 success: function (res) {
                     var arr = JSON.parse(res.d)
-                    var data = google.visualization.arrayToDataTable(arr1);
+
+                    for (i in arr) {
+                        if (i != 0) {
+                            arr[i][1] = parseFloat(arr[i][1]);
+                            arr[i][2] = parseFloat(arr[i][2]);
+                        }
+
+                    }
+                    var data = google.visualization.arrayToDataTable(arr);
 
                     var options = {
-                        hAxis: { title: 'Year', titleTextStyle: { color: '#333' } },
+                        hAxis: { title: 'עמותה', titleTextStyle: { color: '#333' } },
                         vAxis: { minValue: 0 }
                     };
 
                     var chart = new google.visualization.AreaChart(document.getElementById('dual_y_div'));
                     chart.draw(data, options);
-
-
-
                 },
                 error: function (err) {
                 }

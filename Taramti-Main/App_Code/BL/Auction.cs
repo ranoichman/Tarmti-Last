@@ -172,7 +172,7 @@ public abstract class Auction
 						where auction.association_code = association.association_code and (end_date >= CONVERT(DATETIME, @startDate, 102)) AND (final_price * donation_percentage / 100 > 0) and
                         (end_date <= CONVERT(DATETIME, @endDate, 102))
 						group by association_name 
-order by sum(final_price) ";
+order by SUM(final_price * donation_percentage / 100) desc ";
         SqlParameter parStart = new SqlParameter("@startDate", start);
         SqlParameter parEnd = new SqlParameter("@endDate", end);
         DbService db = new DbService();
