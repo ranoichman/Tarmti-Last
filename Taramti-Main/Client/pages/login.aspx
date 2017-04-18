@@ -52,7 +52,7 @@
                             <asp:RegularExpressionValidator ID="mail_TB_Valid" ControlToValidate="mail_TB" runat="server" ErrorMessage="כתובת אימייל לא תקינה" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"></asp:RegularExpressionValidator>
 
                             <div class="form-group has-feedback">
-                                <asp:TextBox ID="pass_TB" placeholder="סיסמה" TextMode="Password" runat="server" class="form-control" />
+                                <asp:TextBox ID="pass_TB" placeholder="סיסמה" TextMode="Password" runat="server" class="form-control password" />
                                 <span id="pass_Icon" class="glyphicon glyphicon-eye-open form-control-feedback" onclick="toggle()" style="left:0"></span>
                             </div>
 

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>תרמתי בבית - התחברות</title>
+    <title>תרמתי בבית - שחזור סיסמה</title>
     <!-- Bootstrap Core CSS -->
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- MetisMenu CSS -->
@@ -35,19 +35,37 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
     <script>
-        var show = false;
-        function toggle() {
-            if (!show) {
-                $("#pass_TB").attr("type", "text");
-                $("#pass_Icon").removeClass("glyphicon glyphicon-eye-open");
-                $("#pass_Icon").addClass("glyphicon glyphicon-eye-close");
-                show = true;
+        //toggle newPass
+        var show1 = false;
+        function toggle1() {
+            if (!show1) {
+                $("#newPass").attr("type", "text");
+                $("#pass_Icon1").removeClass("glyphicon glyphicon-eye-open");
+                $("#pass_Icon1").addClass("glyphicon glyphicon-eye-close");
+                show1 = true;
             }
             else {
-                $("#pass_TB").attr("type", "password");
-                $("#pass_Icon").removeClass("glyphicon glyphicon-eye-close");
-                $("#pass_Icon").addClass("glyphicon glyphicon-eye-open");
-                show = false;
+                $("#newPass").attr("type", "password");
+                $("#pass_Icon1").removeClass("glyphicon glyphicon-eye-close");
+                $("#pass_Icon1").addClass("glyphicon glyphicon-eye-open");
+                show1 = false;
+            }
+        }
+
+        //toggle newPass2
+        var show2 = false;
+        function toggle2() {
+            if (!show2) {
+                $("#newPass2").attr("type", "text");
+                $("#pass_Icon2").removeClass("glyphicon glyphicon-eye-open");
+                $("#pass_Icon2").addClass("glyphicon glyphicon-eye-close");
+                show2 = true;
+            }
+            else {
+                $("#newPass2").attr("type", "password");
+                $("#pass_Icon2").removeClass("glyphicon glyphicon-eye-close");
+                $("#pass_Icon2").addClass("glyphicon glyphicon-eye-open");
+                show2 = false;
             }
         }
 
@@ -145,13 +163,13 @@
                                     <input class="form-control" placeholder="ת.ז" id="userID" name="userID" type="tel"  pattern=".{9,9}" required title="ת.ז חייבת להכיל 9 ספרות" >
                                 </div>
                                 <div class="form-group has-feedback">
-                                    <input class="form-control" id="newPass" placeholder="סיסמא חדשה" pattern="^\S{6,}$" name="pass" type="password" onmouseout="scorePassword()" onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Must have at least 6 characters' : ''); if(this.checkValidity()) form.newPass2.pattern = this.value;" required>
-                                    <span id="pass_Icon" class="glyphicon glyphicon-eye-open form-control-feedback" onclick="toggle()" style="left:0"></span>
+                                    <input class="form-control password" id="newPass" placeholder="סיסמא חדשה" pattern="^\S{6,}$" name="pass" type="password" onmouseout="scorePassword()" onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Must have at least 6 characters' : ''); if(this.checkValidity()) form.newPass2.pattern = this.value;" required>
+                                    <span id="pass_Icon1" class="glyphicon glyphicon-eye-open form-control-feedback" onclick="toggle1()" style="left:0"></span>
                                     <!--<input class="form-control" name="Valid" type="text" placeholder="ff" onkeyup="checkPassStrength()"/>-->
                                 </div>
                                 <div class="form-group has-feedback">
-                                    <input class="form-control" id="newPass2" placeholder="חזור על סיסמא חדשה" pattern="^\S{6,}$" name="newPass" type="password" onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Please enter the same Password as above' : '');" required>
-                                    <span id="pass_Icon" class="glyphicon glyphicon-eye-open form-control-feedback" onclick="toggle()" style="left:0"></span>
+                                    <input class="form-control password" id="newPass2" placeholder="חזור על סיסמא חדשה" pattern="^\S{6,}$" name="newPass" type="password" onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Please enter the same Password as above' : '');" required>
+                                    <span id="pass_Icon2" class="glyphicon glyphicon-eye-open form-control-feedback" onclick="toggle2()" style="left:0"></span>
                                     <label id="lbl"></label>
                               </div>
                                 <div id="btnDiv">

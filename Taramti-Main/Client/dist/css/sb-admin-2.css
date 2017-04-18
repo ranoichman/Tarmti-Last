@@ -587,10 +587,13 @@ th{
     padding-right:30px;
 }
 
-#pass_TB{
+/*#pass_TB{
+    padding-right:12px !important;
+}*/
+.password{
     padding-right:12px !important;
 }
-#pass_Icon {
+#pass_Icon,#pass_Icon1,#pass_Icon2 {
     cursor: pointer;
     pointer-events: all;
     float:left;

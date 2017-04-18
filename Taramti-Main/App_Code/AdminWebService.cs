@@ -67,7 +67,7 @@ public class AdminWebService : System.Web.Services.WebService
         temp_user.LastName = lastName;
         temp_user.Mail = mail;
         temp_user.UserId = id;
-        if (!temp_user.CheckForResetPass())
+        if (!temp_user.CheckIfExictById())
         {
             temp_user.InsertUser();
             temp_user.AddMursheManager();
@@ -123,6 +123,6 @@ public class AdminWebService : System.Web.Services.WebService
     {
         JavaScriptSerializer j = new JavaScriptSerializer();
         DateTime date = DateTime.Now;
-        return j.Serialize(Auction.GetAssocNameTotalSumDonationSumByDates(date.AddMonths(-1), date));
+        return j.Serialize(Auction.GetAssocNameTotalSumDonationSumByDates(date.AddMonths(-6), date));
     }
 }

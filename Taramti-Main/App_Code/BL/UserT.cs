@@ -278,6 +278,31 @@ public class UserT
 
     }
 
+    public bool CheckIfExictById()
+    {
+        string sqlSelect = @"SELECT count([user_id])
+                            FROM [dbo].[users]
+                            where ([user_id] = @user_id)";
+        DbService db = new DbService();
+        SqlParameter parUser = new SqlParameter("@user_id", UserId);
+        int res = 0;
+        try
+        {
+            res = db.GetScalarByQuery(sqlSelect, CommandType.Text, parUser);
+            if (res != 0)
+            {
+                return true;
+            }
+            else
+                return false;
+        }
+        catch (Exception ex)
+        {
+            return false;
+        }
+
+    }
+
     /// <summary>
     /// מתודה לשינוי סיסמה במסד הנתונים
     /// </summary>
@@ -510,7 +535,7 @@ public class UserT
         SqlParameter parFName = new SqlParameter("@fName", FirstName);
         SqlParameter parLName = new SqlParameter("@lName", LastName);
         SqlParameter parMail = new SqlParameter("@mail", Mail);
-        SqlParameter parPassword = new SqlParameter("@pass", UserId);
+        SqlParameter parPassword = new SqlParameter("@pass", "000000");
         if (db.ExecuteQuery(sqlInsert, CommandType.Text, parId, parFName, parLName, parMail, parPassword) == 0)
         {
             return false;

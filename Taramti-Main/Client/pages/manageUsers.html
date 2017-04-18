@@ -99,7 +99,7 @@
 
     <script>
         //התאמת הטבלה לרוחב הדף
-        $("#page-wrapper").css("width", $("html").width());
+        $("#page-wrapper").css("width", $("html").width()/2);
 
         var myPromise = new Promise(function (resolve, reject) {
             $.ajax({
@@ -159,6 +159,7 @@
                         infoEmpty: "מציג 0 מתוך 0 רשומות",
                         infoFiltered: "",
                         search: "חיפוש:",
+                        zeroRecords: "אין רשומות לתצוגה",
                         lengthMenu: 'הצג <select>' +
 			             '<option value="20" selected>20</option>' +
 			             '<option value="50">50</option>' +
@@ -173,8 +174,9 @@
                     responsive: true
                 });
 
-                toggleActive();
                 highlightRow();
+                toggleActive();
+                
                 $('input[name=activeRB]').on('change', function () { toggleActive() });
                 //} //end add to table for
 
@@ -192,26 +194,6 @@
 
         }
 
-        //פונקציית לחיצה על פעיל/לא פעיל
-        function highlightRow() {
-
-            $('#usersMNG_TBL tbody td.clickable').on('click', function () {
-                var table = $('#usersMNG_TBL').DataTable();
-                var rowIdx = table.row(this).index();
-                var id = table.cell(rowIdx, 0).data(); //ת.ז המשתמש שנלחץ
-                var name = table.cell(rowIdx, 1).data();//שם המשתמש שנלחץ
-                if ($("input[name='activeRB']:checked").val() === "פעיל") {
-                    showDelPopUP(name, id);
-                }
-                else {
-                    showApprovePopUP(name, id);
-                }
-
-
-            });
-        }
-
-        //הצגת פופאפ לפני מחיקת משתמש
         //פונקציית לחיצה על פעיל/לא פעיל
         function highlightRow() {
             $('#usersMNG_TBL tbody td.clickable').on('click', function () {

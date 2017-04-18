@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>תרמתי בבית - התחברות</title>
+    <title>תרמתי בבית - שכחתי סיסמה</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -49,7 +49,7 @@
                             <fieldset>
                                 <div class="form-group">
                                     <h4 id="headerMsg">הזן ת.ז ואימייל לצורך איפוס סיסמה</h4>
-                                    <input class="form-control" placeholder="ת.ז" id="UserID" name="userID" type="text" autofocus>
+                                    <input class="form-control" placeholder="ת.ז" id="userID" name="userID" type="text" autofocus>
                                 </div>
                                 <div class="form-group">
                                     <input class="form-control" placeholder="אימייל" id="mail" name="email" type="email">
@@ -78,28 +78,34 @@
     <script src="../dist/js/sb-admin-2.js"></script>
 
     <script>
-
-        //$(document).ready(function () {
-
-        //    $('#test').click(function () {
-        //        $.braviPopUp('testing title!', 'popup.aspx', 600, 400);
-        //    });
-        //});
-
-
+        var show = false;
+        function toggle() {
+            if (!show) {
+                $("#pass_TB").attr("type", "text");
+                $("#pass_Icon").removeClass("glyphicon glyphicon-eye-open");
+                $("#pass_Icon").addClass("glyphicon glyphicon-eye-close");
+                show = true;
+            }
+            else {
+                $("#pass_TB").attr("type", "password");
+                $("#pass_Icon").removeClass("glyphicon glyphicon-eye-close");
+                $("#pass_Icon").addClass("glyphicon glyphicon-eye-open");
+                show = false;
+            }
+        }
 
         function sendMail() {
-            var userID = $('#UserID').val();
-            var userMail = $('#mail').val();
-
+            var userID = $("#userID").val();
+            var userMail = $("#mail").val();
             $.ajax({
                 dataType: "json",
                 url: "/../WebService.asmx/CheckValidUser",
                 contentType: "application/json; charset=utf-8",
                 type: "POST",
+                async: false,
                 data: JSON.stringify({ id: userID, mail: userMail }),
                 success: function (data) {
-                    //alert("gdfsdsdfds");
+                    
                     var res = JSON.parse(data.d);
                     if (res) {
                         $("#headerMsg").text("סיסמתך אופסה בהצלחה")
@@ -107,53 +113,21 @@
                         $("#mail").attr('disabled', 'disabled');
                         $("#send_BTN").attr('disabled', 'disabled');
                         var $btn_back = $("<a>")
-                        $btn_back.attr("href", "#");
+                        $btn_back.attr("href", "login.aspx");
                         $btn_back.addClass("btn btn-lg btn-success btn-block");
                         $btn_back.text("חזור לדף התחברות");
-                        $("#btnDiv").append();
+                        $("#btnDiv").append($btn_back);
                     }
                     else {
                         $("#headerMsg").text("ת.ז או אימייל שגויים, הזן ת.ז ואימייל לצורך איפוס סיסמה");
                     }
                 },
                 error: function (err) {
-                   // alert(err.statusText);
+                   
                 }
             });
         }
 
-        //function sendMail() {
-        //    //var codey = $('#TB').val();
-        //    //var userID = "111111111";
-        //    //var userMail = "heregteam@gmail.com";
-
-        //    var userID = $("#userID").val();
-        //    var userMail = $("#mail").val();
-
-        //    $.ajax({
-        //        dataType: "json",
-        //        url: "/../WebService.asmx/CheckValidUser",
-        //        contentType: "application/json; charset=utf-8",
-        //        type: "POST",
-        //        async: false,
-        //        data: JSON.stringify({ id: userID, mail: userMail }),
-        //        success: function (data) {
-        //            var st_arr = JSON.parse(data.d);
-
-        //            for (i in st_arr) {
-
-        //                var $tr = $("<tr>");
-        //                var $td_name = $("<td>").text(st_arr[i][0]);
-
-
-        //                $tr.append($td_name);
-        //                $("#Association_Div ").append($tr);
-        //            }
-        //        },
-        //        error: function (err) { }
-        //    });
-
-        //};
 
 
 
