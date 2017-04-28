@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+	<meta charset="utf-8" />
+    <title>רישום משתמש</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- MetisMenu CSS -->
+    <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+    <!-- Custom Fonts -->
+    <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- AJAX -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Bootbox -->
+    <!--Our Css-->
+    <link href="css/StyleSheet.css" rel="stylesheet" />
+</head>
+<body>
+    <form id="settingsForm">
+        <div class="container">
+            <h1> הגדרות אפליקציה </h1>
+
+            <div id="avatar"></div>
+            <!--#avatar   שלנו צריך לברר איך לשלוף את התמונה של היוזר באמת.  CSS בדף-->
+            <table>
+                <tr>
+                    <td>
+                        <label><b>אפשר הודעות פוש</b></label>
+                    </td>
+                    <td>
+                        <select name="pushOpt" form="settingsForm">
+                            <option value="yes">כן </option>
+                            <option value="no">לא </option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label><b>התראות שמע</b></label>
+                    </td>
+                    <td>
+                        <select name="soundOpt" form="settingsForm">
+                            <option value="soundAndVibe">שמע + רטט</option>
+                            <option value="sound">שמע בלבד</option>
+                            <option value="vibe">רטט בלבד</option>
+                            <option value="off">ללא</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </form>
+</body>
+</html>
