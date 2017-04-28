@@ -3,7 +3,9 @@
 <head>
     <title></title>
 	<meta charset="utf-8" />
-    <title>רישום עמותה</title>
+    <title></title>
+    <meta charset="utf-8" />
+    <title>רישום משתמש</title>
     <!-- Bootstrap Core CSS -->
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- MetisMenu CSS -->
@@ -27,55 +29,46 @@
 <body>
     <form action="/action_page.php">
         <div class="container">
-            <h1> רישום עמותה חדשה </h1>
+            <h1> רישום משתמש חדש </h1>
             <table>
                 <tr>
                     <td>
-                        <label><b>מס עמותה</b></label>
+                        <label><b>תז משתמש</b></label>
                     </td>
                     <td>
-                        <input type="text" placeholder="מספר עמותה" name="amuta" required>
-                        <!--כאן תהיה ולידציה של מספר חברה - בעצם עם הווב סרוויס-->
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label><b>שם עמותה</b></label>
-                        </td>
-                    <td>
-                        <input type="text" placeholder="הזן שם עמותה" name="anutaName" required>
+                        <input type="number" placeholder="תז משתמש" name="userID" required>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                    <label>תיאור עמותה</label>
-                        </td>
+                        <label><b>שם פרטי</b></label>
+                    </td>
                     <td>
-                        <textarea class="form-control" id="desc" rows="15"></textarea>
+                        <input type="text" placeholder="הזן שם פרטי" name="userName" required>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <label>חשבון עמותה</label>
+                        <label>שם משפחה</label>
                     </td>
                     <td>
-                        <input type="email" placeholder="אימייל פייפל" id="account" name="account">
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label>אתר העמותה</label>
-                    </td>
-                    <td>
-                        <input class="form-control" placeholder="www.amuta.com" id="website" name="web">
+                        <input type="text" placeholder="הזן שם משפחה" name="userLastName" required>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <label>שנת היווסדות</label>
+                        <label>כתובת</label>
                     </td>
                     <td>
-                        <input class="form-control" id="year" placeholder="1980" name="year">
+                        <input type="text" placeholder="כתובת" id="userAddress" name="userAddress">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>אימייל</label>
+                    </td>
+                    <td>
+                        <input type="email" placeholder="email@email.com" id="userEmail" name="userEmail">
                     </td>
                 </tr>
                 <tr>
