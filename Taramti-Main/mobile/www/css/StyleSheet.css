@@ -1,0 +1,20 @@
+﻿
+#EditPic{
+    padding-left:23%;
+}
+#EditTable{
+    direction:rtl;
+    padding-left:17%;
+}
+#EditPage{
+    margin-top:10%;
+}
+
+footer{
+    position : absolute;
+    bottom : 0;
+    width:100%;
+    height : 40px;
+    margin-top : 40px;
+    display:none;
+}

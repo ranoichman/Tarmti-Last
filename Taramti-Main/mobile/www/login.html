@@ -3,6 +3,25 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--<meta http-equiv="Content-Security-Policy" content="default-src *; script-src 'self' 'unsafe-inline' 'unsafe-eval' *; style-src 'self' 'unsafe-inline' *; img-src * data: 'unsafe-inline'">-->
+
+    <!-------->
+
+    <link href="css/fa-fa-icons.min.css" rel="stylesheet" />
+    <link href="css/w3.css" rel="stylesheet" />
+    <link href="css/jqmCss.css" rel="stylesheet" />
+    <link href="css/StyleSheet.css" rel="stylesheet" />
+
+
+    <script src="js/jquery.js"></script>
+    <script src="js/jqm.js"></script>
+    <script src="js/appFuncs.js"></script>
+
+    <script src="./cordova.js"></script>
+
+    <!-------->
+
     <title></title>
 
     <!--<link href="css/jqmCss.css" rel="stylesheet" />-->
@@ -53,9 +72,54 @@
         </div>
     </nav>
 
-    <div id="auctionsPH" class="container-fluid"></div>
+    <div data-role="page" id="edit">
+        <!--<div data-role="navbar" id="mainpage">
+            <ul>
+                <li> <a data-icon="grid" href="#gallery"> גלריה</a></li>
+                <li> <a data-icon="star" href="#favorites">מועדפים </a></li>
+                <li> <a data-icon="edit" href="#edit" class="w3-blue w3-text-white">עדכון פרטים</a></li>
+                <li> <a data-icon="info" onclick="ToMapMarker()">מפה</a></li>
+                
+            </ul>
+        </div>-->
+        <div id="EditPage">
+            <!--<div id="EditPic">
+            </div>-->
+            <!--<table id="Eddit">
+                <tr>
+                    <td>
+                        <a class="ui-btn ui-btn-icon-right ui-icon-arrow-l ui-btn-icon-notext ui-corner-all" id="leftBTN" onclick="Scrolleft()"></a>
+                    </td>
+                    <td>
+                        <div id="EditPic">
+                        </div>
+                    </td>
+                    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                    <td>
+                        <a class="ui-btn ui-btn-icon-right ui-icon-arrow-r ui-btn-icon-notext ui-corner-all" id="rightBTN" onclick="Scroll()"></a>
+                    </td>
+                </tr>
+            </table>-->
+            <table id="EditTable">
+                <tr>
+                    <td>מייל משתמש: </td>
+                    <td>
+                        <input type="text" id="Title" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>סיסמה: </td>
+                    <td>
+                        <input type="text" id="Desc" />
+                    </td>
+                </tr>
+            </table>
+            <input type="button" id="Save" value="התחבר" onclick="SaveEdit()" />
+            <div id="EditMap" style="width:400px; height:400px"></div>
+        </div>
+    </div>
 
-    <script type="text/babel">
+    <!--<script type="text/babel">
         var Auction = React.createClass({
 
         getInitialState: function () {
@@ -123,7 +187,7 @@
         <Auction />,
         document.getElementById('auctionsPH'));
 
-    </script>
+    </script>-->
 
 </body>
 </html>
